@@ -9,6 +9,12 @@ const directoriesSlice = createSlice({
     addDirectory(state, action) {
       state.directories.push(action.payload);
     },
+
+    loadDirectoriesTree(state, action) {
+      action.payload.forEach((item) => {
+        state.directories.push(item);
+      });
+    },
   },
 });
 
