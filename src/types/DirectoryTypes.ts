@@ -3,3 +3,5 @@ export type DirectoryType = {
   name: string;
   parentId: string;
 };
+
+export type PropsDirectoryItem = { item: DirectoryType; children: JSX.Element };

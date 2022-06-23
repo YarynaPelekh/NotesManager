@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
+
 import { directoriesActions } from "../../store/directories-slice.ts";
 
-import { DirectoryType } from "../../types/type";
+import DirectoryItem from "./DirectoryItem.tsx";
 
-import LiItem from "./LiItem.tsx";
+import { DirectoryType } from "../../types/DirectoryTypes";
 
 const getRootId = (arr: DirectoryType[]) => {
-  const roots = arr
-    .map((item) => !item.parentId && item)
-    .filter((item) => item) as DirectoryType[];
+  const roots = arr.filter((item) => !item.parentId);
   return roots[0]?.id;
 };
 
@@ -26,10 +24,9 @@ const DirectoriesTree = () => {
       }
       const responseData = await response.json();
 
-      responseData.forEach((item) => {
-        dispatch(directoriesActions.addDirectory(item));
-      });
+      dispatch(directoriesActions.loadDirectoriesTree(responseData));
     };
+
     fetchData().catch((error) => {
       console.log("fetching error");
     });
@@ -42,11 +39,19 @@ const DirectoriesTree = () => {
 
   const rootId = String(getRootId(directoriesData));
 
-  return (
-    <div id="tree">
-      <LiItem parentId={rootId} hide={true} />
-    </div>
-  );
+  const renderChildren = (rootId: string) => {
+    const arrayChildren = directoriesData.filter(
+      (item) => item.parentId === rootId
+    ) as DirectoryType[];
+
+    return arrayChildren.map((item) => (
+      <DirectoryItem item={item} key={Math.random()}>
+        <ul>{renderChildren(String(item.id))}</ul>
+      </DirectoryItem>
+    ));
+  };
+
+  return <div id="tree">{renderChildren(rootId)}</div>;
 };
 
 export default DirectoriesTree;
