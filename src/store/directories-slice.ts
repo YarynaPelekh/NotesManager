@@ -4,8 +4,16 @@ import { DirectoryType } from "../types/type";
 
 const directoriesSlice = createSlice({
   name: "directoriesSlice",
-  initialState: { directories: [] as DirectoryType[] },
+  initialState: {
+    dataIsLoaded: false,
+    chosenDirectoryId: 0,
+    directories: [] as DirectoryType[],
+  },
   reducers: {
+    setChosenDirectoryId(state, action) {
+      state.chosenDirectoryId = action.payload;
+    },
+
     addDirectory(state, action) {
       state.directories.push(action.payload);
     },
@@ -14,6 +22,7 @@ const directoriesSlice = createSlice({
       action.payload.forEach((item) => {
         state.directories.push(item);
       });
+      state.dataIsLoaded = true;
     },
   },
 });
