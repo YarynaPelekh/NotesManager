@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { directoriesActions } from "../../store/directories-slice.ts";
 
 import DirectoryItem from "./DirectoryItem.tsx";
+import Header from "../Layout/Header.tsx";
+import Footer from "../Layout/Footer.tsx";
 
 import { DirectoryType } from "../../types/DirectoryTypes";
 
@@ -14,6 +16,11 @@ const getRootId = (arr: DirectoryType[]) => {
 
 const DirectoriesTree = () => {
   const dispatch = useDispatch();
+
+  const dataIsLoaded = useSelector(
+    (state: { directoriesSlice: { dataIsLoaded: boolean } }) =>
+      state.directoriesSlice.dataIsLoaded
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,9 +34,11 @@ const DirectoriesTree = () => {
       dispatch(directoriesActions.loadDirectoriesTree(responseData));
     };
 
-    fetchData().catch((error) => {
-      console.log("fetching error");
-    });
+    if (!dataIsLoaded) {
+      fetchData().catch((error) => {
+        console.log("fetching error");
+      });
+    }
   }, []);
 
   const directoriesData = useSelector(
@@ -51,7 +60,13 @@ const DirectoriesTree = () => {
     ));
   };
 
-  return <div id="tree">{renderChildren(rootId)}</div>;
+  return (
+    <Fragment>
+      <Header />
+      <div id="tree">{renderChildren(rootId)}</div>
+      <Footer />
+    </Fragment>
+  );
 };
 
 export default DirectoriesTree;

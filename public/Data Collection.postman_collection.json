@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "8b2ca8d3-4cd5-4f98-b24d-b12c9783b44e",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21568498"
+	},
+	"item": [
+		{
+			"name": "NotesManager",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"parentId\":\"7\",\"name\":\"subfolder-1-1-2\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/directories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"directories"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
