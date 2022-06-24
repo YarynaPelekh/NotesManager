@@ -1,11 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { directoriesActions } from "../../store/directories-slice.ts";
 
 import DirectoryItem from "./DirectoryItem.tsx";
-import Header from "../Layout/Header.tsx";
-import Footer from "../Layout/Footer.tsx";
 
 import { DirectoryType } from "../../types/DirectoryTypes";
 
@@ -60,13 +58,7 @@ const DirectoriesTree = () => {
     ));
   };
 
-  return (
-    <Fragment>
-      <Header />
-      <div id="tree">{renderChildren(rootId)}</div>
-      <Footer />
-    </Fragment>
-  );
+  return <div id="tree">{renderChildren(rootId)}</div>;
 };
 
 export default DirectoriesTree;
