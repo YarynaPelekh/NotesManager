@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import classes from "./DirectoryItem.module.css";
 
@@ -11,13 +11,9 @@ const DirectoryItem = (props: PropsDirectoryItem) => {
   return (
     <li className={classes.li}>
       <NavLink
-        style={({ isActive }) => {
-          return {
-            display: "block",
-            margin: "1rem 0",
-            color: isActive ? "green" : "",
-          };
-        }}
+        className={({ isActive }) =>
+          `${classes.navLink} ${isActive ? classes.chosen : null}`
+        }
         to={`/directories/${props.item.id}`}
         key={props.item.id}
       >
