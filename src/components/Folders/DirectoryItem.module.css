@@ -1,12 +1,10 @@
 .li {
   font-size: 16px;
-  /* background-color: #ccc; */
   height: auto;
   text-align: left;
   margin-top: 10px;
   margin-left: 20px;
   margin-bottom: 10px;
-  /* border: 1px solid #444; */
   list-style: none;
 }
 
@@ -16,4 +14,15 @@
 
 .hidden {
   visibility: hidden;
+}
+
+.nav-link {
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-bottom: 10px;
+}
+
+.chosen {
+  font-style: italic;
+  color: green;
 }

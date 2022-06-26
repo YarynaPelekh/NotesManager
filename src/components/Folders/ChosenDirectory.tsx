@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { directoriesActions } from "../../store/directories-slice.ts";
 import { useEffect } from "react";
 
+import classes from "./ChosenDirectory.module.css";
+
 const ChosenDirectory = (props: { directoryId: number }) => {
   const dispatch = useDispatch();
   let params = useParams();
@@ -23,7 +25,7 @@ const ChosenDirectory = (props: { directoryId: number }) => {
   return (
     <div>
       {props.directoryId === +chosenDirectoryId && (
-        <p style={{ fontSize: 12 }}>{` folder ID - ${params.directoryId}`}</p>
+        <p className={classes.p}>{` folder ID - ${params.directoryId}`}</p>
       )}
     </div>
   );
