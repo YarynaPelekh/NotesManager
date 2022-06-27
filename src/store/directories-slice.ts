@@ -18,6 +18,12 @@ const directoriesSlice = createSlice({
       state.directories.push(action.payload);
     },
 
+    removeDirectory(state, action) {
+      state.directories = state.directories.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+
     loadDirectoriesTree(state, action) {
       action.payload.forEach((item) => {
         state.directories.push(item);
