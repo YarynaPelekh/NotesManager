@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+// @ts-ignore
 import { directoriesActions } from "../../store/directories-slice.ts";
 
+// @ts-ignore
 import DirectoryItem from "./DirectoryItem.tsx";
 
 import { DirectoryType } from "../../types/DirectoryTypes";
+
+import classes from "./DirectoriesTree.module.css";
 
 const getRootId = (arr: DirectoryType[]) => {
   const roots = arr.filter((item) => !item.parentId);
@@ -37,7 +41,7 @@ const DirectoriesTree = () => {
         console.log("fetching error");
       });
     }
-  }, []);
+  }, [dataIsLoaded, dispatch]);
 
   const directoriesData = useSelector(
     (state: { directoriesSlice: { directories: DirectoryType[] } }) =>
@@ -53,12 +57,16 @@ const DirectoriesTree = () => {
 
     return arrayChildren.map((item) => (
       <DirectoryItem item={item} key={Math.random()}>
-        <ul>{renderChildren(String(item.id))}</ul>
+        <ul className={classes.ul}>{renderChildren(String(item.id))}</ul>
       </DirectoryItem>
     ));
   };
 
-  return <div id="tree">{renderChildren(rootId)}</div>;
+  return (
+    <div id="tree" className={classes.tree}>
+      <div>{renderChildren(rootId)}</div>
+    </div>
+  );
 };
 
 export default DirectoriesTree;
