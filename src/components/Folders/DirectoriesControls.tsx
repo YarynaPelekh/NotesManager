@@ -18,18 +18,45 @@ const DirectoriesControls = () => {
     (state: { directoriesSlice: { chosenDirectoryId: string } }) =>
       state.directoriesSlice.chosenDirectoryId
   );
+
   const addButtonHandler = () => {
     setIsModalShown(true);
   };
 
+  const removeButtonHandler = () => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "http://localhost:3000/directories/" + chosenDirectoryId.trim(),
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Something went wrong/ deleting data from backend!");
+      }
+      dispatch(directoriesActions.removeDirectory(+chosenDirectoryId));
+    };
+
+    fetchData().catch((error) => {
+      console.log(error);
+    });
+
+    setIsModalShown(false);
+  };
+
   const addDirectoryHandler = () => {
     const enteredName = nameInputRef.current?.value || "";
+    if (enteredName.trim().length === 0) {
+      alert("Please, enter a valid directory name!");
+    }
 
     const fetchData = async () => {
       const response = await fetch("http://localhost:3000/directories", {
         method: "POST",
         body: JSON.stringify({
-          parentId: chosenDirectoryId,
+          parentId: chosenDirectoryId && "1",
           name: enteredName,
         }),
         headers: { "Content-Type": "application/json" },
@@ -79,7 +106,7 @@ const DirectoriesControls = () => {
         <Modal onClose={modalOnCloseHandle}>{addDirectoryElements}</Modal>
       )}
       <button onClick={addButtonHandler}>ADD</button>
-      <button>REMOVE</button>
+      <button onClick={removeButtonHandler}>REMOVE</button>
     </div>
   );
 };

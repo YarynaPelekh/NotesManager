@@ -16,7 +16,12 @@ const directoriesSlice = createSlice({
 
     addDirectory(state, action) {
       state.directories.push(action.payload);
-      console.log("directory-slice addDirectory function");
+    },
+
+    removeDirectory(state, action) {
+      state.directories = state.directories.filter(
+        (item) => item.id !== action.payload
+      );
     },
 
     loadDirectoriesTree(state, action) {
