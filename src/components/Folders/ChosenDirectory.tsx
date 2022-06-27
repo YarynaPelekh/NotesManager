@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
+// @ts-ignore
 import { directoriesActions } from "../../store/directories-slice.ts";
 import { useEffect } from "react";
 

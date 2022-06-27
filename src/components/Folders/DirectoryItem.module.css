@@ -8,18 +8,29 @@
   list-style: none;
 }
 
-.visible {
-  visibility: visible;
+.directory {
+  display: block;
+  padding-left: 30px;
 }
 
-.hidden {
-  visibility: hidden;
+.directory::before {
+  content: "";
+  background: url("../../icons/directory.svg");
+  background-size: 20px 20px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: -30px;
 }
 
-.nav-link {
-  margin-top: 10px;
-  margin-left: 0px;
-  margin-bottom: 10px;
+.directory:focus::before {
+  content: "";
+  background: url("../../icons/directoryOpen.svg");
+  background-size: 20px 20px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: -30px;
 }
 
 .chosen {

@@ -1,14 +1,11 @@
 .p {
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #eee;
   height: auto;
   width: auto;
   text-align: left;
-  margin-top: 10px;
-  margin-left: 20px;
-  /* margin-bottom: 10px; */
+  margin: 20px 0 0 20px;
   border: 1px solid #ccc;
   cursor: default;
 }
-
