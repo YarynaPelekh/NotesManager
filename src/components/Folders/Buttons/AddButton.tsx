@@ -1,11 +1,9 @@
 import { Fragment, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-// @ts-ignore
-import Modal from "../../UI/Modal.tsx";
+import Modal from "../../UI/Modal";
 
-// @ts-ignore
-import { directoriesActions } from "../../../store/directories-slice.ts";
+import { directoriesActions } from "../../../store/directories-slice";
 
 import classes from "./AddButton.module.css";
 
@@ -33,13 +31,12 @@ const AddButton = () => {
       const response = await fetch("http://localhost:3000/directories", {
         method: "POST",
         body: JSON.stringify({
-          parentId: chosenDirectoryId.trim() || "1",
+          parentId: chosenDirectoryId || "1",
           name: enteredName,
         }),
         headers: { "Content-Type": "application/json" },
       });
 
-      console.log(response);
       if (!response.ok) {
         throw new Error("Something went wrong/ sending data to backend!");
       }

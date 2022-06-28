@@ -1,7 +1,6 @@
 import "./App.css";
 
 import LayoutForm from "./components/Layout/LayoutForm.tsx";
-// import DirectoriesTree from "./components/Folders/DirectoriesTree.tsx";
 import MainPage from "./components/UI/MainPage.tsx";
 import PageNotFound from "./components/Layout/PageNotFound.tsx";
 

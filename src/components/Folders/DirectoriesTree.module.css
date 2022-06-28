@@ -1,6 +1,9 @@
 .tree {
-  margin-top: 20px;
   margin-left: 20px;
+  height: 400px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .ul {

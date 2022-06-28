@@ -11,6 +11,7 @@
 .directory {
   display: block;
   padding-left: 20px;
+  position: relative;
 }
 
 .directory::before {

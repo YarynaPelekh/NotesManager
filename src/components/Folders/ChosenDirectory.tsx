@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
-// @ts-ignore
-import { directoriesActions } from "../../store/directories-slice.ts";
+import { directoriesActions } from "../../store/directories-slice";
 
 import classes from "./ChosenDirectory.module.css";
 
