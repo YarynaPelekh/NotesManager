@@ -1,11 +1,9 @@
 import React from "react";
-
 import { NavLink } from "react-router-dom";
 
 import { PropsDirectoryItem } from "../../types/DirectoryTypes";
 
-// @ts-ignore
-import ChosenDirectory from "./ChosenDirectory.tsx";
+import ChosenDirectory from "./ChosenDirectory";
 
 import classes from "./DirectoryItem.module.css";
 

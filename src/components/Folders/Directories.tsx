@@ -1,7 +1,5 @@
-// @ts-ignore
-import DirectoriesTree from "./DirectoriesTree.tsx";
-// @ts-ignore
-import DirectoriesControls from "./DirectoriesControls.tsx";
+import DirectoriesTree from "./DirectoriesTree";
+import DirectoriesControls from "./DirectoriesControls";
 
 import classes from "./Directories.module.css";
 

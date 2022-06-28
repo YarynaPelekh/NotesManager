@@ -1,7 +1,5 @@
-// @ts-ignore
-import Directories from "../Folders/Directories.tsx";
-// @ts-ignore
-import Notes from "../Notes/Notes.tsx";
+import Directories from "../Folders/Directories";
+import Notes from "../Notes/Notes";
 
 import classes from "./MainPage.module.css";
 

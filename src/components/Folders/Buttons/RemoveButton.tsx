@@ -2,11 +2,9 @@ import { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
-// @ts-ignore
-import Modal from "../../UI/Modal.tsx";
+import Modal from "../../UI/Modal";
 
-// @ts-ignore
-import { directoriesActions } from "../../../store/directories-slice.ts";
+import { directoriesActions } from "../../../store/directories-slice";
 
 import classes from "./AddButton.module.css";
 
@@ -47,11 +45,10 @@ const RemoveButton = () => {
 
     setIsModalShown(false);
     dispatch(directoriesActions.setChosenDirectoryId(""));
-    console.log(location);
 
     const path =
       ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
-    console.log(path);
+
     navigate(path, { replace: true });
   };
   const modalOnCloseHandle = () => {

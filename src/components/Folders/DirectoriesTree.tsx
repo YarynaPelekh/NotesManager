@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// @ts-ignore
-import { directoriesActions } from "../../store/directories-slice.ts";
+import { directoriesActions } from "../../store/directories-slice";
 
-// @ts-ignore
-import DirectoryItem from "./DirectoryItem.tsx";
+import DirectoryItem from "./DirectoryItem";
 
 import { DirectoryType } from "../../types/DirectoryTypes";
 
@@ -64,7 +62,7 @@ const DirectoriesTree = () => {
 
   return (
     <div id="tree" className={classes.tree}>
-      <div>{renderChildren(rootId)}</div>
+      <div >{renderChildren(rootId)}</div>
     </div>
   );
 };

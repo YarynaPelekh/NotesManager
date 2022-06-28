@@ -1,7 +1,5 @@
-// @ts-ignore
-import AddButton from "./Buttons/AddButton.tsx";
-// @ts-ignore
-import RemoveButton from "./Buttons/RemoveButton.tsx";
+import AddButton from "./Buttons/AddButton";
+import RemoveButton from "./Buttons/RemoveButton";
 
 import classes from "./DirectoriesControls.module.css";
 

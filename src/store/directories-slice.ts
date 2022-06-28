@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//@ts-ignore
 import { DirectoryType } from "../types/type";
 
 const directoriesSlice = createSlice({
   name: "directoriesSlice",
   initialState: {
     dataIsLoaded: false,
-    chosenDirectoryId: 0,
+    chosenDirectoryId: null,
     directories: [] as DirectoryType[],
   },
   reducers: {
@@ -16,7 +17,6 @@ const directoriesSlice = createSlice({
 
     addDirectory(state, action) {
       state.directories.push(action.payload);
-      console.log("addDirectory", action.payload);
     },
 
     removeDirectory(state, action) {
@@ -26,7 +26,7 @@ const directoriesSlice = createSlice({
     },
 
     loadDirectoriesTree(state, action) {
-      action.payload.forEach((item) => {
+      action.payload.forEach((item: DirectoryType) => {
         state.directories.push(item);
       });
       state.dataIsLoaded = true;
