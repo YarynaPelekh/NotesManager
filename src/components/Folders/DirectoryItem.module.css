@@ -3,14 +3,14 @@
   height: auto;
   text-align: left;
   margin-top: 10px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   margin-bottom: 10px;
   list-style: none;
 }
 
 .directory {
   display: block;
-  padding-left: 30px;
+  padding-left: 20px;
 }
 
 .directory::before {

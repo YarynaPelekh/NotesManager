@@ -10,7 +10,7 @@ import classes from "./ChosenDirectory.module.css";
 
 const ChosenDirectory = (props: { directoryId: number }) => {
   const dispatch = useDispatch();
-  let params = useParams();
+  const params = useParams();
 
   useEffect(() => {
     if (params.directoryId) {

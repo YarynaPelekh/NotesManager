@@ -1,7 +1,9 @@
 .tree {
   margin-top: 20px;
+  margin-left: 20px;
 }
 
 .ul {
   margin: 0;
+  padding-left: 20px;
 }
