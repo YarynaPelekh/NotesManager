@@ -16,6 +16,7 @@ const directoriesSlice = createSlice({
 
     addDirectory(state, action) {
       state.directories.push(action.payload);
+      console.log("addDirectory", action.payload);
     },
 
     removeDirectory(state, action) {
