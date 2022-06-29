@@ -8,7 +8,9 @@ import { directoriesActions } from "../../../store/directories-slice";
 
 import classes from "./AddButton.module.css";
 
-const RemoveButton = () => {
+const RemoveButton = (props: {
+  onRemoveSuccess: (isSuccess: boolean) => void;
+}) => {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,7 +22,12 @@ const RemoveButton = () => {
   );
 
   const removeButtonHandler = () => {
-    setIsModalShown(true);
+    if (chosenDirectoryId) {
+      setIsModalShown(true);
+    } else {
+      props.onRemoveSuccess(true);
+      console.log("Directory not chosen");
+    }
   };
 
   const removeDirectoryHandler = () => {
@@ -44,6 +51,7 @@ const RemoveButton = () => {
     });
 
     setIsModalShown(false);
+    props.onRemoveSuccess(true);
     dispatch(directoriesActions.setChosenDirectoryId(""));
 
     const path =

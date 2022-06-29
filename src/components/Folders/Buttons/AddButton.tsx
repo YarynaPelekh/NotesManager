@@ -7,7 +7,7 @@ import { directoriesActions } from "../../../store/directories-slice";
 
 import classes from "./AddButton.module.css";
 
-const AddButton = () => {
+const AddButton = (props: { onAddSuccess: (isSuccess: boolean) => void }) => {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
@@ -25,38 +25,38 @@ const AddButton = () => {
     const enteredName = nameInputRef.current?.value || "";
     if (enteredName.trim().length === 0) {
       alert("Please, enter a valid directory name!");
-    }
+    } else {
+      const fetchData = async () => {
+        const response = await fetch("http://localhost:3000/directories", {
+          method: "POST",
+          body: JSON.stringify({
+            parentId: chosenDirectoryId || "1",
+            name: enteredName,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
 
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/directories", {
-        method: "POST",
-        body: JSON.stringify({
-          parentId: chosenDirectoryId || "1",
-          name: enteredName,
-        }),
-        headers: { "Content-Type": "application/json" },
+        if (!response.ok) {
+          throw new Error("Something went wrong/ sending data to backend!");
+        }
+        const responseData = await response.json();
+        dispatch(
+          directoriesActions.addDirectory({
+            id: responseData.id,
+            name: responseData.name,
+            parentId: responseData.parentId,
+          })
+        );
+      };
+
+      fetchData().catch((error) => {
+        console.log("sending data error", error);
       });
 
-      if (!response.ok) {
-        throw new Error("Something went wrong/ sending data to backend!");
-      }
-      const responseData = await response.json();
-      dispatch(
-        directoriesActions.addDirectory({
-          id: responseData.id,
-          name: responseData.name,
-          parentId: responseData.parentId,
-        })
-      );
-    };
-
-    fetchData().catch((error) => {
-      console.log("sending data error", error);
-    });
-
-    setIsModalShown(false);
+      setIsModalShown(false);
+      props.onAddSuccess(true);
+    }
   };
-
   const modalOnCloseHandle = () => {
     setIsModalShown(false);
   };
