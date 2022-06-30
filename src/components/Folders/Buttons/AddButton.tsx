@@ -1,20 +1,19 @@
 import { Fragment, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ReactDOM from "react-dom";
 
 import Modal from "../../UI/Modal";
-import Notification from "../../UI/Notification";
 
+import { appStateActions } from "../../../store/app-state-slice";
 import { directoriesActions } from "../../../store/directories-slice";
+
+import { NotificationTypes } from "../../../types/NotificationTypes";
 
 import classes from "./AddButton.module.css";
 
-const portalElement = document.getElementById("overlay") as HTMLElement;
-let notificationText = "The directory was added successfully";
-
 const AddButton = () => {
+  let notificationText = "The directory was added successfully";
+
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
-  const [showNotification, setShowNotification] = useState<boolean>(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
@@ -61,11 +60,17 @@ const AddButton = () => {
           throw new Error(error.message);
         });
       } catch (error) {
-        notificationText = error.toString();
+        notificationText = error.message;
       }
 
       setIsModalShown(false);
-      setShowNotification(true);
+      dispatch(
+        appStateActions.setState({
+          showNotification: true,
+          notificationType: NotificationTypes.alertLight,
+          notificationMessage: notificationText,
+        })
+      );
     }
   };
 
@@ -93,16 +98,6 @@ const AddButton = () => {
       {isModalShown && (
         <Modal onClose={modalOnCloseHandle}>{addDirectoryElements}</Modal>
       )}
-      {showNotification &&
-        ReactDOM.createPortal(
-          <Notification
-            notificationText={notificationText}
-            onClose={() => {
-              setShowNotification(false);
-            }}
-          />,
-          portalElement
-        )}
     </div>
   );
 };

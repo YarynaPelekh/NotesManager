@@ -2,17 +2,18 @@ import Alert from "react-bootstrap/Alert";
 
 import classes from "./Notification.module.css";
 
+import { AppStateType } from "../../types/AppStateType";
+
 const Notification = (props: {
-  notificationText: string;
+  notification: AppStateType;
   onClose: () => void;
 }) => {
   return (
     <Alert variant="success" className={classes.alert}>
-      {/* <Alert.Heading>The directory was added successfully</Alert.Heading> */}
-      <Alert.Heading>{props.notificationText}</Alert.Heading>
+      <Alert.Heading>{props.notification.notificationMessage}</Alert.Heading>
       <button
         type="button"
-        data-dismiss="alert"
+        data-dismiss="alert "
         aria-label="Close"
         onClick={props.onClose}
       >
