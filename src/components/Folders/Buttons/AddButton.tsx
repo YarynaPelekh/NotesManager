@@ -1,14 +1,20 @@
 import { Fragment, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import ReactDOM from "react-dom";
 
 import Modal from "../../UI/Modal";
+import Notification from "../../UI/Notification";
 
 import { directoriesActions } from "../../../store/directories-slice";
 
 import classes from "./AddButton.module.css";
 
-const AddButton = (props: { onAddSuccess: (isSuccess: boolean) => void }) => {
+const portalElement = document.getElementById("overlay") as HTMLElement;
+let notificationText = "The directory was added successfully";
+
+const AddButton = () => {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
+  const [showNotification, setShowNotification] = useState<boolean>(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
@@ -21,8 +27,9 @@ const AddButton = (props: { onAddSuccess: (isSuccess: boolean) => void }) => {
     setIsModalShown(true);
   };
 
-  const addDirectoryHandler = () => {
+  const addDirectoryHandler = async () => {
     const enteredName = nameInputRef.current?.value || "";
+
     if (enteredName.trim().length === 0) {
       alert("Please, enter a valid directory name!");
     } else {
@@ -49,14 +56,19 @@ const AddButton = (props: { onAddSuccess: (isSuccess: boolean) => void }) => {
         );
       };
 
-      fetchData().catch((error) => {
-        console.log("sending data error", error);
-      });
+      try {
+        await fetchData().catch((error) => {
+          throw new Error(error.message);
+        });
+      } catch (error) {
+        notificationText = error.toString();
+      }
 
       setIsModalShown(false);
-      props.onAddSuccess(true);
+      setShowNotification(true);
     }
   };
+
   const modalOnCloseHandle = () => {
     setIsModalShown(false);
   };
@@ -77,10 +89,20 @@ const AddButton = (props: { onAddSuccess: (isSuccess: boolean) => void }) => {
 
   return (
     <div>
+      <button onClick={addButtonHandler}>ADD</button>
       {isModalShown && (
         <Modal onClose={modalOnCloseHandle}>{addDirectoryElements}</Modal>
       )}
-      <button onClick={addButtonHandler}>ADD</button>
+      {showNotification &&
+        ReactDOM.createPortal(
+          <Notification
+            notificationText={notificationText}
+            onClose={() => {
+              setShowNotification(false);
+            }}
+          />,
+          portalElement
+        )}
     </div>
   );
 };
