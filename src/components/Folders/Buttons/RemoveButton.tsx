@@ -1,27 +1,30 @@
-import { Fragment, useState } from "react";
-import ReactDOM from "react-dom";
+import { Fragment, useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import Modal from "../../UI/Modal";
-import Notification from "../../UI/Notification";
 
+import { appStateActions } from "../../../store/app-state-slice";
 import { directoriesActions } from "../../../store/directories-slice";
+
 import { DirectoryType } from "../../types/DirectoryTypes";
 
 import classes from "./AddButton.module.css";
 
-const portalElement = document.getElementById("overlay") as HTMLElement;
-
-let notificationText = "";
-
 const RemoveButton = () => {
+  let notificationText = "";
+
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
-  const [showNotification, setShowNotification] = useState<boolean>(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const directories = useSelector(
+    (state: { directoriesSlice: { directories: DirectoryType[] } }) =>
+      state.directoriesSlice.directories
+  );
 
   const chosenDirectoryId = useSelector(
     (state: { directoriesSlice: { chosenDirectoryId: string } }) =>
@@ -34,14 +37,19 @@ const RemoveButton = () => {
     } else {
       setIsModalShown(false);
       notificationText = "Please, choose a directory to remove.";
-      setShowNotification(true);
+      dispatch(
+        appStateActions.setState({
+          showNotification: true,
+          notificationType: "",
+          notificationMessage: notificationText,
+        })
+      );
     }
   };
 
-  const directories = useSelector(
-    (state: { directoriesSlice: { directories: DirectoryType[] } }) =>
-      state.directoriesSlice.directories
-  );
+  useEffect(() => {
+    dispatch(directoriesActions.setChosenDirectoryId(""));
+  }, [location.pathname]);
 
   const removeItem = async (itemId: string) => {
     const fetchData = async () => {
@@ -78,28 +86,31 @@ const RemoveButton = () => {
   };
 
   const removeDirectoryHandler = async () => {
-    let isError = false;
     let errorText = "";
     try {
       await recursiveRemove(chosenDirectoryId);
     } catch (error) {
-      isError = true;
       errorText = error.message;
     }
 
     setIsModalShown(false);
 
-    if (isError) {
+    if (errorText) {
       notificationText = errorText;
     } else {
-      dispatch(directoriesActions.setChosenDirectoryId(""));
       notificationText = "The directory was removed successfully";
       const path =
         ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
       navigate(path, { replace: true });
     }
 
-    setShowNotification(true);
+    dispatch(
+      appStateActions.setState({
+        showNotification: true,
+        notificationType: "",
+        notificationMessage: notificationText,
+      })
+    );
   };
 
   const modalOnCloseHandle = () => {
@@ -123,16 +134,6 @@ const RemoveButton = () => {
       {isModalShown && (
         <Modal onClose={modalOnCloseHandle}>{removeDirectoryElements}</Modal>
       )}
-      {showNotification &&
-        ReactDOM.createPortal(
-          <Notification
-            notificationText={notificationText}
-            onClose={() => {
-              setShowNotification(false);
-            }}
-          />,
-          portalElement
-        )}
     </div>
   );
 };
