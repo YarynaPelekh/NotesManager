@@ -1,8 +1,7 @@
-import Alert from "react-bootstrap/Alert";
+import { AppStateType } from "../../types/AppStateType";
 
 import classes from "./Notification.module.css";
-
-import { AppStateType } from "../../types/AppStateType";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 const Notification = (props: {
   notification: AppStateType;
@@ -10,7 +9,8 @@ const Notification = (props: {
 }) => {
   return (
     <div
-      className={`${classes.alert}  ${props.notification.notificationType} alert-dismissible fade show`}
+      className={`${classes.alert} alert ${props.notification.notificationType} alert-dismissible fade in show`}
+      // className="alert fade in show"
       role="alert"
     >
       {props.notification.notificationMessage}

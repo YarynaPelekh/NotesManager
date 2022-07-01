@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import appStateSlice, { appStateActions } from "./app-state-slice";
+// import appStateSlice, { appStateActions } from "./app-state-slice";
+import appStateSlice from "./app-state-slice";
 
 import directoriesSlice from "./directories-slice";
 
