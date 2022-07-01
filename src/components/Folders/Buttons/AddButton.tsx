@@ -12,6 +12,7 @@ import classes from "./AddButton.module.css";
 
 const AddButton = () => {
   let notificationText = "The directory was added successfully";
+  let notificationType = NotificationTypes.alertLight;
 
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -60,14 +61,18 @@ const AddButton = () => {
           throw new Error(error.message);
         });
       } catch (error) {
-        notificationText = error.message;
+        if (error instanceof Error) {
+          notificationText = error.message;
+          notificationType = NotificationTypes.alertDanger;
+        }
       }
 
       setIsModalShown(false);
+
       dispatch(
         appStateActions.setState({
           showNotification: true,
-          notificationType: NotificationTypes.alertLight,
+          notificationType: notificationType,
           notificationMessage: notificationText,
         })
       );

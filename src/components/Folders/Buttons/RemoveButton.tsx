@@ -8,6 +8,7 @@ import Modal from "../../UI/Modal";
 import { appStateActions } from "../../../store/app-state-slice";
 import { directoriesActions } from "../../../store/directories-slice";
 
+// @ts-ignore
 import { DirectoryType } from "../../types/DirectoryTypes";
 
 import classes from "./AddButton.module.css";
@@ -90,7 +91,10 @@ const RemoveButton = () => {
     try {
       await recursiveRemove(chosenDirectoryId);
     } catch (error) {
-      errorText = error.message;
+      console.log(typeof error, error);
+      if (error instanceof Error) {
+        errorText = error.message;
+      }
     }
 
     setIsModalShown(false);
