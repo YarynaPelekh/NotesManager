@@ -1,5 +1,5 @@
 export const NotificationTypes = {
   alertLight: "alert-light",
-  // name: string;
-  // parentId: string;
+  alertWarning: "alert-warning",
+  alertDanger: "alert-danger",
 };

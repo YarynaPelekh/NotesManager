@@ -9,17 +9,21 @@ const Notification = (props: {
   onClose: () => void;
 }) => {
   return (
-    <Alert variant="success" className={classes.alert}>
-      <Alert.Heading>{props.notification.notificationMessage}</Alert.Heading>
+    <div
+      className={`${classes.alert}  ${props.notification.notificationType} alert-dismissible fade show`}
+      role="alert"
+    >
+      {props.notification.notificationMessage}
       <button
         type="button"
-        data-dismiss="alert "
+        className="close"
+        data-dismiss="alert"
         aria-label="Close"
         onClick={props.onClose}
       >
         <span aria-hidden="true">&times;</span>
       </button>
-    </Alert>
+    </div>
   );
 };
 

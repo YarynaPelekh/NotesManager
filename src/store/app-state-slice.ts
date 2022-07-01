@@ -10,7 +10,7 @@ const appStateSlice = createSlice({
   reducers: {
     setState(state, action) {
       state.showNotification = action.payload.showNotification;
-      state.notificationType = action.payload.notificationStatus;
+      state.notificationType = action.payload.notificationType;
       state.notificationMessage = action.payload.notificationMessage;
     },
 
