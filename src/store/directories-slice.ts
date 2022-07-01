@@ -19,6 +19,15 @@ const directoriesSlice = createSlice({
       state.directories.push(action.payload);
     },
 
+    updateDirectory(state, action) {
+      console.log("updateDirectory", action.payload);
+      const arr = state.directories.map((item) => {
+        return item.id === action.payload.id
+          ? Object.assign(item, { name: action.payload.name })
+          : item;
+      });
+    },
+
     removeDirectory(state, action) {
       state.directories = state.directories.filter(
         (item) => item.id !== action.payload
