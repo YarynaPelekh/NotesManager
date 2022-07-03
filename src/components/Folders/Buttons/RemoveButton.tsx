@@ -8,6 +8,8 @@ import Modal from "../../UI/Modal";
 import { appStateActions } from "../../../store/app-state-slice";
 import { directoriesActions } from "../../../store/directories-slice";
 
+import { NotificationTypes } from "../../../types/NotificationTypes";
+
 // @ts-ignore
 import { DirectoryType } from "../../types/DirectoryTypes";
 
@@ -15,6 +17,7 @@ import classes from "./AddButton.module.css";
 
 const RemoveButton = () => {
   let notificationText = "";
+  let notificationType = NotificationTypes.alertSecondary;
 
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
 
@@ -23,13 +26,11 @@ const RemoveButton = () => {
   const location = useLocation();
 
   const directories = useSelector(
-    (state: { directoriesSlice: { directories: DirectoryType[] } }) =>
-      state.directoriesSlice.directories
+    (state: { directoriesSlice: { directories: DirectoryType[] } }) => state.directoriesSlice.directories
   );
 
   const chosenDirectoryId = useSelector(
-    (state: { directoriesSlice: { chosenDirectoryId: string } }) =>
-      state.directoriesSlice.chosenDirectoryId
+    (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
   );
 
   const removeButtonHandler = () => {
@@ -41,7 +42,7 @@ const RemoveButton = () => {
       dispatch(
         appStateActions.setState({
           showNotification: true,
-          notificationType: "",
+          notificationType: NotificationTypes.alertWarning,
           notificationMessage: notificationText,
         })
       );
@@ -54,13 +55,10 @@ const RemoveButton = () => {
 
   const removeItem = async (itemId: string) => {
     const fetchData = async () => {
-      const response = await fetch(
-        "http://localhost:3000/directories/" + itemId.trim(),
-        {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch("http://localhost:3000/directories/" + itemId.trim(), {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!response.ok) {
         throw new Error("Something went wrong/ deleting data from backend!");
@@ -74,9 +72,7 @@ const RemoveButton = () => {
   };
 
   const recursiveRemove = async (currentId: string) => {
-    const arrChildren = directories.filter(
-      (item) => item.parentId === currentId
-    ) as DirectoryType[];
+    const arrChildren = directories.filter((item) => item.parentId === currentId) as DirectoryType[];
 
     arrChildren.length > 0 &&
       arrChildren.forEach((item) => {
@@ -101,17 +97,17 @@ const RemoveButton = () => {
 
     if (errorText) {
       notificationText = errorText;
+      notificationType = NotificationTypes.alertDanger;
     } else {
       notificationText = "The directory was removed successfully";
-      const path =
-        ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
+      const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
       navigate(path, { replace: true });
     }
 
     dispatch(
       appStateActions.setState({
         showNotification: true,
-        notificationType: "",
+        notificationType: notificationType,
         notificationMessage: notificationText,
       })
     );
@@ -135,9 +131,7 @@ const RemoveButton = () => {
   return (
     <div>
       <button onClick={removeButtonHandler}>REMOVE</button>
-      {isModalShown && (
-        <Modal onClose={modalOnCloseHandle}>{removeDirectoryElements}</Modal>
-      )}
+      {isModalShown && <Modal onClose={modalOnCloseHandle}>{removeDirectoryElements}</Modal>}
     </div>
   );
 };
