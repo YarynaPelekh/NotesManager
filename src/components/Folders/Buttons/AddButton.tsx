@@ -13,14 +13,14 @@ import classes from "./AddButton.module.css";
 const AddButton = () => {
   let notificationText = "The directory was added successfully";
   let notificationType = NotificationTypes.alertLight;
+  let enteredName = "";
 
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
   const chosenDirectoryId = useSelector(
-    (state: { directoriesSlice: { chosenDirectoryId: string } }) =>
-      state.directoriesSlice.chosenDirectoryId
+    (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
   );
 
   const addButtonHandler = () => {
@@ -28,8 +28,7 @@ const AddButton = () => {
   };
 
   const addDirectoryHandler = async () => {
-    const enteredName = nameInputRef.current?.value || "";
-
+    enteredName = nameInputRef.current?.value || "";
     if (enteredName.trim().length === 0) {
       alert("Please, enter a valid directory name!");
     } else {
@@ -45,15 +44,16 @@ const AddButton = () => {
 
         if (!response.ok) {
           throw new Error("Something went wrong/ sending data to backend!");
+        } else {
+          const responseData = await response.json();
+          dispatch(
+            directoriesActions.addDirectory({
+              id: responseData.id,
+              name: responseData.name,
+              parentId: responseData.parentId,
+            })
+          );
         }
-        const responseData = await response.json();
-        dispatch(
-          directoriesActions.addDirectory({
-            id: responseData.id,
-            name: responseData.name,
-            parentId: responseData.parentId,
-          })
-        );
       };
 
       try {
@@ -67,8 +67,6 @@ const AddButton = () => {
         }
       }
 
-      setIsModalShown(false);
-
       dispatch(
         appStateActions.setState({
           showNotification: true,
@@ -76,6 +74,7 @@ const AddButton = () => {
           notificationMessage: notificationText,
         })
       );
+      setIsModalShown(false);
     }
   };
 
@@ -100,9 +99,7 @@ const AddButton = () => {
   return (
     <div>
       <button onClick={addButtonHandler}>ADD</button>
-      {isModalShown && (
-        <Modal onClose={modalOnCloseHandle}>{addDirectoryElements}</Modal>
-      )}
+      {isModalShown && <Modal onClose={modalOnCloseHandle}>{addDirectoryElements}</Modal>}
     </div>
   );
 };

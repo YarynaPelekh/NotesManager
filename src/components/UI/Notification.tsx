@@ -1,26 +1,17 @@
 import { AppStateType } from "../../types/AppStateType";
 
 import classes from "./Notification.module.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
 
-const Notification = (props: {
-  notification: AppStateType;
-  onClose: () => void;
-}) => {
+const Notification = (props: { notification: AppStateType; onClose: () => void }) => {
   return (
     <div
-      className={`${classes.alert} alert ${props.notification.notificationType} alert-dismissible fade in show`}
-      // className="alert fade in show"
+      className={`${classes.alert} alert ${props.notification.notificationType} alert-dismissible fade show`}
+      // style={{ animation: "slide-down 3000ms ease-out forwards" }}
+      style={{ transition: "all 3s ease-in-out 2s" }}
       role="alert"
     >
       {props.notification.notificationMessage}
-      <button
-        type="button"
-        className="close"
-        data-dismiss="alert"
-        aria-label="Close"
-        onClick={props.onClose}
-      >
+      <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={props.onClose}>
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
