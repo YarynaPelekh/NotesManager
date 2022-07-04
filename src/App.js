@@ -17,6 +17,7 @@ function App() {
         <Route path="/" element={<LayoutForm />} />
         <Route path="directories" element={<MainPage />} />
         <Route path="directories/:directoryId" element={<MainPage />} />
+        <Route path="notes/:noteId" element={<MainPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

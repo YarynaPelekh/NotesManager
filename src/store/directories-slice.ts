@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//@ts-ignore
-import { DirectoryType } from "../types/type";
+import { DirectoryType } from "../types/DirectoryTypes";
 
 const directoriesSlice = createSlice({
   name: "directoriesSlice",
@@ -20,18 +19,13 @@ const directoriesSlice = createSlice({
     },
 
     updateDirectory(state, action) {
-      console.log("updateDirectory", action.payload);
-      const arr = state.directories.map((item) => {
-        return item.id === action.payload.id
-          ? Object.assign(item, { name: action.payload.name })
-          : item;
+      state.directories = state.directories.map((item) => {
+        return item.id === action.payload.id ? Object.assign(item, { name: action.payload.name }) : item;
       });
     },
 
     removeDirectory(state, action) {
-      state.directories = state.directories.filter(
-        (item) => item.id !== action.payload
-      );
+      state.directories = state.directories.filter((item) => item.id !== action.payload);
     },
 
     loadDirectoriesTree(state, action) {

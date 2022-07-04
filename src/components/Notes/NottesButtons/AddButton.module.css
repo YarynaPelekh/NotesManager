@@ -1,0 +1,23 @@
+.controlsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.button {
+  width: 80px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 10px;
+  margin: 20px;
+}
+
+.input input {
+  flex: 1;
+}

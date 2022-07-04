@@ -18,15 +18,12 @@ const ChosenDirectory = (props: { directoryId: number }) => {
   }, [dispatch, params.directoryId]);
 
   const chosenDirectoryId = useSelector(
-    (state: { directoriesSlice: { chosenDirectoryId: string } }) =>
-      state.directoriesSlice.chosenDirectoryId
+    (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
   );
 
   return (
     <div>
-      {props.directoryId === +chosenDirectoryId && (
-        <p className={classes.p}>{` folder ID - ${params.directoryId}`}</p>
-      )}
+      {props.directoryId === +chosenDirectoryId && <p className={classes.p}>{` folder ID - ${params.directoryId}`}</p>}
     </div>
   );
 };

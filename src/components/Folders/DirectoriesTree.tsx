@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import DirectoryItem from "./DirectoryItem";
+
 import { appStateActions } from "../../store/app-state-slice";
 import { directoriesActions } from "../../store/directories-slice";
 
 import { NotificationTypes } from "../../types/NotificationTypes";
-
-import DirectoryItem from "./DirectoryItem";
-
 import { DirectoryType } from "../../types/DirectoryTypes";
 
 import classes from "./DirectoriesTree.module.css";
