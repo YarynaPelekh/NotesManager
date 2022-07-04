@@ -1,0 +1,10 @@
+.controlsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px;
+}
+
+.controlsContainer button {
+  width: 80px;
+}

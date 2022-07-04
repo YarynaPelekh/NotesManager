@@ -1,7 +1,7 @@
 import DirectoriesTree from "./DirectoriesTree";
 import DirectoriesControls from "./DirectoriesControls";
 
-import classes from "./Directories.module.css";
+import classes from "../../styles/Module/Directories.module.css";
 
 const Directories = () => {
   return (

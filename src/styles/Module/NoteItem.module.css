@@ -1,0 +1,42 @@
+.li {
+  font-size: 16px;
+  height: auto;
+  text-align: left;
+  margin-top: 10px;
+  /* margin-left: 20px; */
+  margin-bottom: 10px;
+  list-style: none;
+}
+
+.directory {
+  display: block;
+  padding-left: 20px;
+  position: relative;
+}
+
+.directory::before {
+  content: "";
+  background: url("../../icons/note.svg");
+  background-size: 20px 20px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: -20px;
+  margin-top: 2px;
+}
+
+.chosen {
+  font-style: italic;
+  color: green;
+}
+
+.chosen::before {
+  content: "";
+  background: url("../../icons/noteOpen.svg");
+  background-size: 20px 20px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: -20px;
+  margin-top: 2px;
+}

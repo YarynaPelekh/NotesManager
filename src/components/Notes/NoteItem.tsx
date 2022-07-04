@@ -1,44 +1,47 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import EasyEdit, { Types } from "react-easy-edit";
 import { useDispatch } from "react-redux";
 
-import { PropsDirectoryItem } from "../../types/DirectoryTypes";
+import { NoteType, PropsNoteItem } from "../../types/NotesTypes";
 
-import ChosenDirectory from "./ChosenDirectory";
+// import ChosenDirectory from "./ChosenDirectory";
 
-import { directoriesActions } from "../../store/directories-slice";
+import { notesActions } from "../../store/notes-slice";
 import { appStateActions } from "../../store/app-state-slice";
 
 import { NotificationTypes } from "../../types/NotificationTypes";
 
-import classes from "../../styles/Module/DirectoryItem.module.css";
+import classes from "../../styles/Module/NoteItem.module.css";
 
-const DirectoryItem = (props: PropsDirectoryItem) => {
+const NoteItem = (props: PropsNoteItem) => {
   let notificationText = "The directory renamed successfully";
   let notificationType = NotificationTypes.alertLight;
 
   const dispatch = useDispatch();
 
+  const params = useParams();
+
+  useEffect(() => {
+    if (params.noteId) {
+      dispatch(notesActions.setChosenNoteId(params.noteId));
+    }
+  }, [dispatch, params.noteId]);
+
   const saveEdit = async (value) => {
+    const updatedNote = Object.assign({}, props.item, { title: value });
+
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/directories/" + props.item.id, {
+      const response = await fetch("http://localhost:3000/notices/" + String(props.item.id), {
         method: "PUT",
-        body: JSON.stringify({
-          id: props.item.id,
-          parentId: props.item.parentId,
-          name: value,
-        }),
+        body: JSON.stringify(updatedNote),
         headers: { "Content-Type": "application/json" },
       });
-
       if (!response.ok) {
         throw new Error("Something went wrong/ sending data to backend!");
       }
-
-      dispatch(directoriesActions.updateDirectory(Object.assign({}, props.item, { name: value })));
+      dispatch(notesActions.updateNote(updatedNote));
     };
-
     try {
       await fetchData().catch((error) => {
         throw new Error(error.message);
@@ -49,7 +52,6 @@ const DirectoryItem = (props: PropsDirectoryItem) => {
         notificationType = NotificationTypes.alertDanger;
       }
     }
-
     dispatch(
       appStateActions.setState({
         showNotification: true,
@@ -63,7 +65,7 @@ const DirectoryItem = (props: PropsDirectoryItem) => {
     <li className={classes.li}>
       <NavLink
         className={({ isActive }) => `${classes.directory} ${isActive ? classes.chosen : null}`}
-        to={`/directories/${props.item.id}`}
+        to={`/notes/${props.item.id}`}
         key={props.item.id}
       >
         <EasyEdit
@@ -73,14 +75,11 @@ const DirectoryItem = (props: PropsDirectoryItem) => {
           saveButtonLabel="OK"
           cancelButtonLabel="Cancel"
           attributes={{ name: "awesome-input", id: 1 }}
-          value={props.item.name}
+          value={props.item.title}
         />
-        <ChosenDirectory directoryId={props.item.id} />
       </NavLink>
-
-      {props.children}
     </li>
   );
 };
 
-export default DirectoryItem;
+export default NoteItem;

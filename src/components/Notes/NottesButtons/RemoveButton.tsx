@@ -6,14 +6,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Modal from "../../UI/Modal";
 
 import { appStateActions } from "../../../store/app-state-slice";
-import { directoriesActions } from "../../../store/directories-slice";
+import { notesActions } from "../../../store/notes-slice";
 
 import { NotificationTypes } from "../../../types/NotificationTypes";
 
-// @ts-ignore
-import { DirectoryType } from "../../types/DirectoryTypes";
+import { NoteType } from "../../../types/NotesTypes";
 
-import classes from "../../../styles/Module/AddButton.module.css";
+import classes from "../../../styles/Module/NotesButton.module.css";
 
 const RemoveButton = () => {
   let notificationText = "";
@@ -25,20 +24,17 @@ const RemoveButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const directories = useSelector(
-    (state: { directoriesSlice: { directories: DirectoryType[] } }) => state.directoriesSlice.directories
-  );
+  const notes = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes);
 
-  const chosenDirectoryId = useSelector(
-    (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
-  );
+  const chosenNoteId = useSelector((state: { notesSlice: { chosenNoteId: number } }) => state.notesSlice.chosenNoteId);
 
+  console.log(chosenNoteId);
   const removeButtonHandler = () => {
-    if (chosenDirectoryId) {
+    if (chosenNoteId) {
       setIsModalShown(true);
     } else {
       setIsModalShown(false);
-      notificationText = "Please, choose a directory to remove.";
+      notificationText = "Please, choose a note to remove.";
       dispatch(
         appStateActions.setState({
           showNotification: true,
@@ -50,12 +46,12 @@ const RemoveButton = () => {
   };
 
   useEffect(() => {
-    dispatch(directoriesActions.setChosenDirectoryId(""));
+    dispatch(notesActions.setChosenNoteId(""));
   }, [location.pathname]);
 
-  const removeItem = async (itemId: string) => {
+  const removeItem = async (itemId: number) => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/directories/" + itemId.trim(), {
+      const response = await fetch("http://localhost:3000/notices/" + itemId, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
@@ -63,7 +59,7 @@ const RemoveButton = () => {
       if (!response.ok) {
         throw new Error("Something went wrong/ deleting data from backend!");
       }
-      dispatch(directoriesActions.removeDirectory(+itemId));
+      dispatch(notesActions.removeDirectory(itemId));
     };
 
     await fetchData().catch((error) => {
@@ -71,21 +67,10 @@ const RemoveButton = () => {
     });
   };
 
-  const recursiveRemove = async (currentId: string) => {
-    const arrChildren = directories.filter((item) => item.parentId === currentId) as DirectoryType[];
-
-    arrChildren.length > 0 &&
-      arrChildren.forEach((item) => {
-        recursiveRemove(String(item.id));
-      });
-
-    await removeItem(currentId);
-  };
-
   const removeDirectoryHandler = async () => {
     let errorText = "";
     try {
-      await recursiveRemove(chosenDirectoryId);
+      await removeItem(chosenNoteId);
     } catch (error) {
       console.log(typeof error, error);
       if (error instanceof Error) {
@@ -99,9 +84,9 @@ const RemoveButton = () => {
       notificationText = errorText;
       notificationType = NotificationTypes.alertDanger;
     } else {
-      notificationText = "The directory was removed successfully";
-      const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
-      navigate(path, { replace: true });
+      notificationText = "The note was removed successfully";
+      // const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
+      // navigate(path, { replace: true });
     }
 
     dispatch(
@@ -113,9 +98,9 @@ const RemoveButton = () => {
     );
   };
 
-  const modalOnCloseHandle = () => {
+  function modalOnCloseHandle() {
     setIsModalShown(false);
-  };
+  }
 
   const removeDirectoryElements = (
     <Fragment>
