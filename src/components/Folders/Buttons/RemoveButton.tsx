@@ -13,7 +13,7 @@ import { NotificationTypes } from "../../../types/NotificationTypes";
 // @ts-ignore
 import { DirectoryType } from "../../types/DirectoryTypes";
 
-import classes from "./AddButton.module.css";
+import classes from "../../../styles/Module/AddButton.module.css";
 
 const RemoveButton = () => {
   let notificationText = "";

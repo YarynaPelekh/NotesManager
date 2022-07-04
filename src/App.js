@@ -1,11 +1,11 @@
 import "./App.css";
 
-import LayoutForm from "./components/Layout/LayoutForm.tsx";
-import MainPage from "./components/UI/MainPage.tsx";
-import PageNotFound from "./components/Layout/PageNotFound.tsx";
+import LayoutForm from "./components/Auth/LayoutForm.tsx";
+import MainPage from "./components/MainPage.tsx";
+import PageNotFound from "./components/UI/Layout/PageNotFound.tsx";
 
-import Header from "./components/Layout/Header.tsx";
-import Footer from "./components/Layout/Footer.tsx";
+import Header from "./components/UI/Layout/Header.tsx";
+import Footer from "./components/UI/Layout/Footer.tsx";
 
 import { Route, Routes } from "react-router-dom";
 

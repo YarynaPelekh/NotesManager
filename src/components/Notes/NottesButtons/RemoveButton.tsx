@@ -12,7 +12,7 @@ import { NotificationTypes } from "../../../types/NotificationTypes";
 
 import { NoteType } from "../../../types/NotesTypes";
 
-import classes from "./AddButton.module.css";
+import classes from "../../../styles/Module/NotesButton.module.css";
 
 const RemoveButton = () => {
   let notificationText = "";

@@ -12,7 +12,7 @@ import { appStateActions } from "../../store/app-state-slice";
 
 import { NotificationTypes } from "../../types/NotificationTypes";
 
-import classes from "./NoteItem.module.css";
+import classes from "../../styles/Module/NoteItem.module.css";
 
 const NoteItem = (props: PropsNoteItem) => {
   let notificationText = "The directory renamed successfully";

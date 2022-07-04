@@ -1,6 +1,6 @@
 import { AppStateType } from "../../types/AppStateType";
 
-import classes from "./Notification.module.css";
+import classes from "../../styles/Module/Notification.module.css";
 
 const Notification = (props: { notification: AppStateType; onClose: () => void }) => {
   return (

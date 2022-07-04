@@ -12,7 +12,7 @@ import { appStateActions } from "../../store/app-state-slice";
 
 import { NotificationTypes } from "../../types/NotificationTypes";
 
-import classes from "./DirectoryItem.module.css";
+import classes from "../../styles/Module/DirectoryItem.module.css";
 
 const DirectoryItem = (props: PropsDirectoryItem) => {
   let notificationText = "The directory renamed successfully";
@@ -22,28 +22,21 @@ const DirectoryItem = (props: PropsDirectoryItem) => {
 
   const saveEdit = async (value) => {
     const fetchData = async () => {
-      const response = await fetch(
-        "http://localhost:3000/directories/" + props.item.id,
-        {
-          method: "PUT",
-          body: JSON.stringify({
-            id: props.item.id,
-            parentId: props.item.parentId,
-            name: value,
-          }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch("http://localhost:3000/directories/" + props.item.id, {
+        method: "PUT",
+        body: JSON.stringify({
+          id: props.item.id,
+          parentId: props.item.parentId,
+          name: value,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!response.ok) {
         throw new Error("Something went wrong/ sending data to backend!");
       }
 
-      dispatch(
-        directoriesActions.updateDirectory(
-          Object.assign({}, props.item, { name: value })
-        )
-      );
+      dispatch(directoriesActions.updateDirectory(Object.assign({}, props.item, { name: value })));
     };
 
     try {
@@ -69,9 +62,7 @@ const DirectoryItem = (props: PropsDirectoryItem) => {
   return (
     <li className={classes.li}>
       <NavLink
-        className={({ isActive }) =>
-          `${classes.directory} ${isActive ? classes.chosen : null}`
-        }
+        className={({ isActive }) => `${classes.directory} ${isActive ? classes.chosen : null}`}
         to={`/directories/${props.item.id}`}
         key={props.item.id}
       >

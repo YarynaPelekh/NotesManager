@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { directoriesActions } from "../../store/directories-slice";
 
-import classes from "./ChosenDirectory.module.css";
+import classes from "../../styles/Module/ChosenDirectory.module.css";
 
 const ChosenDirectory = (props: { directoryId: number }) => {
   const dispatch = useDispatch();

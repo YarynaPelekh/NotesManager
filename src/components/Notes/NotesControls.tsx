@@ -1,7 +1,7 @@
 import AddButton from "./NottesButtons/AddButton";
 import RemoveButton from "./NottesButtons/RemoveButton";
 
-import classes from "./NotesControls.module.css";
+import classes from "../../styles/Module/NotesControls.module.css";
 
 const NotesControls = () => {
   return (

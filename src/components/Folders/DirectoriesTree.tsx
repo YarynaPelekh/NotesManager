@@ -9,7 +9,7 @@ import { directoriesActions } from "../../store/directories-slice";
 import { NotificationTypes } from "../../types/NotificationTypes";
 import { DirectoryType } from "../../types/DirectoryTypes";
 
-import classes from "./DirectoriesTree.module.css";
+import classes from "../../styles/Module/DirectoriesTree.module.css";
 
 const getRootId = (arr: DirectoryType[]) => {
   const roots = arr.filter((item) => !item.parentId);

@@ -8,7 +8,7 @@ import { notesActions } from "../../../store/notes-slice";
 
 import { NotificationTypes } from "../../../types/NotificationTypes";
 
-import classes from "./AddButton.module.css";
+import classes from "../../../styles/Module/NotesButton.module.css";
 
 const AddButton = () => {
   let notificationText = "The note was added successfully";

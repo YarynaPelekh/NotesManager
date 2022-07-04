@@ -1,7 +1,7 @@
 import NotesControls from "./NotesControls";
 import NotesList from "./NotesList";
 
-import classes from "./Notes.module.css";
+import classes from "../../styles/Module/Notes.module.css";
 
 const Notes = () => {
   return (

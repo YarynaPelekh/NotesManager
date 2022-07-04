@@ -8,7 +8,7 @@ import { directoriesActions } from "../../../store/directories-slice";
 
 import { NotificationTypes } from "../../../types/NotificationTypes";
 
-import classes from "./AddButton.module.css";
+import classes from "../../../styles/Module/AddButton.module.css";
 
 const AddButton = () => {
   let notificationText = "The directory was added successfully";

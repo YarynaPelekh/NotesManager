@@ -9,7 +9,7 @@ import { notesActions } from "../../store/notes-slice";
 import { NoteType } from "../../types/NotesTypes";
 import { NotificationTypes } from "../../types/NotificationTypes";
 
-import classes from "./NotesList.module.css";
+import classes from "../../styles/Module/NotesList.module.css";
 
 const NotesList = () => {
   const [dataIsLoaded, setDataIsLoaded] = useState(false);
