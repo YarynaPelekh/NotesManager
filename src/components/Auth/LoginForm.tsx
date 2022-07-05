@@ -12,7 +12,7 @@ const LoginForm = () => {
 
   const loginHandler = () => {
     localStorage.setItem("userName", nameInputRef.current?.value || "");
-    localStorage.setItem("timerExpires", Number(new Date().getTime()) + 3000000000);
+    localStorage.setItem("timerExpires", String(Number(new Date().getTime()) + 3000 * 1000000));
     navigate("/", { replace: true });
   };
 
