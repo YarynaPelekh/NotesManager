@@ -28,7 +28,6 @@ const RemoveButton = () => {
 
   const chosenNoteId = useSelector((state: { notesSlice: { chosenNoteId: number } }) => state.notesSlice.chosenNoteId);
 
-  console.log(chosenNoteId);
   const removeButtonHandler = () => {
     if (chosenNoteId) {
       setIsModalShown(true);
@@ -72,7 +71,6 @@ const RemoveButton = () => {
     try {
       await removeItem(chosenNoteId);
     } catch (error) {
-      console.log(typeof error, error);
       if (error instanceof Error) {
         errorText = error.message;
       }

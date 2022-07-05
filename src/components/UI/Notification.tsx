@@ -2,6 +2,10 @@ import { AppStateType } from "../../types/AppStateType";
 
 import classes from "../../styles/Module/Notification.module.css";
 
+function notificationTimer(closeNotification: () => void) {
+  window.setTimeout(closeNotification, 2000);
+}
+
 const Notification = (props: { notification: AppStateType; onClose: () => void }) => {
   return (
     <div
@@ -10,6 +14,7 @@ const Notification = (props: { notification: AppStateType; onClose: () => void }
       style={{ transition: "all 3s ease-in-out 2s" }}
       role="alert"
     >
+      {notificationTimer(props.onClose)}
       {props.notification.notificationMessage}
       <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={props.onClose}>
         <span aria-hidden="true">&times;</span>

@@ -87,7 +87,6 @@ const RemoveButton = () => {
     try {
       await recursiveRemove(chosenDirectoryId);
     } catch (error) {
-      console.log(typeof error, error);
       if (error instanceof Error) {
         errorText = error.message;
       }
