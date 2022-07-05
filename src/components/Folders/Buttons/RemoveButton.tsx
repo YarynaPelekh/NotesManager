@@ -99,7 +99,8 @@ const RemoveButton = () => {
       notificationType = NotificationTypes.alertDanger;
     } else {
       notificationText = "The directory was removed successfully";
-      const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
+      // const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
+      const path = "/";
       navigate(path, { replace: true });
     }
 
