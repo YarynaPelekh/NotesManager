@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Modal from "../../UI/Modal";
 
@@ -21,7 +21,6 @@ const RemoveButton = () => {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
 
   const notes = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes);
