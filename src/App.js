@@ -16,8 +16,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="directories/:directoryId" element={<MainPage />} />
         <Route path="login" element={<LoginForm />} />
+        <Route path="directories/:directoryId" element={<MainPage />} />
         <Route path="notes/:noteId" element={<MainPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

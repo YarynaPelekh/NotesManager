@@ -15,6 +15,10 @@ const NotesList = () => {
   const [dataIsLoaded, setDataIsLoaded] = useState(false);
   const dispatch = useDispatch();
 
+  const chosenDirectoryId = useSelector(
+    (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://localhost:3000/notices");
@@ -57,11 +61,14 @@ const NotesList = () => {
     <div className={classes.notesList}>
       Notes List
       <ul>
-        {notesList.map((item: NoteType) => (
-          <NoteItem key={item.id} item={item}>
-            {item.title}
-          </NoteItem>
-        ))}
+        {chosenDirectoryId &&
+          notesList
+            .filter((item: NoteType) => item.directoryId === chosenDirectoryId)
+            .map((item: NoteType) => (
+              <NoteItem key={item.id} item={item}>
+                <p>{item.title}</p>
+              </NoteItem>
+            ))}
       </ul>
     </div>
   );

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { NoteType, PropsNoteItem } from "../../types/NotesTypes";
 
-// import ChosenDirectory from "./ChosenDirectory";
+import ChosenNote from "./ChosenNote.tsx";
 
 import { notesActions } from "../../store/notes-slice";
 import { appStateActions } from "../../store/app-state-slice";
@@ -42,6 +42,7 @@ const NoteItem = (props: PropsNoteItem) => {
       }
       dispatch(notesActions.updateNote(updatedNote));
     };
+
     try {
       await fetchData().catch((error) => {
         throw new Error(error.message);
@@ -52,6 +53,7 @@ const NoteItem = (props: PropsNoteItem) => {
         notificationType = NotificationTypes.alertDanger;
       }
     }
+
     dispatch(
       appStateActions.setState({
         showNotification: true,

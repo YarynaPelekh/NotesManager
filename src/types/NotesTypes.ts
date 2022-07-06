@@ -1,6 +1,6 @@
 export type NoteType = {
   description: string;
-  directoryId: number;
+  directoryId: string;
   id: number;
   position: number;
   tags: string;

@@ -50,7 +50,8 @@ const RemoveButton = () => {
   };
 
   useEffect(() => {
-    dispatch(directoriesActions.setChosenDirectoryId(""));
+    console.log("remove directory button", location.pathname);
+    isModalShown && dispatch(directoriesActions.setChosenDirectoryId(""));
   }, [location.pathname]);
 
   const removeItem = async (itemId: string) => {
