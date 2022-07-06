@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Directories from "./Folders/Directories";
 import Notes from "./Notes/Notes";
 import Notification from "./UI/Notification";
+import RequireAuth from "./Auth/RequireAuth";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,20 +20,22 @@ const MainPage = () => {
   const appState = useSelector((state: { appStateSlice: AppStateType }) => state.appStateSlice);
 
   return (
-    <div className={classes.main}>
-      <Directories />
-      <Notes />
-      {appState.showNotification &&
-        ReactDOM.createPortal(
-          <Notification
-            notification={appState}
-            onClose={() => {
-              dispatch(appStateActions.resetState());
-            }}
-          />,
-          portalElement
-        )}
-    </div>
+    <RequireAuth>
+      <div className={classes.main}>
+        <Directories />
+        <Notes />
+        {appState.showNotification &&
+          ReactDOM.createPortal(
+            <Notification
+              notification={appState}
+              onClose={() => {
+                dispatch(appStateActions.resetState());
+              }}
+            />,
+            portalElement
+          )}
+      </div>
+    </RequireAuth>
   );
 };
 

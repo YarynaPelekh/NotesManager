@@ -50,7 +50,8 @@ const RemoveButton = () => {
   };
 
   useEffect(() => {
-    dispatch(directoriesActions.setChosenDirectoryId(""));
+    console.log("remove directory button", location.pathname);
+    isModalShown && dispatch(directoriesActions.setChosenDirectoryId(""));
   }, [location.pathname]);
 
   const removeItem = async (itemId: string) => {
@@ -87,7 +88,6 @@ const RemoveButton = () => {
     try {
       await recursiveRemove(chosenDirectoryId);
     } catch (error) {
-      console.log(typeof error, error);
       if (error instanceof Error) {
         errorText = error.message;
       }
@@ -100,7 +100,8 @@ const RemoveButton = () => {
       notificationType = NotificationTypes.alertDanger;
     } else {
       notificationText = "The directory was removed successfully";
-      const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
+      // const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
+      const path = "/";
       navigate(path, { replace: true });
     }
 

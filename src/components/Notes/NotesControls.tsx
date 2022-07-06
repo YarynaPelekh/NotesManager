@@ -1,5 +1,5 @@
-import AddButton from "./NottesButtons/AddButton";
-import RemoveButton from "./NottesButtons/RemoveButton";
+import AddButton from "./NotesButtons/AddButton";
+import RemoveButton from "./NotesButtons/RemoveButton";
 
 import classes from "../../styles/Module/NotesControls.module.css";
 

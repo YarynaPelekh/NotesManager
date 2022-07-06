@@ -1,6 +1,7 @@
 import "./App.css";
+import { Fragment } from "react";
 
-import LayoutForm from "./components/Auth/LayoutForm.tsx";
+import LoginForm from "./components/Auth/LoginForm.tsx";
 import MainPage from "./components/MainPage.tsx";
 import PageNotFound from "./components/UI/Layout/PageNotFound.tsx";
 
@@ -14,8 +15,8 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={<LayoutForm />} />
-        <Route path="directories" element={<MainPage />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="login" element={<LoginForm />} />
         <Route path="directories/:directoryId" element={<MainPage />} />
         <Route path="notes/:noteId" element={<MainPage />} />
         <Route path="*" element={<PageNotFound />} />

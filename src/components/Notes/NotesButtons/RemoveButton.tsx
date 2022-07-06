@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Modal from "../../UI/Modal";
 
@@ -28,7 +28,6 @@ const RemoveButton = () => {
 
   const chosenNoteId = useSelector((state: { notesSlice: { chosenNoteId: number } }) => state.notesSlice.chosenNoteId);
 
-  console.log(chosenNoteId);
   const removeButtonHandler = () => {
     if (chosenNoteId) {
       setIsModalShown(true);
@@ -72,7 +71,6 @@ const RemoveButton = () => {
     try {
       await removeItem(chosenNoteId);
     } catch (error) {
-      console.log(typeof error, error);
       if (error instanceof Error) {
         errorText = error.message;
       }
@@ -86,7 +84,7 @@ const RemoveButton = () => {
     } else {
       notificationText = "The note was removed successfully";
       // const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
-      // navigate(path, { replace: true });
+      navigate("/", { replace: true });
     }
 
     dispatch(
@@ -104,7 +102,7 @@ const RemoveButton = () => {
 
   const removeDirectoryElements = (
     <Fragment>
-      <p>Are you sure to remove directory?</p>
+      <p>Are you sure to remove note?</p>
 
       <div className={classes.controlsContainer}>
         <button onClick={removeDirectoryHandler}>OK</button>
