@@ -9,6 +9,7 @@ import { notesActions } from "../../../store/notes-slice";
 
 import { NotificationTypes } from "../../../types/NotificationTypes";
 import { InputNoteValues } from "../../../types/NotesTypes";
+import { tagsActions } from "../../../store/tags-slice";
 
 const AddButton = () => {
   let notificationText = "The note was added successfully";
@@ -67,6 +68,7 @@ const AddButton = () => {
             title: responseData.title,
           })
         );
+        dispatch(tagsActions.updateTags(responseData.tags));
       }
     };
 

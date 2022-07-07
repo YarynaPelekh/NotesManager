@@ -6,6 +6,7 @@ import AddEditForm from "./AddEditForm";
 
 import { appStateActions } from "../../../store/app-state-slice";
 import { notesActions } from "../../../store/notes-slice";
+import { tagsActions } from "../../../store/tags-slice";
 
 import { NotificationTypes } from "../../../types/NotificationTypes";
 import { NoteType, InputNoteValues } from "../../../types/NotesTypes";
@@ -63,6 +64,8 @@ const EditButton = () => {
       } else {
         const responseData = await response.json();
         dispatch(notesActions.updateNote(responseData));
+
+        dispatch(tagsActions.updateTags(responseData.tags));
       }
     };
 

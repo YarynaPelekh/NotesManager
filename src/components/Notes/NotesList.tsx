@@ -5,6 +5,7 @@ import NoteItem from "./NoteItem";
 
 import { appStateActions } from "../../store/app-state-slice";
 import { notesActions } from "../../store/notes-slice";
+import { tagsActions } from "../../store/tags-slice";
 
 import { NoteType } from "../../types/NotesTypes";
 import { NotificationTypes } from "../../types/NotificationTypes";
@@ -40,6 +41,17 @@ const NotesList = () => {
         });
       });
       dispatch(notesActions.loadNotes(responseData));
+
+      const tagsString = responseData
+        .map((item) => {
+          return item.tags;
+        })
+        .join()
+        .split(",")
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .join();
+
+      dispatch(tagsActions.loadTags(tagsString));
     };
 
     fetchData().catch((error) => {

@@ -13,7 +13,6 @@ const ChosenDirectory = (props: { directoryId: number }) => {
 
   useEffect(() => {
     if (!!params.directoryId) {
-      console.log(params.directoryId);
       dispatch(directoriesActions.setChosenDirectoryId(params.directoryId));
     }
   }, [dispatch, params.directoryId]);

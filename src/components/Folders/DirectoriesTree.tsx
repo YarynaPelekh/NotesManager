@@ -5,9 +5,9 @@ import DirectoryItem from "./DirectoryItem";
 
 import { appStateActions } from "../../store/app-state-slice";
 import { directoriesActions } from "../../store/directories-slice";
+import { tagsActions } from "../../store/tags-slice";
 
 import { NotificationTypes } from "../../types/NotificationTypes";
-import { DirectoryType } from "../../types/DirectoryTypes";
 
 import classes from "../../styles/Module/DirectoriesTree.module.css";
 
