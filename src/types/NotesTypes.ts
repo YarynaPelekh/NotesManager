@@ -7,6 +7,8 @@ export type NoteType = {
   title: string;
 };
 
+export type TagType = { id: number; name: string };
+
 export type InputNoteValues = {
   title: string;
   description: string;

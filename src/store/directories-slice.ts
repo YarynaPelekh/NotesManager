@@ -11,7 +11,6 @@ const directoriesSlice = createSlice({
   },
   reducers: {
     setChosenDirectoryId(state, action) {
-      console.log("setChosenDirectoryId");
       state.chosenDirectoryId = action.payload;
     },
 
