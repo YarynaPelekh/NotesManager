@@ -12,7 +12,8 @@ const ChosenDirectory = (props: { directoryId: number }) => {
   const params = useParams();
 
   useEffect(() => {
-    if (params.directoryId) {
+    if (!!params.directoryId) {
+      console.log(params.directoryId);
       dispatch(directoriesActions.setChosenDirectoryId(params.directoryId));
     }
   }, [dispatch, params.directoryId]);
@@ -23,7 +24,7 @@ const ChosenDirectory = (props: { directoryId: number }) => {
 
   return (
     <div>
-      {props.directoryId === +chosenDirectoryId && <p className={classes.p}>{` folder ID - ${params.directoryId}`}</p>}
+      {props.directoryId === +chosenDirectoryId && <p className={classes.p}>{` folder ID - ${chosenDirectoryId}`}</p>}
     </div>
   );
 };

@@ -27,9 +27,7 @@ const notesSlice = createSlice({
 
     updateNote(state, action) {
       state.notes = state.notes.map((item) => {
-        return item.id === action.payload.id
-          ? Object.assign(item, { title: action.payload.title, position: action.payload.position })
-          : item;
+        return item.id === action.payload.id ? Object.assign(item, action.payload) : item;
       });
     },
 
