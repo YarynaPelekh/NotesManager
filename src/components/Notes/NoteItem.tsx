@@ -1,26 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import EasyEdit, { Types } from "react-easy-edit";
 import { useDispatch } from "react-redux";
+import { useDrag } from "react-dnd";
 
-import { NoteType, PropsNoteItem } from "../../types/NotesTypes";
+import ContainerDnD from "./ContainerDnD";
 
-import ChosenNote from "./ChosenNote.tsx";
+import { PropsNoteItem } from "../../types/NotesTypes";
 
 import { notesActions } from "../../store/notes-slice";
 import { appStateActions } from "../../store/app-state-slice";
 
 import { NotificationTypes } from "../../types/NotificationTypes";
+import { DnDTypes } from "../../types/DnDTypes";
 
 import classes from "../../styles/Module/NoteItem.module.css";
 
 const NoteItem = (props: PropsNoteItem) => {
-  let notificationText = "The directory renamed successfully";
+  let notificationText = "The note was renamed successfully";
   let notificationType = NotificationTypes.alertLight;
 
   const dispatch = useDispatch();
-
   const params = useParams();
+
+  const [{ isDragging, didDrop }, drag] = useDrag(
+    () => ({
+      type: DnDTypes.noteItem,
+      item: { noteId: params.noteId, notePosition: props.item.position },
+      collect: (monitor) => ({
+        isDragging: !!monitor.isDragging(),
+        didDrop: !!monitor.didDrop(),
+      }),
+    }),
+    [params.noteId]
+  );
 
   useEffect(() => {
     if (params.noteId) {
@@ -65,21 +78,29 @@ const NoteItem = (props: PropsNoteItem) => {
 
   return (
     <li className={classes.li}>
-      <NavLink
-        className={({ isActive }) => `${classes.directory} ${isActive ? classes.chosen : null}`}
-        to={`/notes/${props.item.id}`}
-        key={props.item.id}
+      <div
+        ref={drag}
+        style={{
+          opacity: isDragging ? 0.5 : 1,
+          backgroundColor: isDragging ? "#ddd" : "#fff",
+        }}
       >
-        <EasyEdit
-          type={Types.TEXT}
-          onSave={saveEdit}
-          // onCancel={}
-          saveButtonLabel="OK"
-          cancelButtonLabel="Cancel"
-          attributes={{ name: "awesome-input", id: 1 }}
-          value={props.item.title}
-        />
-      </NavLink>
+        <NavLink
+          className={({ isActive }) => `${classes.note} ${isActive ? classes.chosen : null}`}
+          to={`/notes/${props.item.id}`}
+          key={props.item.id}
+        >
+          <EasyEdit
+            type={Types.TEXT}
+            onSave={saveEdit}
+            saveButtonLabel="OK"
+            cancelButtonLabel="Cancel"
+            attributes={{ name: "awesome-input", id: 1 }}
+            value={props.item.title}
+          />
+        </NavLink>
+      </div>
+      <ContainerDnD noteTo={props.item} />
     </li>
   );
 };

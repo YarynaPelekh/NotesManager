@@ -24,12 +24,16 @@ const notesSlice = createSlice({
     setChosenNoteId(state, action) {
       state.chosenNoteId = action.payload;
     },
+
     updateNote(state, action) {
       state.notes = state.notes.map((item) => {
-        return item.id === action.payload.id ? Object.assign(item, { title: action.payload.title }) : item;
+        return item.id === action.payload.id
+          ? Object.assign(item, { title: action.payload.title, position: action.payload.position })
+          : item;
       });
     },
-    removeDirectory(state, action) {
+
+    removeNote(state, action) {
       state.notes = state.notes.filter((item) => item.id !== +action.payload);
     },
   },

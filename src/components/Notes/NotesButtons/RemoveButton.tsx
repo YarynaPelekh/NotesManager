@@ -58,7 +58,7 @@ const RemoveButton = () => {
       if (!response.ok) {
         throw new Error("Something went wrong/ deleting data from backend!");
       }
-      dispatch(notesActions.removeDirectory(itemId));
+      dispatch(notesActions.removeNote(itemId));
     };
 
     await fetchData().catch((error) => {
