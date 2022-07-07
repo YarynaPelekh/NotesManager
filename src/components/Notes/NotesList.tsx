@@ -55,7 +55,12 @@ const NotesList = () => {
     setDataIsLoaded(true);
   }, []);
 
-  const notesList = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[];
+  let notesList = [
+    ...(useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[]),
+  ];
+  notesList.sort((a, b) => {
+    return a.position - b.position;
+  });
 
   return (
     <div className={classes.notesList}>
@@ -66,7 +71,8 @@ const NotesList = () => {
             .filter((item: NoteType) => item.directoryId === chosenDirectoryId)
             .map((item: NoteType) => (
               <NoteItem key={item.id} item={item}>
-                <p>{item.title}</p>
+                {/* <p>{item.title}</p> */}
+                <p></p>
               </NoteItem>
             ))}
       </ul>

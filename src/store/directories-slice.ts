@@ -12,7 +12,6 @@ const directoriesSlice = createSlice({
   reducers: {
     setChosenDirectoryId(state, action) {
       state.chosenDirectoryId = action.payload;
-      console.log("dispatch chosing chosenDirectoryId - ", action.payload);
     },
 
     addDirectory(state, action) {
