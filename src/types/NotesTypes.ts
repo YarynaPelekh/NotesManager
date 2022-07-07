@@ -7,4 +7,10 @@ export type NoteType = {
   title: string;
 };
 
+export type InputNoteValues = {
+  title: string;
+  description: string;
+  tags: string;
+};
+
 export type PropsNoteItem = { item: NoteType; children: JSX.Element };

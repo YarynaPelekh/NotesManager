@@ -8,27 +8,31 @@ import { appStateActions } from "../../../store/app-state-slice";
 import { notesActions } from "../../../store/notes-slice";
 
 import { NotificationTypes } from "../../../types/NotificationTypes";
-import { InputNoteValues } from "../../../types/NotesTypes";
+import { NoteType, InputNoteValues } from "../../../types/NotesTypes";
 
-const AddButton = () => {
-  let notificationText = "The note was added successfully";
+const EditButton = () => {
+  let notificationText = "The note was edited successfully";
   let notificationType = NotificationTypes.alertLight;
 
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
-
   const dispatch = useDispatch();
 
-  const chosenDirectoryId = useSelector(
-    (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
-  );
+  const chosenNoteId = useSelector((state: { notesSlice: { chosenNoteId: number } }) => state.notesSlice.chosenNoteId);
+  const chosenNote = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes).filter(
+    (item: NoteType) => item.id === +chosenNoteId
+  )[0];
 
-  const addButtonHandler = () => {
-    if (!chosenDirectoryId) {
+  const modalOnCloseHandle = () => {
+    setIsModalShown(false);
+  };
+
+  const editButtonHandler = () => {
+    if (!chosenNoteId) {
       dispatch(
         appStateActions.setState({
           showNotification: true,
           notificationType: NotificationTypes.alertWarning,
-          notificationMessage: "Please, choose a directory!",
+          notificationMessage: "Please, choose a note!",
         })
       );
     } else {
@@ -36,20 +40,21 @@ const AddButton = () => {
     }
   };
 
-  const addNoteHandler = async (enteredValues: InputNoteValues) => {
+  const editNoteHandler = async (enteredValues: InputNoteValues) => {
     const enteredTitle = enteredValues.title;
     const enteredDescription = enteredValues.description;
     const enteredTags = enteredValues.tags;
 
+    const updatedNote = Object.assign({}, chosenNote, {
+      description: enteredDescription,
+      tags: enteredTags,
+      title: enteredTitle,
+    });
+
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/notices", {
-        method: "POST",
-        body: JSON.stringify({
-          description: enteredDescription,
-          directoryId: chosenDirectoryId,
-          tags: enteredTags,
-          title: enteredTitle,
-        }),
+      const response = await fetch("http://localhost:3000/notices/" + String(chosenNoteId), {
+        method: "PUT",
+        body: JSON.stringify(updatedNote),
         headers: { "Content-Type": "application/json" },
       });
 
@@ -57,16 +62,7 @@ const AddButton = () => {
         throw new Error("Something went wrong/ sending data to backend!");
       } else {
         const responseData = await response.json();
-        dispatch(
-          notesActions.addNote({
-            description: responseData.description,
-            directoryId: responseData.directoryId,
-            id: responseData.id,
-            position: responseData.position,
-            tags: responseData.tags,
-            title: responseData.title,
-          })
-        );
+        dispatch(notesActions.updateNote(responseData));
       }
     };
 
@@ -91,23 +87,24 @@ const AddButton = () => {
     setIsModalShown(false);
   };
 
-  const modalOnCloseHandle = () => {
-    setIsModalShown(false);
-  };
-
-  const addNoteElements = (
+  const editNoteElements = (
     <AddEditForm
-      initialValues={{ title: "", description: "", tags: "" }}
-      saveNoteHandler={addNoteHandler}
+      initialValues={{
+        title: chosenNote && chosenNote.title,
+        description: chosenNote && chosenNote.description,
+        tags: chosenNote && chosenNote.tags,
+      }}
+      saveNoteHandler={editNoteHandler}
       modalOnCloseHandle={modalOnCloseHandle}
     />
   );
 
   return (
     <div>
-      <button onClick={addButtonHandler}>ADD</button>
-      {isModalShown && <Modal onClose={modalOnCloseHandle}>{addNoteElements}</Modal>}
+      <button onClick={editButtonHandler}>EDIT</button>
+      {isModalShown && <Modal onClose={modalOnCloseHandle}>{editNoteElements}</Modal>}
     </div>
   );
 };
-export default AddButton;
+
+export default EditButton;

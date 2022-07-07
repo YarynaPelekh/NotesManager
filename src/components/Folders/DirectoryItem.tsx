@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import EasyEdit, { Types } from "react-easy-edit";
 import { useDispatch } from "react-redux";
 
