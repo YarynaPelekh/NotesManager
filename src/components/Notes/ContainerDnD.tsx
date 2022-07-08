@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 
@@ -9,8 +9,7 @@ import { NoteType } from "../../types/NotesTypes";
 
 import classes from "../../styles/Module/ContainerDnD.module.css";
 
-const ContainerDnD = (props: { noteTo: NoteType }) => {
-  const [element, setElement] = useState("");
+const ContainerDnD = (props: { noteTo: NoteType; children: JSX.Element }) => {
   const dispatch = useDispatch();
 
   const chosenDirectoryId = useSelector(
@@ -18,28 +17,27 @@ const ContainerDnD = (props: { noteTo: NoteType }) => {
   );
 
   const notesList = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[];
-  // console.log("notesList", notesList);
 
-  const moveItem = (itemFrom, notesList) => {
-    // console.log("drop function is called", itemFrom.noteId);
-    // console.log("notesList in moveItem", notesList);
+  const moveItem = (itemFrom, monitor) => {
     const selectedNotes = notesList.filter((item: NoteType) => item.directoryId === chosenDirectoryId);
-    // console.log("selectedNotes", selectedNotes);
+    selectedNotes.sort((a, b) => {
+      return a.position - b.position;
+    });
 
-    // console.log("noteId", itemFrom.noteId);
-    const noteFrom = notesList.filter((item: NoteType) => item.id === +itemFrom.noteId)[0];
-    // console.log("noteFrom", noteFrom);
+    const noteFrom = selectedNotes.filter((item: NoteType) => item.id === +itemFrom.noteId)[0];
 
-    // console.log("from", noteFrom.position, noteFrom.title); //, noteFrom);
-    // console.log("to", props.noteTo.position, props.noteTo.title); //, props.noteTo);
+    const noteTo = Object.assign({}, selectedNotes.splice(selectedNotes.indexOf(noteFrom), 1)[0], {
+      position: props.noteTo.position,
+    });
 
-    let positionFrom = noteFrom.position;
-    console.log("positionFrom", positionFrom);
+    selectedNotes.splice(props.noteTo.position, 0, noteTo);
+    for (let i = 0; i < selectedNotes.length; i++) {
+      selectedNotes[i] = Object.assign({}, selectedNotes[i], { position: i });
+    }
 
-    dispatch(notesActions.updateNote(Object.assign({}, noteFrom, { position: props.noteTo.position })));
-    dispatch(notesActions.updateNote(Object.assign({}, props.noteTo, { position: positionFrom })));
-
-    setElement(itemFrom.noteId);
+    selectedNotes.forEach((item) => {
+      dispatch(notesActions.updateNote(item));
+    });
   };
 
   const [{ isOver }, drop] = useDrop(
@@ -50,14 +48,14 @@ const ContainerDnD = (props: { noteTo: NoteType }) => {
         isOver: !!monitor.isOver(),
       }),
     }),
-    []
+    [notesList]
   );
 
   return (
     <div className={classes.containerDnD} ref={drop}>
-      {/* {<p>{`element ${element}`}</p>} */}
-      {<p>{`${props.noteTo.title}`}</p>}
+      {props.children}
     </div>
   );
 };
-export default ContainerDnD;
+
+export default React.memo(ContainerDnD);

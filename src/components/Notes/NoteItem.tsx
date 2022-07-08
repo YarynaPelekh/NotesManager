@@ -23,13 +23,12 @@ const NoteItem = (props: PropsNoteItem) => {
   const dispatch = useDispatch();
   const params = useParams();
 
-  const [{ isDragging, didDrop }, drag] = useDrag(
+  const [{ isDragging }, drag] = useDrag(
     () => ({
       type: DnDTypes.noteItem,
       item: { noteId: params.noteId, notePosition: props.item.position },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
-        didDrop: !!monitor.didDrop(),
       }),
     }),
     [params.noteId]
@@ -97,10 +96,13 @@ const NoteItem = (props: PropsNoteItem) => {
             cancelButtonLabel="Cancel"
             attributes={{ name: "awesome-input", id: 1 }}
             value={props.item.title}
+            // saveOnBlur={true}
           />
         </NavLink>
       </div>
-      <ContainerDnD noteTo={props.item} />
+      <ContainerDnD noteTo={props.item}>
+        <p></p>
+      </ContainerDnD>
     </li>
   );
 };
