@@ -83,7 +83,6 @@ const NotesList = () => {
             .filter((item: NoteType) => item.directoryId === chosenDirectoryId)
             .map((item: NoteType) => (
               <NoteItem key={item.id} item={item}>
-                {/* <p>{item.title}</p> */}
                 <p></p>
               </NoteItem>
             ))}

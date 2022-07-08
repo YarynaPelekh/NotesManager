@@ -89,23 +89,23 @@ const AddEditForm = (props: {
         <label htmlFor="description">Description</label>
         <textarea id="description" ref={descriptionInputRef} defaultValue={props.initialValues.description}></textarea>
       </div>
-      {/* <div className={classes.input}>
+      <div className={classes.input}>
         <label htmlFor="tags">Tags</label>
-        <input id="tags" ref={tagsInputRef} defaultValue={props.initialValues.tags}></input>
-      </div> */}
+        {/* <input id="tags" ref={tagsInputRef} defaultValue={props.initialValues.tags}></input> */}
 
-      <ReactTags
-        style={{ width: "200px" }}
-        autoresize={false}
-        minQueryLength={1}
-        allowNew={true}
-        addOnBlur={true}
-        ref={reactTags}
-        tags={tags}
-        suggestions={tagsSuggestions}
-        onDelete={onDeleteTag}
-        onAddition={onAdditionTag}
-      />
+        <ReactTags
+          style={{ width: "auto" }}
+          autoresize={false}
+          minQueryLength={1}
+          allowNew={true}
+          addOnBlur={true}
+          ref={reactTags}
+          tags={tags}
+          suggestions={tagsSuggestions}
+          onDelete={onDeleteTag}
+          onAddition={onAdditionTag}
+        />
+      </div>
 
       <div className={classes.controlsContainer}>
         <button onClick={okHandler}>OK</button>
