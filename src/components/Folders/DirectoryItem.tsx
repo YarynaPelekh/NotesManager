@@ -70,7 +70,7 @@ const DirectoryItem = (props: PropsDirectoryItem) => {
           type={Types.TEXT}
           onSave={saveEdit}
           // onCancel={}
-          saveButtonLabel="OK"
+          saveButtonLabel="Save"
           cancelButtonLabel="Cancel"
           attributes={{ name: "awesome-input", id: 1 }}
           value={props.item.name}

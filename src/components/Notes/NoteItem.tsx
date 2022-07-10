@@ -26,7 +26,7 @@ const NoteItem = (props: PropsNoteItem) => {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: DnDTypes.noteItem,
-      item: { noteId: params.noteId, notePosition: props.item.position },
+      item: { noteId: props.item.id },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
@@ -77,31 +77,36 @@ const NoteItem = (props: PropsNoteItem) => {
 
   return (
     <li className={classes.li}>
-      <div
-        ref={drag}
-        style={{
-          opacity: isDragging ? 0.5 : 1,
-          backgroundColor: isDragging ? "#ddd" : "#fff",
-        }}
-      >
-        <NavLink
-          className={({ isActive }) => `${classes.note} ${isActive ? classes.chosen : null}`}
-          to={`/notes/${props.item.id}`}
-          key={props.item.id}
-        >
-          <EasyEdit
-            type={Types.TEXT}
-            onSave={saveEdit}
-            saveButtonLabel="OK"
-            cancelButtonLabel="Cancel"
-            attributes={{ name: "awesome-input", id: 1 }}
-            value={props.item.title}
-            // saveOnBlur={true}
-          />
-        </NavLink>
-      </div>
       <ContainerDnD noteTo={props.item}>
-        <p></p>
+        <div
+          ref={drag}
+          style={{
+            opacity: isDragging ? 0.5 : 1,
+            backgroundColor: isDragging ? "#ddd" : "#fff",
+          }}
+        >
+          <NavLink
+            className={({ isActive }) => `${classes.note} ${isActive ? classes.chosen : null}`}
+            to={`/notes/${props.item.id}`}
+            key={props.item.id}
+          >
+            <div className={classes.easyEditClass}>
+              <EasyEdit
+                type={Types.TEXT}
+                onSave={saveEdit}
+                saveButtonLabel="Save"
+                cancelButtonLabel="Cancel"
+                attributes={{ name: "awesome-input", id: 1 }}
+                value={props.item.title}
+                saveButtonStyle={classes.saveButtonStyle}
+                cancelButtonStyle={classes.saveButtonStyle}
+
+                // saveOnBlur={true}
+              />
+            </div>
+          </NavLink>
+        </div>
+        {/* <p></p> */}
       </ContainerDnD>
     </li>
   );

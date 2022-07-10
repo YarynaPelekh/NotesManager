@@ -92,6 +92,7 @@ const EditButton = () => {
 
   const editNoteElements = (
     <AddEditForm
+      formTitle="Edit note details"
       initialValues={{
         title: chosenNote && chosenNote.title,
         description: chosenNote && chosenNote.description,

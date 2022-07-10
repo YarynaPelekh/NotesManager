@@ -4,7 +4,9 @@
   gap: 20px;
 }
 
-.button {
+.controlsContainer button {
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 80px;
 }
 
@@ -14,8 +16,13 @@
   width: 90%;
   justify-content: flex-start;
   align-items: stretch;
-  gap: 10px;
   margin: 20px;
+}
+
+.title {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .input input {
