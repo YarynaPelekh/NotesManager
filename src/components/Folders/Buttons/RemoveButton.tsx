@@ -119,7 +119,7 @@ const RemoveButton = () => {
 
   const removeDirectoryElements = (
     <Fragment>
-      <p>Are you sure to remove directory?</p>
+      <p className={classes.title}>Are you sure to remove directory?</p>
 
       <div className={classes.controlsContainer}>
         <button onClick={removeDirectoryHandler}>OK</button>

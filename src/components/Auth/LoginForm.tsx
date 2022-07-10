@@ -1,19 +1,26 @@
 import { Fragment, useRef } from "react";
-
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
-import classes from "../../styles/Module/Modal.module.css";
+import classes from "../../styles/Module/LoginForm.module.css";
 
 const LoginForm = () => {
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
   let location = useLocation();
   const navigate = useNavigate();
 
   const loginHandler = () => {
-    localStorage.setItem("userName", nameInputRef.current?.value || "");
-    localStorage.setItem("timerExpires", String(Number(new Date().getTime()) + 3000 * 1000000));
-    navigate("/", { replace: true });
+    if (nameInputRef.current?.value.trim().length === 0) {
+      alert("Please, enter a name!");
+    } else if (passwordInputRef.current?.value.trim().length === 0) {
+      alert("Please, enter a password!");
+    } else {
+      localStorage.setItem("userName", nameInputRef.current?.value || "");
+      //                                        60s*60*min*24h= 86400
+      localStorage.setItem("timerExpires", String(Number(new Date().getTime()) + 86400 * 1000));
+      navigate("/", { replace: true });
+    }
   };
 
   const onCloseHandle = () => {
@@ -22,11 +29,15 @@ const LoginForm = () => {
 
   const loginElements = (
     <Fragment>
-      <p>Please, login...</p>
+      <p className={classes.title}>Please, login...</p>
 
       <div className={classes.input}>
         <label htmlFor="name">Name</label>
         <input id="name" ref={nameInputRef}></input>
+      </div>
+      <div className={classes.input}>
+        <label htmlFor="password">Password</label>
+        <input id="password" ref={passwordInputRef}></input>
       </div>
       <div className={classes.controlsContainer}>
         <button onClick={loginHandler}>OK</button>

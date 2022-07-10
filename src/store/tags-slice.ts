@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TagType } from "../types/NotesTypes";
 
 const tagsSlice = createSlice({
   name: "tagsSlice",
@@ -12,7 +11,6 @@ const tagsSlice = createSlice({
       state.tags.push(action.payload);
     },
     updateTags(state, action) {
-      let i = 0;
       state.tags = state.tags.concat(action.payload.split(",")).filter((v, i, a) => a.indexOf(v) === i);
     },
     loadTags(state, action) {

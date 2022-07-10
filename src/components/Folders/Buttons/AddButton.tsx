@@ -84,7 +84,7 @@ const AddButton = () => {
 
   const addDirectoryElements = (
     <Fragment>
-      <p>Input a new directory name</p>
+      <p className={classes.title}>Input a new directory name</p>
       <div className={classes.input}>
         <label htmlFor="name">Name</label>
         <input id="name" ref={nameInputRef}></input>

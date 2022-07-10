@@ -2,25 +2,30 @@
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
-.button {
+.controlsContainer button {
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 80px;
 }
 
 .input {
   display: flex;
-  width: 90%;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 10px;
+  flex-direction: column;
+  width: 50%;
+  align-items: flex-start;
+  align-self: center;
   margin: 20px;
+  margin-left: 25%;
 }
 
 .title {
   font-size: 18px;
   text-align: center;
   margin-top: 20px;
+}
+
+.input input {
+  flex: 1;
 }

@@ -1,21 +1,13 @@
 import { Fragment, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 
-import { InputNoteValues, TagType } from "../../../types/NotesTypes";
-
-import { tagsActions } from "../../../store/tags-slice";
+import { InputNoteValues } from "../../../types/NotesTypes";
 
 import classes from "../../../styles/Module/NotesButton.module.css";
 
-// const suggestions = [
-//   { id: 3, name: "Bananas" },
-//   { id: 4, name: "Mangos" },
-//   { id: 5, name: "Lemons" },
-//   { id: 6, name: "Apricots" },
-// ];
-
 const AddEditForm = (props: {
+  formTitle: string;
   initialValues: InputNoteValues;
   saveNoteHandler: (enteredValues: InputNoteValues) => void;
   modalOnCloseHandle: () => void;
@@ -28,8 +20,6 @@ const AddEditForm = (props: {
   let enteredTitle = "";
   let enteredDescription = "";
   let enteredTags = "";
-
-  const dispatch = useDispatch();
 
   let i = 0;
   const tagsSuggestions = useSelector((state: { tagsSlice: { tags: string[] } }) => state.tagsSlice.tags).map(
@@ -80,7 +70,7 @@ const AddEditForm = (props: {
 
   return (
     <Fragment>
-      <p>Input a new note</p>
+      <p className={classes.title}>{props.formTitle}</p>
       <div className={classes.input}>
         <label htmlFor="title">Title</label>
         <input id="title" ref={titleInputRef} defaultValue={props.initialValues.title}></input>
@@ -91,8 +81,6 @@ const AddEditForm = (props: {
       </div>
       <div className={classes.input}>
         <label htmlFor="tags">Tags</label>
-        {/* <input id="tags" ref={tagsInputRef} defaultValue={props.initialValues.tags}></input> */}
-
         <ReactTags
           style={{ width: "auto" }}
           autoresize={false}

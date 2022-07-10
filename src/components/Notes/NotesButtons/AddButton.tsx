@@ -1,4 +1,4 @@
-import { Fragment, useState, useRef } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Modal from "../../UI/Modal";
@@ -99,6 +99,7 @@ const AddButton = () => {
 
   const addNoteElements = (
     <AddEditForm
+      formTitle="Input a new note"
       initialValues={{ title: "", description: "", tags: "" }}
       saveNoteHandler={addNoteHandler}
       modalOnCloseHandle={modalOnCloseHandle}

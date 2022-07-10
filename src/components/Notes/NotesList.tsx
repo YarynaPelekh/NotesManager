@@ -76,8 +76,8 @@ const NotesList = () => {
 
   return (
     <div className={classes.notesList}>
-      Notes List
-      <ul>
+      <p> Notes List</p>
+      <ul className={classes.ul}>
         {chosenDirectoryId &&
           notesList
             .filter((item: NoteType) => item.directoryId === chosenDirectoryId)
