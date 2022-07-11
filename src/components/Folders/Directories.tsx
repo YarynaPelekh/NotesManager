@@ -7,7 +7,6 @@ const Directories = () => {
   return (
     <div className={classes.directories}>
       <p>Directories</p>
-
       <DirectoriesControls />
       <DirectoriesTree />
     </div>

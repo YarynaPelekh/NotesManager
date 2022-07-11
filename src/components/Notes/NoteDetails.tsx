@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { NoteType } from "../../types/NotesTypes";
 
-import classes from "./NoteDetails.module.css";
+import classes from "../../styles/Module/NoteDetails.module.css";
 
 const NoteDetails = () => {
   const chosenNoteId = useSelector((state: { notesSlice: { chosenNoteId: number } }) => state.notesSlice.chosenNoteId);
@@ -11,11 +11,10 @@ const NoteDetails = () => {
     (item: NoteType) => item.id === +chosenNoteId
   )[0];
 
-  console.log("render note details", chosenNote?.title, "chosen note id", chosenNoteId);
   return (
     <Fragment>
       <p className={classes.title}>Note details</p>
-      {!!chosenNoteId && (
+      {chosenNote && (
         <Fragment>
           <div className={classes.input}>
             <label htmlFor="title">Title:</label>
