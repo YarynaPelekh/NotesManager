@@ -1,21 +1,89 @@
-import NotesControls from "./NotesControls";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import NotesList from "./NotesList";
 import NoteDetails from "./NoteDetails";
+import NotesControls from "./NotesControls";
+import SearchBar from "./Search/SearchBar.tsx";
 
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { appStateActions } from "../../store/app-state-slice";
+import { notesActions } from "../../store/notes-slice";
+import { tagsActions } from "../../store/tags-slice";
+
+import { NoteType } from "../../types/NotesTypes";
+import { NotificationTypes } from "../../types/NotificationTypes";
 
 import classes from "../../styles/Module/Notes.module.css";
 
 const Notes = () => {
+  const dispatch = useDispatch();
+
+  const chosenDirectoryId = useSelector(
+    (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:3000/notices");
+
+      if (!response.ok) {
+        throw new Error("Something went wrong! Fetching data from backend.");
+      }
+      const responseData = await response.json();
+
+      const loadedData: NoteType[] = [];
+      responseData.forEach((item: NoteType) => {
+        loadedData.push({
+          description: item.description,
+          directoryId: item.directoryId,
+          id: item.id,
+          position: item.position,
+          tags: item.tags,
+          title: item.title,
+        });
+      });
+      dispatch(notesActions.loadNotes(responseData));
+
+      const tagsString = responseData
+        .map((item) => {
+          return item.tags;
+        })
+        .join()
+        .split(",")
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .join();
+
+      dispatch(tagsActions.loadTags(tagsString));
+    };
+
+    fetchData().catch((error) => {
+      console.log("fetching error", error.message);
+      dispatch(
+        appStateActions.setState({
+          showNotification: true,
+          notificationType: NotificationTypes.alertDanger,
+          notificationMessage: error.message,
+        })
+      );
+    });
+  }, []);
+
+  let notesList = [
+    ...(useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[]),
+  ];
+  notesList = notesList
+    .sort((a, b) => {
+      return a.position - b.position;
+    })
+    .filter((item: NoteType) => item.directoryId === chosenDirectoryId);
+
   return (
     <div className={classes.notes}>
       <p>Notes</p>
-      <DndProvider backend={HTML5Backend}>
-        <NotesControls />
-        <NotesList />
-        <NoteDetails />
-      </DndProvider>
+      <SearchBar />
+      <NotesControls />
+      <NotesList notes={notesList} />
+      <NoteDetails />
     </div>
   );
 };

@@ -1,92 +1,29 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 import NoteItem from "./NoteItem";
 
-import { appStateActions } from "../../store/app-state-slice";
-import { notesActions } from "../../store/notes-slice";
-import { tagsActions } from "../../store/tags-slice";
-
 import { NoteType } from "../../types/NotesTypes";
-import { NotificationTypes } from "../../types/NotificationTypes";
+
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 import classes from "../../styles/Module/NotesList.module.css";
 
-const NotesList = () => {
-  const [dataIsLoaded, setDataIsLoaded] = useState(false);
-  const dispatch = useDispatch();
-
-  const chosenDirectoryId = useSelector(
-    (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
-  );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/notices");
-
-      if (!response.ok) {
-        throw new Error("Something went wrong! Fetching data from backend.");
-      }
-      const responseData = await response.json();
-
-      const loadedData: NoteType[] = [];
-      responseData.forEach((item: NoteType) => {
-        loadedData.push({
-          description: item.description,
-          directoryId: item.directoryId,
-          id: item.id,
-          position: item.position,
-          tags: item.tags,
-          title: item.title,
-        });
-      });
-      dispatch(notesActions.loadNotes(responseData));
-
-      const tagsString = responseData
-        .map((item) => {
-          return item.tags;
-        })
-        .join()
-        .split(",")
-        .filter((v, i, a) => a.indexOf(v) === i)
-        .join();
-
-      dispatch(tagsActions.loadTags(tagsString));
-    };
-
-    fetchData().catch((error) => {
-      console.log("fetching error", error.message);
-      dispatch(
-        appStateActions.setState({
-          showNotification: true,
-          notificationType: NotificationTypes.alertDanger,
-          notificationMessage: error.message,
-        })
-      );
-    });
-    setDataIsLoaded(true);
-  }, []);
-
-  let notesList = [
-    ...(useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[]),
-  ];
-  notesList.sort((a, b) => {
-    return a.position - b.position;
-  });
-
+const NotesList = (props: { notes: NoteType[] }) => {
   return (
     <div className={classes.notesList}>
-      <p> Notes List</p>
-      <ul className={classes.ul}>
-        {chosenDirectoryId &&
-          notesList
-            .filter((item: NoteType) => item.directoryId === chosenDirectoryId)
-            .map((item: NoteType) => (
-              <NoteItem key={item.id} item={item}>
-                <p></p>
-              </NoteItem>
-            ))}
-      </ul>
+      {/* <p> Notes List</p> */}
+
+      <DndProvider backend={HTML5Backend}>
+        <div className={classes.ul}>
+          <ul>
+            {props.notes &&
+              props.notes.map((item: NoteType) => (
+                <NoteItem key={item.id} item={item}>
+                  <p></p>
+                </NoteItem>
+              ))}
+          </ul>
+        </div>
+      </DndProvider>
     </div>
   );
 };
