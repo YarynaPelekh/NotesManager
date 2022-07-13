@@ -1,3 +1,4 @@
+import React from "react";
 import ReactDOM from "react-dom";
 
 import Directories from "./Folders/Directories";
@@ -11,6 +12,8 @@ import { appStateActions } from "../store/app-state-slice";
 
 import { AppStateType } from "../types/AppStateType";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/common.css";
 import classes from "../styles/Module/MainPage.module.css";
 
 const portalElement = document.getElementById("overlay") as HTMLElement;

@@ -15,48 +15,11 @@ import { NotificationTypes } from "../../types/NotificationTypes";
 import classes from "../../styles/Module/DirectoryItem.module.css";
 
 const DirectoryItem = (props: PropsDirectoryItem) => {
-  let notificationText = "The directory renamed successfully";
-  let notificationType = NotificationTypes.alertLight;
-
   const dispatch = useDispatch();
 
   const saveEdit = async (value) => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/directories/" + props.item.id, {
-        method: "PUT",
-        body: JSON.stringify({
-          id: props.item.id,
-          parentId: props.item.parentId,
-          name: value,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (!response.ok) {
-        throw new Error("Something went wrong/ sending data to backend!");
-      }
-
-      dispatch(directoriesActions.updateDirectory(Object.assign({}, props.item, { name: value })));
-    };
-
-    try {
-      await fetchData().catch((error) => {
-        throw new Error(error.message);
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        notificationText = error.message;
-        notificationType = NotificationTypes.alertDanger;
-      }
-    }
-
-    dispatch(
-      appStateActions.setState({
-        showNotification: true,
-        notificationType: notificationType,
-        notificationMessage: notificationText,
-      })
-    );
+    const data = Object.assign({}, props.item, { name: value });
+    dispatch(directoriesActions.updateDirectoryRequest(data));
   };
 
   return (

@@ -1,3 +1,4 @@
+import React from "react";
 import { AppStateType } from "../../types/AppStateType";
 
 import classes from "../../styles/Module/Notification.module.css";

@@ -2,13 +2,15 @@
   font-size: 18px;
   height: 260px;
   /* border-top: 1px solid #ddd; */
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   overflow-y: auto;
   overflow-x: auto;
 }
 
 .ul {
   margin: 20px 0px 20px 0px;
+  padding-left: 0;
+  text-align: left;
 }
 
 .ul li {

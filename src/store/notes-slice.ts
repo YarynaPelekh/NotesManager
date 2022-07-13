@@ -10,6 +10,10 @@ const notesSlice = createSlice({
     chosenNoteId: null,
   },
   reducers: {
+    loadNotesRequest(state) {},
+
+    addNoteRequest(state, action) {},
+
     loadNotes(state, action) {
       action.payload.forEach((item: NoteType) => {
         state.notes.push(item);

@@ -10,6 +10,14 @@ const directoriesSlice = createSlice({
     directories: [] as DirectoryType[],
   },
   reducers: {
+    getDataRequest(action) {},
+
+    addDirectoryRequest(state, action) {},
+
+    updateDirectoryRequest(state, action) {},
+
+    removeDirectoryRequest(state, action) {},
+
     setChosenDirectoryId(state, action) {
       state.chosenDirectoryId = action.payload;
     },
