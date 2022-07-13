@@ -3,11 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import DirectoryItem from "./DirectoryItem";
 
-import { appStateActions } from "../../store/app-state-slice";
 import { directoriesActions } from "../../store/directories-slice";
-import { tagsActions } from "../../store/tags-slice";
 
-import { NotificationTypes } from "../../types/NotificationTypes";
 import { DirectoryType } from "../../types/DirectoryTypes";
 
 import classes from "../../styles/Module/DirectoriesTree.module.css";
@@ -24,35 +21,13 @@ const DirectoriesTree = () => {
     (state: { directoriesSlice: { dataIsLoaded: boolean } }) => state.directoriesSlice.dataIsLoaded
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/directories");
-
-      if (!response.ok) {
-        throw new Error("Something went wrong! Fetching data from backend.");
-      }
-      const responseData = await response.json();
-
-      dispatch(directoriesActions.loadDirectoriesTree(responseData));
-    };
-
-    if (!dataIsLoaded) {
-      fetchData().catch((error) => {
-        console.log("fetching error");
-        dispatch(
-          appStateActions.setState({
-            showNotification: true,
-            notificationType: NotificationTypes.alertDanger,
-            notificationMessage: error.message,
-          })
-        );
-      });
-    }
-  }, [dataIsLoaded, dispatch]);
-
   const directoriesData = useSelector(
     (state: { directoriesSlice: { directories: DirectoryType[] } }) => state.directoriesSlice.directories
   ) as DirectoryType[];
+
+  useEffect(() => {
+    dispatch(directoriesActions.getDataRequest());
+  }, [dispatch]);
 
   const rootId = String(getRootId(directoriesData));
 
