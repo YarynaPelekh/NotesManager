@@ -21,6 +21,9 @@ const Notes = () => {
   const chosenDirectoryId = useSelector(
     (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
   );
+  let notesList = [
+    ...(useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[]),
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,21 +59,20 @@ const Notes = () => {
       dispatch(tagsActions.loadTags(tagsString));
     };
 
-    fetchData().catch((error) => {
-      console.log("fetching error", error.message);
-      dispatch(
-        appStateActions.setState({
-          showNotification: true,
-          notificationType: NotificationTypes.alertDanger,
-          notificationMessage: error.message,
-        })
-      );
-    });
+    if (notesList.length === 0) {
+      fetchData().catch((error) => {
+        console.log("fetching error", error.message);
+        dispatch(
+          appStateActions.setState({
+            showNotification: true,
+            notificationType: NotificationTypes.alertDanger,
+            notificationMessage: error.message,
+          })
+        );
+      });
+    }
   }, []);
 
-  let notesList = [
-    ...(useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[]),
-  ];
   notesList = notesList
     .sort((a, b) => {
       return a.position - b.position;
@@ -80,10 +82,9 @@ const Notes = () => {
   return (
     <div className={classes.notes}>
       <p>Notes</p>
-      <SearchBar />
       <NotesControls />
       <NotesList notes={notesList} />
-      <NoteDetails />
+      <SearchBar />
     </div>
   );
 };

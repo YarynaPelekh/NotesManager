@@ -19,6 +19,10 @@
   margin: 20px;
 }
 
+.input input {
+  flex: 1;
+}
+
 .title {
   font-size: 18px;
   text-align: center;

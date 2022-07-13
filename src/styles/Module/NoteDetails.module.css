@@ -1,12 +1,9 @@
-.title {
-  font-size: 18px;
-  text-align: center;
-  margin: 20px 0px 20px 0px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #ddd;
+.container {
+  border-top: 1px solid #ddd;
+  padding: 20px;
 }
 
-.input {
+.output {
   display: flex;
   flex-direction: row;
   height: 26px;
@@ -14,10 +11,9 @@
   width: 90%;
   margin: 0 20px 0 20px;
   font-size: 16px;
-  /* border: 1px solid #ddd; */
   align-items: baseline;
 }
 
-.input label {
+.output label {
   font-style: italic;
 }

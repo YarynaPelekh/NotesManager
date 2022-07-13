@@ -1,15 +1,9 @@
 .container {
   display: flex;
-  width: 100%;
-  justify-content: flex-start;
-  align-items: stretch;
+  width: auto;
   gap: 10px;
-  /* margin: 20px 0px 20px 0px; */
   font-size: 16px;
   border-top: 1px solid #ddd;
   padding-top: 20px;
-}
-
-.searchField {
-  width: 80%;
+  text-align: left;
 }

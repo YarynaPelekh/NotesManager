@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import classes from "../../styles/Module/Modal.module.css";
 
 const Backdrop = (props: { onClose: () => void }) => {
