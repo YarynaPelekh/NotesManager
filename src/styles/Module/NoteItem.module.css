@@ -19,14 +19,6 @@
   font-size: 12px;
 }
 
-.easyEditClass {
-  width: 50px;
-  height: auto;
-  margin: 0;
-  color: blue;
-  /* border: 1px solid #eee; */
-}
-
 .note::before {
   content: "";
   background: url("../../icons/note.svg");
@@ -36,7 +28,7 @@
   width: 50px;
   height: 50px;
   margin-left: -25px;
-  margin-top: -30px;
+  margin-top: -40px;
 }
 
 .chosen {
@@ -53,7 +45,7 @@
   width: 50px;
   height: 50px;
   margin-left: -25px;
-  margin-top: -30px;
+  margin-top: -40px;
 }
 
 .title {

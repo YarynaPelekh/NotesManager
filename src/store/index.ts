@@ -6,8 +6,8 @@ import directoriesSlice from "./directories-slice";
 import notesSlice from "./notes-slice";
 import tagsSlice from "./tags-slice";
 import searchSlice from "./search-slice";
-import sagaDirectories from "./sagaDirectories";
-import sagaNotes from "./sagaNotes";
+import sagaDirectories from "./saga-directories";
+import sagaNotes from "./saga-notes";
 
 const saga = createSagaMiddleware();
 const store = configureStore({

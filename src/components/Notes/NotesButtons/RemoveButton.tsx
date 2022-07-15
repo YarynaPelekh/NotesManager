@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -48,64 +48,22 @@ const RemoveButton = () => {
     dispatch(notesActions.setChosenNoteId(""));
   }, [location.pathname]);
 
-  const removeItem = async (itemId: number) => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/notices/" + itemId, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (!response.ok) {
-        throw new Error("Something went wrong/ deleting data from backend!");
-      }
-      dispatch(notesActions.removeNote(itemId));
-    };
-
-    await fetchData().catch((error) => {
-      throw new Error(error.message);
-    });
-  };
-
-  const removeDirectoryHandler = async () => {
-    let errorText = "";
-    try {
-      await removeItem(chosenNoteId);
-    } catch (error) {
-      if (error instanceof Error) {
-        errorText = error.message;
-      }
-    }
-
+  const removeNoteHandler = () => {
+    dispatch(notesActions.removeNoteRequest(chosenNoteId));
+    navigate("/", { replace: true });
     setIsModalShown(false);
-
-    if (errorText) {
-      notificationText = errorText;
-      notificationType = NotificationTypes.alertDanger;
-    } else {
-      notificationText = "The note was removed successfully";
-      // const path = ".." + location.pathname.slice(0, location.pathname.lastIndexOf("/"));
-      navigate("/", { replace: true });
-    }
-
-    dispatch(
-      appStateActions.setState({
-        showNotification: true,
-        notificationType: notificationType,
-        notificationMessage: notificationText,
-      })
-    );
   };
 
   function modalOnCloseHandle() {
     setIsModalShown(false);
   }
 
-  const removeDirectoryElements = (
+  const removeNoteElements = (
     <Fragment>
       <p className={classes.title}>Are you sure to remove note?</p>
 
       <div className={classes.controlsContainer}>
-        <button onClick={removeDirectoryHandler}>OK</button>
+        <button onClick={removeNoteHandler}>OK</button>
         <button onClick={modalOnCloseHandle}>Cancel</button>
       </div>
     </Fragment>
@@ -114,7 +72,7 @@ const RemoveButton = () => {
   return (
     <div>
       <button onClick={removeButtonHandler}>REMOVE</button>
-      {isModalShown && <Modal onClose={modalOnCloseHandle}>{removeDirectoryElements}</Modal>}
+      {isModalShown && <Modal onClose={modalOnCloseHandle}>{removeNoteElements}</Modal>}
     </div>
   );
 };

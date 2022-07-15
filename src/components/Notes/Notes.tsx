@@ -22,9 +22,9 @@ const Notes = () => {
     ...(useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[]),
   ];
 
-  useEffect(() => {
-    dispatch(notesActions.loadNotesRequest());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(notesActions.loadNotesRequest());
+  // }, [dispatch]);
 
   notesList = notesList
     .sort((a, b) => {

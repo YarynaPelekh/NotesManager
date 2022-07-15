@@ -14,7 +14,12 @@ const notesSlice = createSlice({
 
     addNoteRequest(state, action) {},
 
+    editNoteRequest(state, action) {},
+
+    removeNoteRequest(state, action) {},
+
     loadNotes(state, action) {
+      state.notes = [];
       action.payload.forEach((item: NoteType) => {
         state.notes.push(item);
       });

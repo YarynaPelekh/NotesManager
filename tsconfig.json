@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*.ts", "global.d.ts", "src/store/sagaDirectories.js"]
+  "include": ["src/**/*.ts", "global.d.ts", "src/store/saga-directories.js"]
 }

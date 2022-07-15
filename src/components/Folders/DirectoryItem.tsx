@@ -17,7 +17,7 @@ import classes from "../../styles/Module/DirectoryItem.module.css";
 const DirectoryItem = (props: PropsDirectoryItem) => {
   const dispatch = useDispatch();
 
-  const saveEdit = async (value) => {
+  const saveEdit = (value) => {
     const data = Object.assign({}, props.item, { name: value });
     dispatch(directoriesActions.updateDirectoryRequest(data));
   };

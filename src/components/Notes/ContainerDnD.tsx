@@ -21,44 +21,9 @@ const ContainerDnD = (props: { noteTo: NoteType; children: JSX.Element }) => {
 
   const notesList = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[];
 
-  const updateNotesOnBackend = async (notes: NoteType[]) => {
-    let notificationText = "";
-    let notificationType = NotificationTypes.alertSecondary;
-
+  const updateNotesOnBackend = (notes: NoteType[]) => {
     for (const note of notes) {
-      const fetchData = async () => {
-        const response = await fetch("http://localhost:3000/notices/" + String(note.id), {
-          method: "PUT",
-          body: JSON.stringify(note),
-          headers: { "Content-Type": "application/json" },
-        });
-
-        if (!response.ok) {
-          throw new Error("Something went wrong/ sending data to backend!");
-        } else {
-          const responseData = await response.json();
-          dispatch(notesActions.updateNote(responseData));
-        }
-      };
-
-      try {
-        await fetchData().catch((error) => {
-          throw new Error(error.message);
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          notificationText = error.message;
-          notificationType = NotificationTypes.alertDanger;
-          dispatch(
-            appStateActions.setState({
-              showNotification: true,
-              notificationType: notificationType,
-              notificationMessage: notificationText,
-            })
-          );
-          break;
-        }
-      }
+      dispatch(notesActions.editNoteRequest(note));
     }
   };
 
@@ -83,9 +48,7 @@ const ContainerDnD = (props: { noteTo: NoteType; children: JSX.Element }) => {
       selectedNotes[i] = Object.assign({}, selectedNotes[i], { position: i });
     }
 
-    // selectedNotes.forEach((item) => {
     updateNotesOnBackend(selectedNotes);
-    // });
   };
 
   const [{ isOver }, drop] = useDrop(
