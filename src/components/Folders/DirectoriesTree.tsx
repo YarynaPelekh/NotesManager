@@ -25,9 +25,9 @@ const DirectoriesTree = () => {
     (state: { directoriesSlice: { directories: DirectoryType[] } }) => state.directoriesSlice.directories
   ) as DirectoryType[];
 
-  useEffect(() => {
-    dispatch(directoriesActions.getDataRequest());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(directoriesActions.loadDataRequest());
+  // }, []);
 
   const rootId = String(getRootId(directoriesData));
 

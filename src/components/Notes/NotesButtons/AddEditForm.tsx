@@ -30,9 +30,9 @@ const AddEditForm = (props: {
 
   i = 0;
   let tags =
-    props.initialValues.tags.length === 0
+    props.initialValues.tags?.length === 0
       ? []
-      : props.initialValues.tags.split(",").map((item) => {
+      : props.initialValues.tags?.split(",").map((item) => {
           return { id: i++, name: item };
         });
 

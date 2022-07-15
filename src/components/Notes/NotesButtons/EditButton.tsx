@@ -1,4 +1,4 @@
-import { Fragment, useState, useRef } from "react";
+import React, { Fragment, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Modal from "../../UI/Modal";
@@ -12,9 +12,6 @@ import { NotificationTypes } from "../../../types/NotificationTypes";
 import { NoteType, InputNoteValues } from "../../../types/NotesTypes";
 
 const EditButton = () => {
-  let notificationText = "The note was edited successfully";
-  let notificationType = NotificationTypes.alertLight;
-
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const dispatch = useDispatch();
 
@@ -41,7 +38,7 @@ const EditButton = () => {
     }
   };
 
-  const editNoteHandler = async (enteredValues: InputNoteValues) => {
+  const editNoteHandler = (enteredValues: InputNoteValues) => {
     const enteredTitle = enteredValues.title;
     const enteredDescription = enteredValues.description;
     const enteredTags = enteredValues.tags;
@@ -51,42 +48,8 @@ const EditButton = () => {
       tags: enteredTags,
       title: enteredTitle,
     });
+    dispatch(notesActions.editNoteRequest(updatedNote));
 
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/notices/" + String(chosenNoteId), {
-        method: "PUT",
-        body: JSON.stringify(updatedNote),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (!response.ok) {
-        throw new Error("Something went wrong/ sending data to backend!");
-      } else {
-        const responseData = await response.json();
-        dispatch(notesActions.updateNote(responseData));
-
-        dispatch(tagsActions.updateTags(responseData.tags));
-      }
-    };
-
-    try {
-      await fetchData().catch((error) => {
-        throw new Error(error.message);
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        notificationText = error.message;
-        notificationType = NotificationTypes.alertDanger;
-      }
-    }
-
-    dispatch(
-      appStateActions.setState({
-        showNotification: true,
-        notificationType: notificationType,
-        notificationMessage: notificationText,
-      })
-    );
     setIsModalShown(false);
   };
 

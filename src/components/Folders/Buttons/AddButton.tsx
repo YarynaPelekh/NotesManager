@@ -23,7 +23,7 @@ const AddButton = () => {
     setIsModalShown(true);
   };
 
-  const addDirectoryHandler = async () => {
+  const addDirectoryHandler =  () => {
     enteredName = nameInputRef.current?.value || "";
 
     if (enteredName.trim().length === 0) {

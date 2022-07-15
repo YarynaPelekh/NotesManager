@@ -10,7 +10,7 @@ const directoriesSlice = createSlice({
     directories: [] as DirectoryType[],
   },
   reducers: {
-    getDataRequest(action) {},
+    loadDataRequest(action) {},
 
     addDirectoryRequest(state, action) {},
 
@@ -37,6 +37,7 @@ const directoriesSlice = createSlice({
     },
 
     loadDirectoriesTree(state, action) {
+      state.directories = [];
       action.payload.forEach((item: DirectoryType) => {
         state.directories.push(item);
       });

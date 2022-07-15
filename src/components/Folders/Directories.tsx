@@ -1,3 +1,4 @@
+import React from "react";
 import DirectoriesTree from "./DirectoriesTree";
 import DirectoriesControls from "./DirectoriesControls";
 

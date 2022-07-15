@@ -33,7 +33,7 @@ const AddButton = () => {
     }
   };
 
-  const addNoteHandler = async (enteredValues: InputNoteValues) => {
+  const addNoteHandler = (enteredValues: InputNoteValues) => {
     const enteredTitle = enteredValues.title;
     const enteredDescription = enteredValues.description;
     const enteredTags = enteredValues.tags;

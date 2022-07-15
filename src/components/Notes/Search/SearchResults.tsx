@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import NotesList from "../NotesList";
 import PageHeader from "../../UI/Layout/PageHeader";
+import RequireAuth from "../../Auth/RequireAuth";
 
 import { NoteType } from "../../../types/NotesTypes";
 
@@ -22,10 +23,6 @@ const SearchResults = () => {
   const mode = searchParams?.slice(0, searchParams.indexOf("%"));
   const values = searchParams?.slice(searchParams.indexOf("%") + 1);
 
-  let notesList = [
-    ...(useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[]),
-  ];
-
   // const searchValues = [
   //   ...(useSelector(
   //     (state: { searchSlice: { searchValues: string[] } }) => state.searchSlice.searchValues
@@ -35,11 +32,10 @@ const SearchResults = () => {
   //   (state: { searchSlice: { advancedSearchMode: boolean } }) => state.searchSlice.advancedSearchMode
   // ) as boolean;
 
+  let notesList = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[];
+
   const searchModeAdvanced = mode === "advanced" ? true : false;
   const searchValues = values?.split(",") || [];
-  console.log(searchValues);
-  console.log(notesList);
-  console.log(searchNotesResult);
 
   for (let searchValue of searchValues) {
     searchNotesResult = [
@@ -61,8 +57,10 @@ const SearchResults = () => {
 
   return (
     <Fragment>
-      <PageHeader header="Search results" />
-      <NotesList notes={searchNotesResult} />
+      <RequireAuth>
+        <PageHeader header="Search results" />
+        <NotesList notes={searchNotesResult} />
+      </RequireAuth>
     </Fragment>
   );
 };

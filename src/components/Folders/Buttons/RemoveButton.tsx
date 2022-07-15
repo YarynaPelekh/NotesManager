@@ -45,11 +45,11 @@ const RemoveButton = () => {
     }
   };
 
-  const removeItem = async (itemId: string) => {
+  const removeItem = (itemId: string) => {
     dispatch(directoriesActions.removeDirectoryRequest(itemId));
   };
 
-  const recursiveRemove = async (currentId: string) => {
+  const recursiveRemove = (currentId: string) => {
     const arrChildren = directories.filter((item) => item.parentId === currentId) as DirectoryType[];
 
     arrChildren.length > 0 &&
@@ -57,10 +57,10 @@ const RemoveButton = () => {
         recursiveRemove(String(item.id));
       });
 
-    await removeItem(currentId);
+    removeItem(currentId);
   };
 
-  const removeDirectoryHandler = async () => {
+  const removeDirectoryHandler = () => {
     recursiveRemove(chosenDirectoryId);
 
     const path = "/";

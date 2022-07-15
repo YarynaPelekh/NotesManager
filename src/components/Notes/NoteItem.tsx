@@ -1,7 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
+
+import { useLocation } from "react-router-dom";
+
 import EasyEdit, { Types } from "react-easy-edit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 
 import ContainerDnD from "./ContainerDnD";
@@ -17,19 +20,23 @@ import classes from "../../styles/Module/NoteItem.module.css";
 import { NoteType } from "../../types/NotesTypes";
 
 const NoteItem = (props: { item: NoteType }) => {
-  let notificationText = "The note was renamed successfully";
-  let notificationType = NotificationTypes.alertLight;
-
-  const [isActive, setIsActive] = useState<boolean>(false);
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
+
+  const path = useLocation();
 
   const dispatch = useDispatch();
   const params = useParams();
+
+  const chosenNoteId = useSelector((state: { notesSlice: { chosenNoteId: number } }) => state.notesSlice.chosenNoteId);
+  const chosenNote = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes).filter(
+    (item: NoteType) => item.id === +chosenNoteId
+  )[0];
 
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: DnDTypes.noteItem,
       item: { noteId: props.item.id },
+      canDrag: path.pathname.includes("search") ? false : true,
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
@@ -43,39 +50,17 @@ const NoteItem = (props: { item: NoteType }) => {
     }
   }, [dispatch, params.noteId]);
 
-  const saveEdit = async (value) => {
+  const onValidateHandle = (value) => {
+    // const updatedNote = Object.assign({}, props.item, { title: value });
+    // dispatch(notesActions.editNoteRequest(updatedNote));
+    // return value === chosenNote.title;
+    return true;
+  };
+
+  const saveEdit = (value) => {
     const updatedNote = Object.assign({}, props.item, { title: value });
-
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/notices/" + String(props.item.id), {
-        method: "PUT",
-        body: JSON.stringify(updatedNote),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error("Something went wrong/ sending data to backend!");
-      }
-      dispatch(notesActions.updateNote(updatedNote));
-    };
-
-    try {
-      await fetchData().catch((error) => {
-        throw new Error(error.message);
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        notificationText = error.message;
-        notificationType = NotificationTypes.alertDanger;
-      }
-    }
-
-    dispatch(
-      appStateActions.setState({
-        showNotification: true,
-        notificationType: notificationType,
-        notificationMessage: notificationText,
-      })
-    );
+    dispatch(notesActions.editNoteRequest(updatedNote));
+    // console.log("saveEdit", chosenNote.title);
   };
 
   const modalOnCloseHandle = () => {
@@ -107,6 +92,8 @@ const NoteItem = (props: { item: NoteType }) => {
     </Fragment>
   );
 
+  console.log("render ", props.item.title);
+
   return (
     <li className={classes.li}>
       <ContainerDnD noteTo={props.item}>
@@ -119,22 +106,21 @@ const NoteItem = (props: { item: NoteType }) => {
         >
           <NavLink
             className={({ isActive }) => `${classes.note} ${isActive ? classes.chosen : null}`}
-            to={`/notes/${props.item.id}`}
+            to={path.pathname.includes("search") ? path.pathname + path.search : `/notes/${props.item.id}`}
             key={props.item.id}
-            onDoubleClick={noteClickHandle}
+            onClick={noteClickHandle}
           ></NavLink>
-          <div className={classes.easyEditClass}>
-            <EasyEdit
-              type={Types.TEXT}
-              onSave={saveEdit}
-              saveButtonLabel="Save"
-              cancelButtonLabel="Cancel"
-              attributes={{ name: "awesome-input", id: 1 }}
-              value={props.item.title}
-              saveButtonStyle={classes.saveButtonStyle}
-              cancelButtonStyle={classes.saveButtonStyle}
-            />
-          </div>
+          <EasyEdit
+            type={Types.TEXT}
+            onSave={saveEdit}
+            onValidate={onValidateHandle}
+            saveButtonLabel="Save"
+            cancelButtonLabel="Cancel"
+            attributes={{ name: "awesome-input", id: 1 }}
+            value={props.item.title}
+            saveButtonStyle={classes.saveButtonStyle}
+            cancelButtonStyle={classes.saveButtonStyle}
+          />
         </div>
       </ContainerDnD>
       {isModalShown && <Modal onClose={modalOnCloseHandle}>{detailsNoteElements}</Modal>}
