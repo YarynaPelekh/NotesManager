@@ -1,6 +1,7 @@
 import React from "react";
 
 import NoteItem from "./NoteItem";
+
 import { NoteType } from "../../types/NotesTypes";
 
 import { DndProvider } from "react-dnd";

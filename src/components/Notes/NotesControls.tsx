@@ -1,3 +1,4 @@
+import React from "react";
 import AddButton from "./NotesButtons/AddButton";
 import EditButton from "./NotesButtons/EditButton";
 import RemoveButton from "./NotesButtons/RemoveButton";

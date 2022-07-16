@@ -1,44 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 
 import { useNavigate } from "react-router-dom";
-
-import { searchActions } from "../../../store/search-slice";
 
 import { NoteType } from "../../../types/NotesTypes";
 
 import classes from "../../../styles/Module/SearchBar.module.css";
 
-let tags = [];
+let tagsSuggestions = [];
 
 const SearchBar = () => {
   const [isAdvancedSearch, setIsAdvancedSearch] = useState(false);
   const searchValueRef = useRef<HTMLInputElement>(null);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const notes = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes);
   let i = 0;
-  const tagsSuggestions = useSelector((state: { tagsSlice: { tags: string[] } }) => state.tagsSlice.tags).map(
-    (item) => {
-      return { id: i++, name: item };
-    }
-  );
-  let searchValues = [
-    ...(useSelector(
-      (state: { searchSlice: { searchValues: string[] } }) => state.searchSlice.searchValues
-    ) as string[]),
-  ];
-  const searchModeAdvanced = useSelector(
-    (state: { searchSlice: { advancedSearchMode: boolean } }) => state.searchSlice.advancedSearchMode
-  ) as boolean;
-
-  useEffect(() => {
-    setIsAdvancedSearch(searchModeAdvanced);
-  }, [searchModeAdvanced]);
-
+  const tags = useSelector((state: { tagsSlice: { tags: string[] } }) => state.tagsSlice.tags).map((item) => {
+    return { id: i++, name: item };
+  });
   i = 0;
   let searchAutocompleteSuggestions = notes
     .map((item) => {
@@ -49,7 +31,7 @@ const SearchBar = () => {
       return { id: i++, name: item };
     });
 
-  if (searchModeAdvanced) {
+  if (isAdvancedSearch) {
     searchAutocompleteSuggestions = [
       ...searchAutocompleteSuggestions,
       ...notes
@@ -61,31 +43,29 @@ const SearchBar = () => {
           return { id: i++, name: item };
         }),
     ];
-    searchAutocompleteSuggestions = [...searchAutocompleteSuggestions, ...tagsSuggestions];
+    searchAutocompleteSuggestions = [...searchAutocompleteSuggestions, ...tags];
   }
 
   const onAdditionTag = (tag) => {
-    tags.push(tag);
-    searchValues = tags.map((item) => {
-      return item.name;
-    });
+    tagsSuggestions.push(tag);
   };
 
   const onDeleteTag = (i) => {
-    tags.splice(i, 1);
-    searchValues = tags.map((item) => {
-      return item.name;
-    });
+    tagsSuggestions.splice(i, 1);
   };
 
   const searchButtonClick = () => {
-    dispatch(searchActions.storeSearchValues(searchValues));
-    const queryParam = "mode=" + (isAdvancedSearch ? "advanced" : "simple") + "%" + searchValues;
-    navigate("/notes/search?" + queryParam);
+    const searchValues = tagsSuggestions.map((item) => {
+      return item.name;
+    });
+
+    // const queryParam = "mode=" + (isAdvancedSearch ? "advanced" : "simple") + "%" + searchValues;
+    // /search/:type/:term
+    const queryParam = (isAdvancedSearch ? "advanced" : "simple") + "/:" + searchValues;
+    navigate("/search/:" + queryParam);
   };
 
   const searchModeHandle = () => {
-    dispatch(searchActions.setAdvancedSearchMode(!isAdvancedSearch));
     setIsAdvancedSearch(!isAdvancedSearch);
   };
 
@@ -98,7 +78,7 @@ const SearchBar = () => {
         allowNew={true}
         addOnBlur={true}
         ref={searchValueRef}
-        tags={tags}
+        tags={tagsSuggestions}
         suggestions={searchAutocompleteSuggestions}
         onDelete={onDeleteTag}
         onAddition={onAdditionTag}
@@ -111,7 +91,8 @@ const SearchBar = () => {
         checked={isAdvancedSearch}
         onChange={searchModeHandle}
       />
-      <label htmlFor="searchMode">advanced</label>
+      {/* <label htmlFor="searchMode">advanced</label> */}
+      <span>advanced</span>
       <button onClick={searchButtonClick}>Search</button>
     </div>
   );
