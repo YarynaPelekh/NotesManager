@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 
 import { notesActions } from "../../store/notes-slice";
-
-import { appStateActions } from "../../store/app-state-slice";
-import { NotificationTypes } from "../../types/NotificationTypes";
 
 import { DnDTypes } from "../../types/DnDTypes";
 import { NoteType } from "../../types/NotesTypes";

@@ -1,34 +1,37 @@
-.li {
+.notecard {
   font-size: 16px;
-  height: auto;
+  height: 80px;
+  width: 60px;
   text-align: center;
   margin: 10px;
-  /* margin-bottom: 10px; */
+  padding: 10px;
   list-style: none;
-  /* border: 1px solid #ddd; */
-}
-
-.note {
-  display: block;
-  padding-top: 34px;
-  position: relative;
-  height: 50px;
+  border: 1px solid #eee;
 }
 
 .saveButtonStyle {
   font-size: 12px;
 }
 
+.note {
+  display: block;
+  padding-top: 44px;
+  position: relative;
+  height: 44px;
+  width: 40px;
+  /* border: 1px solid #eee; */
+}
+
 .note::before {
   content: "";
   background: url("../../icons/note.svg");
-  background-size: 50px 50px;
-  background-repeat: no-repeat;
   position: absolute;
-  width: 50px;
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
   height: 50px;
+  width: 42px;
   margin-left: -25px;
-  margin-top: -40px;
+  margin-top: -46px;
 }
 
 .chosen {
@@ -37,15 +40,16 @@
 }
 
 .chosen::before {
+  box-sizing: border-box;
   content: "";
   background: url("../../icons/noteOpen.svg");
-  background-size: 50px 50px;
-  background-repeat: no-repeat;
   position: absolute;
-  width: 50px;
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
   height: 50px;
+  width: 42px;
   margin-left: -25px;
-  margin-top: -40px;
+  margin-top: -46px;
 }
 
 .title {

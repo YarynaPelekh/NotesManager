@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import NotesList from "./NotesList";
-import NoteDetails from "./NoteDetails";
 import NotesControls from "./NotesControls";
 import SearchBar from "./Search/SearchBar";
-
-import { notesActions } from "../../store/notes-slice";
 
 import { NoteType } from "../../types/NotesTypes";
 
 import classes from "../../styles/Module/Notes.module.css";
 
 const Notes = () => {
-  const dispatch = useDispatch();
-
   const chosenDirectoryId = useSelector(
     (state: { directoriesSlice: { chosenDirectoryId: string } }) => state.directoriesSlice.chosenDirectoryId
   );
   let notesList = [
     ...(useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[]),
   ];
-
-  // useEffect(() => {
-  //   dispatch(notesActions.loadNotesRequest());
-  // }, [dispatch]);
 
   notesList = notesList
     .sort((a, b) => {

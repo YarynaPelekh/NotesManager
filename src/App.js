@@ -16,6 +16,7 @@ import { notesActions } from "./store/notes-slice";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
+import RequireAuth from "./components/Auth/RequireAuth";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,9 +33,47 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="login" element={<LoginForm />} />
-        <Route path="directories/:directoryId" element={<MainPage />} />
-        <Route path="notes/:noteId" element={<MainPage />} />
-        <Route path="notes/search/*" element={<SearchResults />} />
+        <Route
+          path="directories/:directoryId"
+          element={
+            <RequireAuth>
+              <MainPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="notes/:noteId"
+          element={
+            <RequireAuth>
+              <MainPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="notes/:noteId"
+          element={
+            <RequireAuth>
+              <NoteDetails />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/search/:mode/:values"
+          element={
+            <RequireAuth>
+              <SearchResults />
+            </RequireAuth>
+          }
+        />
+        {/* <Route
+          path="search/*"
+          element={
+            <RequireAuth>
+              <SearchResults />
+            </RequireAuth>
+          }
+        /> */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

@@ -1,25 +1,22 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-
-import { useLocation } from "react-router-dom";
-
-import EasyEdit, { Types } from "react-easy-edit";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import EasyEdit, { Types } from "react-easy-edit";
 
 import ContainerDnD from "./ContainerDnD";
 import Modal from "../UI/Modal";
 
 import { notesActions } from "../../store/notes-slice";
-import { appStateActions } from "../../store/app-state-slice";
 
-import { NotificationTypes } from "../../types/NotificationTypes";
 import { DnDTypes } from "../../types/DnDTypes";
-
-import classes from "../../styles/Module/NoteItem.module.css";
 import { NoteType } from "../../types/NotesTypes";
 
+import classes from "../../styles/Module/NoteItem.module.css";
+
 const NoteItem = (props: { item: NoteType }) => {
+  const [isActiveLi, setIsActiveLi] = useState<boolean>(false);
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
 
   const path = useLocation();
@@ -45,10 +42,8 @@ const NoteItem = (props: { item: NoteType }) => {
   );
 
   useEffect(() => {
-    if (params.noteId) {
-      dispatch(notesActions.setChosenNoteId(params.noteId));
-    }
-  }, [dispatch, params.noteId]);
+    setIsActiveLi(props.item.id === chosenNoteId);
+  }, [chosenNoteId]);
 
   const onValidateHandle = (value) => {
     // const updatedNote = Object.assign({}, props.item, { title: value });
@@ -60,15 +55,18 @@ const NoteItem = (props: { item: NoteType }) => {
   const saveEdit = (value) => {
     const updatedNote = Object.assign({}, props.item, { title: value });
     dispatch(notesActions.editNoteRequest(updatedNote));
-    // console.log("saveEdit", chosenNote.title);
   };
 
   const modalOnCloseHandle = () => {
     setIsModalShown(false);
   };
 
-  const noteClickHandle = () => {
+  const noteIconClickHandle = () => {
     setIsModalShown(true);
+  };
+
+  const noteCardClickHandle = () => {
+    dispatch(notesActions.setChosenNoteId(props.item.id));
   };
 
   const detailsNoteElements = (
@@ -92,37 +90,36 @@ const NoteItem = (props: { item: NoteType }) => {
     </Fragment>
   );
 
-  console.log("render ", props.item.title);
-
   return (
-    <li className={classes.li}>
-      <ContainerDnD noteTo={props.item}>
-        <div
-          ref={drag}
-          style={{
-            opacity: isDragging ? 0.5 : 1,
-            backgroundColor: isDragging ? "#ddd" : "#fff",
-          }}
-        >
-          <NavLink
-            className={({ isActive }) => `${classes.note} ${isActive ? classes.chosen : null}`}
-            to={path.pathname.includes("search") ? path.pathname + path.search : `/notes/${props.item.id}`}
-            key={props.item.id}
-            onClick={noteClickHandle}
-          ></NavLink>
-          <EasyEdit
-            type={Types.TEXT}
-            onSave={saveEdit}
-            onValidate={onValidateHandle}
-            saveButtonLabel="Save"
-            cancelButtonLabel="Cancel"
-            attributes={{ name: "awesome-input", id: 1 }}
-            value={props.item.title}
-            saveButtonStyle={classes.saveButtonStyle}
-            cancelButtonStyle={classes.saveButtonStyle}
-          />
-        </div>
-      </ContainerDnD>
+    <li>
+      <div className={classes.notecard} onClick={noteCardClickHandle}>
+        <ContainerDnD noteTo={props.item}>
+          <div
+            ref={drag}
+            style={{
+              opacity: isDragging ? 0.5 : 1,
+              backgroundColor: isDragging ? "#ddd" : "#fff",
+            }}
+          >
+            <div
+              className={`${classes.note} ${isActiveLi ? classes.chosen : null}`}
+              key={props.item.id}
+              onClick={noteIconClickHandle}
+            ></div>
+            <EasyEdit
+              type={Types.TEXT}
+              onSave={saveEdit}
+              onValidate={onValidateHandle}
+              saveButtonLabel="Save"
+              cancelButtonLabel="Cancel"
+              attributes={{ name: "awesome-input", id: 1 }}
+              value={props.item.title}
+              saveButtonStyle={classes.saveButtonStyle}
+              cancelButtonStyle={classes.saveButtonStyle}
+            />
+          </div>
+        </ContainerDnD>
+      </div>
       {isModalShown && <Modal onClose={modalOnCloseHandle}>{detailsNoteElements}</Modal>}
     </li>
   );

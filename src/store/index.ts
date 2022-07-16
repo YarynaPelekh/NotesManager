@@ -5,7 +5,6 @@ import appStateSlice from "./app-state-slice";
 import directoriesSlice from "./directories-slice";
 import notesSlice from "./notes-slice";
 import tagsSlice from "./tags-slice";
-import searchSlice from "./search-slice";
 import sagaDirectories from "./saga-directories";
 import sagaNotes from "./saga-notes";
 
@@ -16,7 +15,6 @@ const store = configureStore({
     directoriesSlice: directoriesSlice.reducer,
     notesSlice: notesSlice.reducer,
     tagsSlice: tagsSlice.reducer,
-    searchSlice: searchSlice.reducer,
   },
   middleware: [saga],
 });
