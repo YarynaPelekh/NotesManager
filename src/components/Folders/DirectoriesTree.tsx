@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import DirectoryItem from "./DirectoryItem";
+import DirectoryItemTest from "./DIrectoryItemTest";
 
 import { directoriesActions } from "../../store/directories-slice";
 
@@ -35,16 +36,17 @@ const DirectoriesTree = () => {
     const arrayChildren = directoriesData.filter((item) => item.parentId === rootId) as DirectoryType[];
 
     return arrayChildren.map((item) => (
-      <DirectoryItem item={item} key={Math.random()}>
+      <div key={item.id}>
+        <DirectoryItem item={item} key={item.id} />
         <ul className={classes.ul}>{renderChildren(String(item.id))}</ul>
-      </DirectoryItem>
+      </div>
     ));
   };
 
   return (
     <div id="tree" className={classes.tree}>
       <p> Directories Tree</p>
-      <div>{renderChildren(rootId)}</div>
+      <ul>{renderChildren(rootId)}</ul>
     </div>
   );
 };
