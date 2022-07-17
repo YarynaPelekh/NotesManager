@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import Modal from "../../UI/Modal";
+import Button from "../../UI/Button";
 
 import { appStateActions } from "../../../store/app-state-slice";
 import { directoriesActions } from "../../../store/directories-slice";
@@ -12,7 +13,7 @@ import { NotificationTypes } from "../../../types/NotificationTypes";
 
 import { DirectoryType } from "../../../types/DirectoryTypes";
 
-import classes from "../../../styles/Module/AddButton.module.css";
+import classesModal from "../../../styles/Module/Modal.module.css";
 
 const RemoveButton = () => {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
@@ -74,9 +75,9 @@ const RemoveButton = () => {
 
   const removeDirectoryElements = (
     <Fragment>
-      <p className={classes.title}>Are you sure to remove directory?</p>
+      <p className={classesModal.title}>Are you sure to remove directory?</p>
 
-      <div className={classes.controlsContainer}>
+      <div className={classesModal.controlsContainer}>
         <button onClick={removeDirectoryHandler}>OK</button>
         <button onClick={modalOnCloseHandle}>Cancel</button>
       </div>
@@ -85,7 +86,7 @@ const RemoveButton = () => {
 
   return (
     <div>
-      <button onClick={removeButtonHandler}>REMOVE</button>
+      <Button title="REMOVE" onClickButton={removeButtonHandler} tooltip="Remove directory" />
       {isModalShown && <Modal onClose={modalOnCloseHandle}>{removeDirectoryElements}</Modal>}
     </div>
   );

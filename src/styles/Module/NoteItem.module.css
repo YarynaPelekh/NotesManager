@@ -1,25 +1,21 @@
 .notecard {
   font-size: 16px;
-  height: 80px;
-  width: 60px;
+  height: 90px;
+  width: 70px;
   text-align: center;
   margin: 10px;
   padding: 10px;
   list-style: none;
-  border: 1px solid #eee;
-}
-
-.saveButtonStyle {
-  font-size: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #eee;
 }
 
 .note {
   display: block;
-  padding-top: 44px;
   position: relative;
-  height: 44px;
-  width: 40px;
-  /* border: 1px solid #eee; */
+  padding-top: 50px;
+  background-color: #eee;
 }
 
 .note::before {
@@ -52,33 +48,6 @@
   margin-top: -46px;
 }
 
-.title {
-  font-size: 18px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.input {
-  display: flex;
-  width: 60%;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 20px;
-  margin: 0 20px;
-}
-
-.input p {
-  font-style: italic;
-}
-
-.controlsContainer {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.controlsContainer button {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 80px;
+.inLineEditButtonStyle {
+  font-size: 12px;
 }

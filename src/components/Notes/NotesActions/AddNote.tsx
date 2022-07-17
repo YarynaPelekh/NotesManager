@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Modal from "../../UI/Modal";
+import Button from "../../UI/Button";
 import AddEditForm from "./AddEditForm";
 
 import { appStateActions } from "../../../store/app-state-slice";
@@ -10,7 +11,7 @@ import { notesActions } from "../../../store/notes-slice";
 import { NotificationTypes } from "../../../types/NotificationTypes";
 import { InputNoteValues } from "../../../types/NotesTypes";
 
-const AddButton = () => {
+const AddNote = () => {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -65,9 +66,9 @@ const AddButton = () => {
 
   return (
     <div>
-      <button onClick={addButtonHandler}>ADD</button>
+      <Button title="ADD" onClickButton={addButtonHandler} tooltip="Add note" />
       {isModalShown && <Modal onClose={modalOnCloseHandle}>{addNoteElements}</Modal>}
     </div>
   );
 };
-export default AddButton;
+export default AddNote;

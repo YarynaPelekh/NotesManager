@@ -66,14 +66,6 @@ function App() {
             </RequireAuth>
           }
         />
-        {/* <Route
-          path="search/*"
-          element={
-            <RequireAuth>
-              <SearchResults />
-            </RequireAuth>
-          }
-        /> */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

@@ -2,6 +2,7 @@ import React, { Fragment, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Modal from "../../UI/Modal";
+import Button from "../../UI/Button";
 import AddEditForm from "./AddEditForm";
 
 import { appStateActions } from "../../../store/app-state-slice";
@@ -11,7 +12,7 @@ import { tagsActions } from "../../../store/tags-slice";
 import { NotificationTypes } from "../../../types/NotificationTypes";
 import { NoteType, InputNoteValues } from "../../../types/NotesTypes";
 
-const EditButton = () => {
+const EditNote = () => {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const dispatch = useDispatch();
 
@@ -68,10 +69,10 @@ const EditButton = () => {
 
   return (
     <div>
-      <button onClick={editButtonHandler}>EDIT</button>
+      <Button title="EDIT" onClickButton={editButtonHandler} tooltip="Edit note" />
       {isModalShown && <Modal onClose={modalOnCloseHandle}>{editNoteElements}</Modal>}
     </div>
   );
 };
 
-export default EditButton;
+export default EditNote;

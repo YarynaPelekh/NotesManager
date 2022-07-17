@@ -7,6 +7,7 @@ import EasyEdit, { Types } from "react-easy-edit";
 
 import ContainerDnD from "./ContainerDnD";
 import Modal from "../UI/Modal";
+import ToolTip from "../UI/ToolTip";
 
 import { notesActions } from "../../store/notes-slice";
 
@@ -14,6 +15,7 @@ import { DnDTypes } from "../../types/DnDTypes";
 import { NoteType } from "../../types/NotesTypes";
 
 import classes from "../../styles/Module/NoteItem.module.css";
+import classesModal from "../../styles/Module/Modal.module.css";
 
 const NoteItem = (props: { item: NoteType }) => {
   const [isActiveLi, setIsActiveLi] = useState<boolean>(false);
@@ -71,20 +73,20 @@ const NoteItem = (props: { item: NoteType }) => {
 
   const detailsNoteElements = (
     <Fragment>
-      <p className={classes.title}>Note Details</p>
-      <div className={classes.input}>
+      <p className={classesModal.title}>Note Details</p>
+      <div className={classesModal.input}>
         <label htmlFor="title">Title:</label>
         <p id="title">{props.item.title}</p>
       </div>
-      <div className={classes.input}>
+      <div className={classesModal.input}>
         <label htmlFor="description">Description:</label>
         <p id="description">{props.item.description}</p>
       </div>
-      <div className={classes.input}>
+      <div className={classesModal.input}>
         <label htmlFor="tags">Tags:</label>
         <p id="tags">{props.item.tags}</p>
       </div>
-      <div className={classes.controlsContainer}>
+      <div className={classesModal.controlsContainer}>
         <button onClick={modalOnCloseHandle}>Close</button>
       </div>
     </Fragment>
@@ -92,34 +94,39 @@ const NoteItem = (props: { item: NoteType }) => {
 
   return (
     <li>
-      <div className={classes.notecard} onClick={noteCardClickHandle}>
-        <ContainerDnD noteTo={props.item}>
-          <div
-            ref={drag}
-            style={{
-              opacity: isDragging ? 0.5 : 1,
-              backgroundColor: isDragging ? "#ddd" : "#fff",
-            }}
-          >
+      <ToolTip>
+        <div className={classes.notecard} onClick={noteCardClickHandle} data-tip="Choose note">
+          <ContainerDnD noteTo={props.item}>
             <div
-              className={`${classes.note} ${isActiveLi ? classes.chosen : null}`}
-              key={props.item.id}
-              onClick={noteIconClickHandle}
-            ></div>
-            <EasyEdit
-              type={Types.TEXT}
-              onSave={saveEdit}
-              onValidate={onValidateHandle}
-              saveButtonLabel="Save"
-              cancelButtonLabel="Cancel"
-              attributes={{ name: "awesome-input", id: 1 }}
-              value={props.item.title}
-              saveButtonStyle={classes.saveButtonStyle}
-              cancelButtonStyle={classes.saveButtonStyle}
-            />
-          </div>
-        </ContainerDnD>
-      </div>
+              ref={drag}
+              style={{
+                opacity: isDragging ? 0.5 : 1,
+                backgroundColor: isDragging ? "#ddd" : "#eee",
+              }}
+            >
+              <div
+                className={`${classes.note} ${isActiveLi ? classes.chosen : null}`}
+                key={props.item.id}
+                onClick={noteIconClickHandle}
+                data-tip="View details"
+              ></div>
+              <div data-tip="In-line edit title">
+                <EasyEdit
+                  type={Types.TEXT}
+                  onSave={saveEdit}
+                  onValidate={onValidateHandle}
+                  saveButtonLabel="Save"
+                  cancelButtonLabel="Cancel"
+                  attributes={{ name: "awesome-input", id: 1 }}
+                  value={props.item.title}
+                  saveButtonStyle={classes.inLineEditButtonStyle}
+                  cancelButtonStyle={classes.inLineEditButtonStyle}
+                />
+              </div>
+            </div>
+          </ContainerDnD>
+        </div>
+      </ToolTip>
       {isModalShown && <Modal onClose={modalOnCloseHandle}>{detailsNoteElements}</Modal>}
     </li>
   );
