@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Modal from "../../UI/Modal";
+import Button from "../../UI/Button";
 
 import { appStateActions } from "../../../store/app-state-slice";
 import { notesActions } from "../../../store/notes-slice";
@@ -12,9 +13,9 @@ import { NotificationTypes } from "../../../types/NotificationTypes";
 
 import { NoteType } from "../../../types/NotesTypes";
 
-import classes from "../../../styles/Module/NotesButton.module.css";
+import classesModal from "../../../styles/Module/Modal.module.css";
 
-const RemoveButton = () => {
+const RemoveNote = () => {
   let notificationText = "";
   let notificationType = NotificationTypes.alertSecondary;
 
@@ -60,9 +61,9 @@ const RemoveButton = () => {
 
   const removeNoteElements = (
     <Fragment>
-      <p className={classes.title}>Are you sure to remove note?</p>
+      <p className={classesModal.title}>Are you sure to remove note?</p>
 
-      <div className={classes.controlsContainer}>
+      <div className={classesModal.controlsContainer}>
         <button onClick={removeNoteHandler}>OK</button>
         <button onClick={modalOnCloseHandle}>Cancel</button>
       </div>
@@ -71,9 +72,9 @@ const RemoveButton = () => {
 
   return (
     <div>
-      <button onClick={removeButtonHandler}>REMOVE</button>
+      <Button title="REMOVE" onClickButton={removeButtonHandler} tooltip="Remove note" />
       {isModalShown && <Modal onClose={modalOnCloseHandle}>{removeNoteElements}</Modal>}
     </div>
   );
 };
-export default RemoveButton;
+export default RemoveNote;

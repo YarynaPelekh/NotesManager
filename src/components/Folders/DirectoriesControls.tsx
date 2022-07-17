@@ -1,7 +1,7 @@
 import React from "react";
 
-import AddButton from "./Buttons/AddButton";
-import RemoveButton from "./Buttons/RemoveButton";
+import AddButton from "./Buttons/AddDirectory";
+import RemoveButton from "./Buttons/RemoveDirectory";
 
 import classes from "../../styles/Module/DirectoriesControls.module.css";
 

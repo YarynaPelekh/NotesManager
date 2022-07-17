@@ -3,26 +3,26 @@
   height: auto;
   text-align: left;
   margin-top: 10px;
-  /* margin-left: 20px; */
+  margin-left: 35px;
   margin-bottom: 10px;
   list-style: none;
 }
 
 .directory {
   display: block;
-  padding-left: 20px;
+  padding-left: 00px;
   position: relative;
 }
 
 .directory::before {
   content: "";
   background: url("../../icons/directory.svg");
-  background-size: 20px 20px;
+  background-size: 30px 30px;
   position: absolute;
-  width: 20px;
-  height: 20px;
-  margin-left: -20px;
-  margin-top: 2px;
+  width: 30px;
+  height: 30px;
+  margin-left: -35px;
+  margin-top: -4px;
 }
 
 .chosen {
@@ -33,10 +33,10 @@
 .chosen::before {
   content: "";
   background: url("../../icons/directoryOpen.svg");
-  background-size: 20px 20px;
+  background-size: 30px 30px;
   position: absolute;
-  width: 20px;
-  height: 20px;
-  margin-left: -20px;
-  margin-top: 2px;
+  width: 30px;
+  height: 30px;
+  margin-left: -35px;
+  margin-top: -4px;
 }

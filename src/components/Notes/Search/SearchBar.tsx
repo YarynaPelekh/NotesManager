@@ -1,8 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ReactTags from "react-tag-autocomplete";
 
-import { useNavigate } from "react-router-dom";
+import ToolTip from "../../UI/ToolTip";
+
+import Button from "../../UI/Button";
 
 import { NoteType } from "../../../types/NotesTypes";
 
@@ -70,31 +73,36 @@ const SearchBar = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <ReactTags
-        placeholderText="Input text for search"
-        autoresize={false}
-        minQueryLength={1}
-        allowNew={true}
-        addOnBlur={true}
-        ref={searchValueRef}
-        tags={tagsSuggestions}
-        suggestions={searchAutocompleteSuggestions}
-        onDelete={onDeleteTag}
-        onAddition={onAdditionTag}
-      />
-      <input
-        type="checkbox"
-        id="searchMode"
-        name="searchMode"
-        value="Advanced"
-        checked={isAdvancedSearch}
-        onChange={searchModeHandle}
-      />
-      {/* <label htmlFor="searchMode">advanced</label> */}
-      <span>advanced</span>
-      <button onClick={searchButtonClick}>Search</button>
-    </div>
+    <ToolTip>
+      <div className={classes.container}>
+        <div data-tip="Enter values for search">
+          <ReactTags
+            placeholderText="Input text for search"
+            autoresize={false}
+            minQueryLength={1}
+            allowNew={true}
+            addOnBlur={true}
+            ref={searchValueRef}
+            tags={tagsSuggestions}
+            suggestions={searchAutocompleteSuggestions}
+            onDelete={onDeleteTag}
+            onAddition={onAdditionTag}
+          />
+        </div>
+        <input
+          type="checkbox"
+          id="searchMode"
+          name="searchMode"
+          value="Advanced"
+          checked={isAdvancedSearch}
+          onChange={searchModeHandle}
+          data-tip="Change search mode"
+        />
+        {/* <label htmlFor="searchMode">advanced</label> */}
+        <span>advanced</span>
+        <Button title="Search" onClickButton={searchButtonClick} tooltip="Search notes" />
+      </div>
+    </ToolTip>
   );
 };
 

@@ -1,16 +1,17 @@
 import React from "react";
-import AddButton from "./NotesButtons/AddButton";
-import EditButton from "./NotesButtons/EditButton";
-import RemoveButton from "./NotesButtons/RemoveButton";
+
+import AddNote from "./NotesActions/AddNote";
+import EditNote from "./NotesActions/EditNote";
+import RemoveNote from "./NotesActions/RemoveNote";
 
 import classes from "../../styles/Module/NotesControls.module.css";
 
 const NotesControls = () => {
   return (
     <div className={classes.controlsContainer}>
-      <AddButton />
-      <EditButton />
-      <RemoveButton />
+      <AddNote />
+      <EditNote />
+      <RemoveNote />
     </div>
   );
 };

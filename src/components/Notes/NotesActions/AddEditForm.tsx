@@ -1,10 +1,12 @@
-import { Fragment, useRef } from "react";
+import React, { Fragment, useRef } from "react";
 import { useSelector } from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 
+import ToolTip from "../../UI/ToolTip";
+
 import { InputNoteValues } from "../../../types/NotesTypes";
 
-import classes from "../../../styles/Module/NotesButton.module.css";
+import classesModal from "../../../styles/Module/Modal.module.css";
 
 const AddEditForm = (props: {
   formTitle: string;
@@ -69,37 +71,48 @@ const AddEditForm = (props: {
   };
 
   return (
-    <Fragment>
-      <p className={classes.title}>{props.formTitle}</p>
-      <div className={classes.input}>
-        <label htmlFor="title">Title</label>
-        <input id="title" ref={titleInputRef} defaultValue={props.initialValues.title}></input>
-      </div>
-      <div className={classes.input}>
-        <label htmlFor="description">Description</label>
-        <textarea id="description" ref={descriptionInputRef} defaultValue={props.initialValues.description}></textarea>
-      </div>
-      <div className={classes.input}>
-        <label htmlFor="tags">Tags</label>
-        <ReactTags
-          style={{ width: "auto" }}
-          autoresize={false}
-          minQueryLength={1}
-          allowNew={true}
-          addOnBlur={true}
-          ref={reactTags}
-          tags={tags}
-          suggestions={tagsSuggestions}
-          onDelete={onDeleteTag}
-          onAddition={onAdditionTag}
-        />
-      </div>
-
-      <div className={classes.controlsContainer}>
-        <button onClick={okHandler}>OK</button>
-        <button onClick={props.modalOnCloseHandle}>Cancel</button>
-      </div>
-    </Fragment>
+    <ToolTip>
+      <Fragment>
+        <p className={classesModal.title}>{props.formTitle}</p>
+        <div className={`${classesModal.input} ${classesModal.inputColumn} `}>
+          <label htmlFor="title">Title</label>
+          <input
+            id="title"
+            ref={titleInputRef}
+            defaultValue={props.initialValues.title}
+            data-tip="Enter note title"
+          ></input>
+        </div>
+        <div className={`${classesModal.input} ${classesModal.inputColumn} `}>
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            ref={descriptionInputRef}
+            defaultValue={props.initialValues.description}
+            data-tip="Enter note description"
+          ></textarea>
+        </div>
+        <div className={`${classesModal.input} ${classesModal.inputColumn} `} data-tip="Enter note tags">
+          <label htmlFor="tags">Tags</label>
+          <ReactTags
+            style={{ width: "auto" }}
+            autoresize={false}
+            minQueryLength={1}
+            allowNew={true}
+            addOnBlur={true}
+            ref={reactTags}
+            tags={tags}
+            suggestions={tagsSuggestions}
+            onDelete={onDeleteTag}
+            onAddition={onAdditionTag}
+          />
+        </div>
+        <div className={classesModal.controlsContainer}>
+          <button onClick={okHandler}>OK</button>
+          <button onClick={props.modalOnCloseHandle}>Cancel</button>
+        </div>
+      </Fragment>
+    </ToolTip>
   );
 };
 

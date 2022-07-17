@@ -3,12 +3,14 @@ import { Fragment, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Modal from "../../UI/Modal";
+import Button from "../../UI/Button";
+import ToolTip from "../../UI/ToolTip";
 
 import { directoriesActions } from "../../../store/directories-slice";
 
-import classes from "../../../styles/Module/AddButton.module.css";
+import classesModal from "../../../styles/Module/Modal.module.css";
 
-const AddButton = () => {
+const AddDirectory = () => {
   let enteredName = "";
 
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
@@ -23,7 +25,7 @@ const AddButton = () => {
     setIsModalShown(true);
   };
 
-  const addDirectoryHandler =  () => {
+  const addDirectoryHandler = () => {
     enteredName = nameInputRef.current?.value || "";
 
     if (enteredName.trim().length === 0) {
@@ -43,24 +45,27 @@ const AddButton = () => {
   };
 
   const addDirectoryElements = (
-    <Fragment>
-      <p className={classes.title}>Input a new directory name</p>
-      <div className={classes.input}>
-        <label htmlFor="name">Name</label>
-        <input id="name" ref={nameInputRef}></input>
-      </div>
-      <div className={classes.controlsContainer}>
-        <button onClick={addDirectoryHandler}>OK</button>
-        <button onClick={modalOnCloseHandle}>Cancel</button>
-      </div>
-    </Fragment>
+    <ToolTip>
+      <Fragment>
+        <p className={classesModal.title}>Input a new directory name</p>
+        <div className={classesModal.input}>
+          <label htmlFor="name">Name</label>
+          <input id="name" ref={nameInputRef} data-tip="Enter directory name"></input>
+        </div>
+        <div className={classesModal.controlsContainer}>
+          <button onClick={addDirectoryHandler}>OK</button>
+          <button onClick={modalOnCloseHandle}>Cancel</button>
+        </div>
+      </Fragment>
+    </ToolTip>
   );
 
   return (
     <div>
-      <button onClick={addButtonHandler}>ADD</button>
+      <Button title="ADD" onClickButton={addButtonHandler} tooltip="Add directory" />
       {isModalShown && <Modal onClose={modalOnCloseHandle}>{addDirectoryElements}</Modal>}
     </div>
   );
 };
-export default AddButton;
+export default AddDirectory;
+//
