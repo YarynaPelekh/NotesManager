@@ -3,7 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import EasyEdit, { Types } from "react-easy-edit";
 import { useDispatch } from "react-redux";
 
-import { DirectoryType } from "../../types/DirectoryTypes";
+import { DirectoryType, PropsDirectoryItem } from "../../types/DirectoryTypes";
 
 import ChosenDirectory from "./ChosenDirectory";
 import ToolTip from "../UI/ToolTip";
@@ -13,6 +13,7 @@ import { directoriesActions } from "../../store/directories-slice";
 import classes from "../../styles/Module/DirectoryItem.module.css";
 
 const DirectoryItem = (props: { item: DirectoryType }) => {
+  // const DirectoryItem = (props: PropsDirectoryItem) => {
   const dispatch = useDispatch();
 
   const saveEdit = (value) => {

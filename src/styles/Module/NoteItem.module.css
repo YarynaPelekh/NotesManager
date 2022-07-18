@@ -20,7 +20,7 @@
 
 .note::before {
   content: "";
-  background: url("../../icons/note.svg");
+  background: url("../../asserts/img/icons/note.svg");
   position: absolute;
   background-repeat: no-repeat;
   background-size: 50px 50px;
@@ -38,7 +38,7 @@
 .chosen::before {
   box-sizing: border-box;
   content: "";
-  background: url("../../icons/noteOpen.svg");
+  background: url("../../asserts/img/icons/noteOpen.svg");
   position: absolute;
   background-repeat: no-repeat;
   background-size: 50px 50px;

@@ -20,17 +20,17 @@ const portalElement = document.getElementById("overlay") as HTMLElement;
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const appState = useSelector((state: { appStateSlice: AppStateType }) => state.appStateSlice);
+  const appState = useSelector((state: { appStateSlice: { notification: AppStateType } }) => state.appStateSlice);
 
   return (
     <RequireAuth>
       <div className={classes.main}>
         <Directories />
         <Notes />
-        {appState.showNotification &&
+        {appState.notification.showNotification &&
           ReactDOM.createPortal(
             <Notification
-              notification={appState}
+              notification={appState.notification}
               onClose={() => {
                 dispatch(appStateActions.resetState());
               }}
