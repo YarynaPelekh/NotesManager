@@ -16,7 +16,7 @@
 
 .directory::before {
   content: "";
-  background: url("../../icons/directory.svg");
+  background: url("../../asserts/img/icons/directory.svg");
   background-size: 30px 30px;
   position: absolute;
   width: 30px;
@@ -32,7 +32,7 @@
 
 .chosen::before {
   content: "";
-  background: url("../../icons/directoryOpen.svg");
+  background: url("../../asserts/img/icons/directoryOpen.svg");
   background-size: 30px 30px;
   position: absolute;
   width: 30px;

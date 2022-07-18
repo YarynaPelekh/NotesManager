@@ -1,21 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { AppStateType } from "../types/AppStateType";
+
 const appStateSlice = createSlice({
   name: "appStateSlice",
   initialState: {
-    showNotification: false,
-    notificationType: "",
-    notificationMessage: "",
+    notification: {
+      showNotification: false,
+      notificationType: "",
+      notificationMessage: "",
+    },
   },
   reducers: {
     setState(state, action) {
-      state = Object.assign(state, action.payload);
+      state = Object.assign(state.notification, action.payload);
     },
 
     resetState(state) {
-      state.showNotification = false;
-      state.notificationType = "";
-      state.notificationMessage = "";
+      state.notification.showNotification = false;
+      state.notification.notificationType = "";
+      state.notification.notificationMessage = "";
     },
   },
 });
