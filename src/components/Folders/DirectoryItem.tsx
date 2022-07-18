@@ -11,6 +11,7 @@ import ToolTip from "../UI/ToolTip";
 import { directoriesActions } from "../../store/directories-slice";
 
 import classes from "../../styles/Module/DirectoryItem.module.css";
+import classesModal from "../../styles/Module/Modal.module.css";
 
 const DirectoryItem = (props: { item: DirectoryType }) => {
   // const DirectoryItem = (props: PropsDirectoryItem) => {
@@ -20,6 +21,12 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
     const data = Object.assign({}, props.item, { name: value });
     dispatch(directoriesActions.updateDirectoryRequest(data));
   };
+
+  const inputValidate = (value) => {
+    return value.trim().length > 0 && value.trim().length <= 20;
+  };
+
+  const onSubmit = (data) => console.log(data);
 
   return (
     <li className={classes.li} key={props.item.id}>
@@ -33,14 +40,17 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
             to={`/directories/${props.item.id}`}
             key={props.item.id}
           />
+
           <div data-tip="In-line edit title">
             <EasyEdit
               type={Types.TEXT}
-              onSave={saveEdit}
+              onSave={onSubmit}
+              onValidate={inputValidate}
               // onCancel={}
               saveButtonLabel="Save"
               cancelButtonLabel="Cancel"
               attributes={{ name: "awesome-input", id: 1 }}
+              validationMessage="Directory name shouldn't be empty and more than 20 characters"
               value={props.item.name}
             />
             {/* <ChosenDirectory directoryId={props.item.id} /> */}

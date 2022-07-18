@@ -71,7 +71,7 @@ function* sagaUpdateDirectory(action: any) {
   let notificationType = NotificationTypes.alertLight;
   try {
     const response: Response = yield call(() =>
-      fetch("http://localhost:3000/directoriess/" + action.payload.id, {
+      fetch("http://localhost:3000/directories/" + action.payload.id, {
         method: "PUT",
         body: JSON.stringify({
           id: action.payload.id,

@@ -1,6 +1,7 @@
 import React from "react";
 import { Fragment, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 
 import Modal from "../../UI/Modal";
 import Button from "../../UI/Button";
@@ -11,6 +12,12 @@ import { directoriesActions } from "../../../store/directories-slice";
 import classesModal from "../../../styles/Module/Modal.module.css";
 
 const AddDirectory = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   let enteredName = "";
 
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
@@ -25,19 +32,17 @@ const AddDirectory = () => {
     setIsModalShown(true);
   };
 
-  const addDirectoryHandler = () => {
-    enteredName = nameInputRef.current?.value || "";
+  const onSubmit = (data) => {
+    addDirectoryHandler(data?.directoryName);
+  };
 
-    if (enteredName.trim().length === 0) {
-      alert("Please, enter a valid directory name!");
-    } else {
-      const data = JSON.stringify({
-        parentId: chosenDirectoryId || "1",
-        name: enteredName,
-      });
-      dispatch(directoriesActions.addDirectoryRequest(data));
-      setIsModalShown(false);
-    }
+  const addDirectoryHandler = (value) => {
+    const data = JSON.stringify({
+      parentId: chosenDirectoryId || "1",
+      name: value,
+    });
+    dispatch(directoriesActions.addDirectoryRequest(data));
+    setIsModalShown(false);
   };
 
   const modalOnCloseHandle = () => {
@@ -47,15 +52,30 @@ const AddDirectory = () => {
   const addDirectoryElements = (
     <ToolTip>
       <Fragment>
-        <p className={classesModal.title}>Input a new directory name</p>
-        <div className={classesModal.input}>
-          <label htmlFor="name">Name</label>
-          <input id="name" ref={nameInputRef} data-tip="Enter directory name"></input>
-        </div>
-        <div className={classesModal.controlsContainer}>
-          <button onClick={addDirectoryHandler}>OK</button>
-          <button onClick={modalOnCloseHandle}>Cancel</button>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <p className={classesModal.title}>Input a new directory name</p>
+          <div className={classesModal.input}>
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              data-tip="Enter directory name"
+              {...register("directoryName", { required: true, maxLength: 20 })}
+            />
+          </div>
+          {String(errors?.directoryName?.type) === "required" && (
+            <p className={classesModal.errorMessage}>Directory name shouldn't be empty</p>
+          )}
+          {String(errors?.directoryName?.type) === "maxLength" && (
+            <p className={classesModal.errorMessage}>Directory name should be less than 20 characters</p>
+          )}
+          <div className={classesModal.controlsContainer}>
+            <input type="submit" />
+            {/* <button type="submit" onClick={onSubmit}>
+              OK
+            </button> */}
+            <button onClick={modalOnCloseHandle}>Cancel</button>
+          </div>
+        </form>
       </Fragment>
     </ToolTip>
   );
