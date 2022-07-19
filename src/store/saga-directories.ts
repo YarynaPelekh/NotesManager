@@ -4,7 +4,6 @@ import { directoriesActions } from "./directories-slice";
 import { appStateActions } from "./app-state-slice";
 
 import { NotificationTypes } from "../types/NotificationTypes";
-import { ServerResponse } from "http";
 import { DirectoryType } from "../types/DirectoryTypes";
 
 function* sagaLoadData() {

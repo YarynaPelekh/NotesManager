@@ -11,7 +11,6 @@ const Notification = (props: { notification: AppStateType; onClose: () => void }
   return (
     <div
       className={`${classes.alert} alert ${props.notification.notificationType} alert-dismissible fade show`}
-      // style={{ animation: "slide-down 3000ms ease-out forwards" }}
       style={{ transition: "all 3s ease-in-out 2s" }}
       role="alert"
     >

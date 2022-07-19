@@ -18,13 +18,12 @@ import classes from "../../styles/Module/NoteItem.module.css";
 import classesModal from "../../styles/Module/Modal.module.css";
 
 const NoteItem = (props: { item: NoteType }) => {
-  const [isActiveLi, setIsActiveLi] = useState<boolean>(false);
+  const [isActiveLi, setIsActiveNote] = useState<boolean>(false);
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
-
-  const path = useLocation();
 
   const dispatch = useDispatch();
   const params = useParams();
+  const path = useLocation();
 
   const chosenNoteId = useSelector((state: { notesSlice: { chosenNoteId: number } }) => state.notesSlice.chosenNoteId);
   const chosenNote = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes).filter(
@@ -44,19 +43,16 @@ const NoteItem = (props: { item: NoteType }) => {
   );
 
   useEffect(() => {
-    setIsActiveLi(props.item.id === chosenNoteId);
+    setIsActiveNote(props.item.id === chosenNoteId);
   }, [chosenNoteId]);
-
-  const onValidateHandle = (value) => {
-    // const updatedNote = Object.assign({}, props.item, { title: value });
-    // dispatch(notesActions.editNoteRequest(updatedNote));
-    // return value === chosenNote.title;
-    return true;
-  };
 
   const saveEdit = (value) => {
     const updatedNote = Object.assign({}, props.item, { title: value });
     dispatch(notesActions.editNoteRequest(updatedNote));
+  };
+
+  const inputValidate = (value) => {
+    return value.trim().length > 0 && value.trim().length <= 20;
   };
 
   const modalOnCloseHandle = () => {
@@ -92,6 +88,11 @@ const NoteItem = (props: { item: NoteType }) => {
     </Fragment>
   );
 
+  const CustomDisplay = (props) => {
+    const val = props.value || "";
+    return <div style={{ overflow: "hidden" }}>{val}</div>;
+  };
+
   return (
     <li>
       <ToolTip>
@@ -114,13 +115,15 @@ const NoteItem = (props: { item: NoteType }) => {
                 <EasyEdit
                   type={Types.TEXT}
                   onSave={saveEdit}
-                  onValidate={onValidateHandle}
+                  onValidate={inputValidate}
                   saveButtonLabel="Save"
                   cancelButtonLabel="Cancel"
                   attributes={{ name: "awesome-input", id: 1 }}
                   value={props.item.title}
+                  validationMessage="Note title shouldn't be empty and more than 20 characters"
                   saveButtonStyle={classes.inLineEditButtonStyle}
                   cancelButtonStyle={classes.inLineEditButtonStyle}
+                  displayComponent={<CustomDisplay />}
                 />
               </div>
             </div>

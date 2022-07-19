@@ -1,5 +1,4 @@
-import React from "react";
-import { Fragment, useState, useRef } from "react";
+import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -18,10 +17,7 @@ const AddDirectory = () => {
     formState: { errors },
   } = useForm();
 
-  let enteredName = "";
-
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
-  const nameInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
   const chosenDirectoryId = useSelector(
@@ -69,11 +65,14 @@ const AddDirectory = () => {
             <p className={classesModal.errorMessage}>Directory name should be less than 20 characters</p>
           )}
           <div className={classesModal.controlsContainer}>
-            <input type="submit" />
             {/* <button type="submit" onClick={onSubmit}>
               OK
             </button> */}
-            <button onClick={modalOnCloseHandle}>Cancel</button>
+            {/* <button onClick={modalOnCloseHandle} className={classesModal.submit}>
+              Cancel
+            </button> */}
+            <input type="submit" value="OK" className={classesModal.submit} />
+            <input type="button" value="Cancel" className={classesModal.submit} onClick={modalOnCloseHandle} />
           </div>
         </form>
       </Fragment>
@@ -87,5 +86,6 @@ const AddDirectory = () => {
     </div>
   );
 };
+
 export default AddDirectory;
 //

@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 import { useForm, Controller } from "react-hook-form";
@@ -45,39 +45,6 @@ const AddEditForm = (props: {
     }
   );
 
-  // const titleInputRef = useRef<HTMLInputElement>(null);
-  // const descriptionInputRef = useRef<HTMLTextAreaElement>(null);
-  // const tagsInputRef = useRef<HTMLInputElement>(null);
-  // const reactTags = useRef(null);
-
-  // let enteredTitle = "";
-  // let enteredDescription = "";
-  // let enteredTags = "";
-
-  // const okHandler = () => {
-  //   enteredTitle = titleInputRef.current?.value || "";
-  //   enteredDescription = descriptionInputRef.current?.value || "";
-  //   enteredTags = tagsInputRef.current?.value || "";
-  //   enteredTags = tags
-  //     .map((item) => {
-  //       return item.name;
-  //     })
-  //     .join();
-  //   if (enteredTitle.trim().length === 0) {
-  //     alert("Please, enter a valid note title!");
-  //   } else if (enteredDescription.trim().length === 0) {
-  //     alert("Please, enter a valid note description!");
-  //   } else if (enteredTags.trim().length === 0) {
-  //     alert("Please, enter a valid note tags!");
-  //   } else {
-  //     props.saveNoteHandler({
-  //       title: enteredTitle,
-  //       description: enteredDescription,
-  //       tags: enteredTags,
-  //     });
-  //   }
-  // };
-
   const onSubmit = (data) => {
     props.saveNoteHandler({
       title: data.noteName,
@@ -92,7 +59,6 @@ const AddEditForm = (props: {
 
   const onAdditionTag = (tag) => {
     const nextId = Math.max(...tags.map((item) => item.id)) + 1;
-
     let noteTags = getValues().noteTags;
     noteTags.push({ ...tag, ...{ id: nextId } });
     setValue("noteTags", noteTags, { shouldValidate: true });
@@ -113,7 +79,6 @@ const AddEditForm = (props: {
             <label htmlFor="title">Title</label>
             <input
               id="title"
-              // ref={titleInputRef}
               defaultValue={props.initialValues.title}
               data-tip="Enter note title"
               {...register("noteName", { required: true, maxLength: 20 })}
@@ -129,18 +94,17 @@ const AddEditForm = (props: {
             <label htmlFor="description">Description</label>
             <textarea
               id="description"
-              // ref={descriptionInputRef}
               defaultValue={props.initialValues.description}
               data-tip="Enter note description"
               {...register("noteDescription", { required: true, maxLength: 200 })}
             />
+            {String(errors?.noteDescription?.type) === "required" && (
+              <p className={classesModal.errorMessage}>Note desciption shouldn't be empty</p>
+            )}
+            {String(errors?.noteDescription?.type) === "maxLength" && (
+              <p className={classesModal.errorMessage}>Note desciption should be less than 200 characters</p>
+            )}
           </div>
-          {String(errors?.noteDescription?.type) === "required" && (
-            <p className={classesModal.errorMessage}>Note desciption shouldn't be empty</p>
-          )}
-          {String(errors?.noteDescription?.type) === "maxLength" && (
-            <p className={classesModal.errorMessage}>Note desciption should be less than 200 characters</p>
-          )}
           <div className={classesModal.input} data-tip="Enter note tags">
             <label htmlFor="tags">Tags</label>
             <Controller
@@ -159,14 +123,13 @@ const AddEditForm = (props: {
                   suggestions={tagsSuggestions}
                   onDelete={onDeleteTag}
                   onAddition={onAdditionTag}
-                  // {...field}
                 />
               )}
             />
+            {String(errors?.noteTags?.type) === "required" && (
+              <p className={classesModal.errorMessage}>Note tags shouldn't be empty</p>
+            )}
           </div>
-          {String(errors?.noteTags?.type) === "required" && (
-            <p className={classesModal.errorMessage}>Note tags shouldn't be empty</p>
-          )}
           <div className={classesModal.controlsContainer}>
             {/* <button onClick={okHandler}>
               OK
@@ -174,8 +137,9 @@ const AddEditForm = (props: {
             {/* <button type="submit" onClick={onSubmit}>
               OK
             </button> */}
-            <input type="submit" />
-            <button onClick={props.modalOnCloseHandle}>Cancel</button>
+            {/* <button onClick={props.modalOnCloseHandle}>Cancel</button> */}
+            <input type="submit" value="OK" className={classesModal.submit} />
+            <input type="button" value="Cancel" className={classesModal.submit} onClick={props.modalOnCloseHandle} />
           </div>
         </form>
       </Fragment>

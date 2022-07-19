@@ -12,6 +12,7 @@
   display: block;
   padding-left: 00px;
   position: relative;
+  color: #222;
 }
 
 .directory::before {
@@ -27,7 +28,7 @@
 
 .chosen {
   font-style: italic;
-  color: green;
+  color: #222;
 }
 
 .chosen::before {

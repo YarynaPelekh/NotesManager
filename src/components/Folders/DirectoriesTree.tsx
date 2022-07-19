@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 
 import DirectoryItem from "./DirectoryItem";
-import DirectoryItemTest from "./DIrectoryItemTest";
 
-import { directoriesActions } from "../../store/directories-slice";
+// import { directoriesActions } from "../../store/directories-slice";
 
 import { DirectoryType } from "../../types/DirectoryTypes";
 
@@ -16,19 +15,9 @@ const getRootId = (arr: DirectoryType[]) => {
 };
 
 const DirectoriesTree = () => {
-  const dispatch = useDispatch();
-
-  const dataIsLoaded = useSelector(
-    (state: { directoriesSlice: { dataIsLoaded: boolean } }) => state.directoriesSlice.dataIsLoaded
-  );
-
   const directoriesData = useSelector(
     (state: { directoriesSlice: { directories: DirectoryType[] } }) => state.directoriesSlice.directories
   ) as DirectoryType[];
-
-  // useEffect(() => {
-  //   dispatch(directoriesActions.loadDataRequest());
-  // }, []);
 
   const rootId = String(getRootId(directoriesData));
 
@@ -59,7 +48,7 @@ const DirectoriesTree = () => {
   return (
     <div id="tree" className={classes.tree}>
       <p> Directories Tree</p>
-      <ul>{renderChildren(rootId)}</ul>
+      <ul className={classes.ul}>{renderChildren(rootId)}</ul>
     </div>
   );
 };
