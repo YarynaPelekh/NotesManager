@@ -3,7 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import EasyEdit, { Types } from "react-easy-edit";
 import { useDispatch } from "react-redux";
 
-import { DirectoryType, PropsDirectoryItem } from "../../types/DirectoryTypes";
+import { DirectoryType } from "../../types/DirectoryTypes";
 
 import ChosenDirectory from "./ChosenDirectory";
 import ToolTip from "../UI/ToolTip";
@@ -11,10 +11,8 @@ import ToolTip from "../UI/ToolTip";
 import { directoriesActions } from "../../store/directories-slice";
 
 import classes from "../../styles/Module/DirectoryItem.module.css";
-import classesModal from "../../styles/Module/Modal.module.css";
 
 const DirectoryItem = (props: { item: DirectoryType }) => {
-  // const DirectoryItem = (props: PropsDirectoryItem) => {
   const dispatch = useDispatch();
 
   const saveEdit = (value) => {
@@ -25,8 +23,6 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
   const inputValidate = (value) => {
     return value.trim().length > 0 && value.trim().length <= 20;
   };
-
-  const onSubmit = (data) => console.log(data);
 
   return (
     <li className={classes.li} key={props.item.id}>
@@ -39,22 +35,22 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
             className={({ isActive }) => `${classes.directory} ${isActive ? classes.chosen : null}`}
             to={`/directories/${props.item.id}`}
             key={props.item.id}
-          />
-
-          <div data-tip="In-line edit title">
-            <EasyEdit
-              type={Types.TEXT}
-              onSave={onSubmit}
-              onValidate={inputValidate}
-              // onCancel={}
-              saveButtonLabel="Save"
-              cancelButtonLabel="Cancel"
-              attributes={{ name: "awesome-input", id: 1 }}
-              validationMessage="Directory name shouldn't be empty and more than 20 characters"
-              value={props.item.name}
-            />
-            {/* <ChosenDirectory directoryId={props.item.id} /> */}
-          </div>
+          >
+            <div data-tip="In-line edit title">
+              <EasyEdit
+                type={Types.TEXT}
+                onSave={saveEdit}
+                onValidate={inputValidate}
+                // onCancel={}
+                saveButtonLabel="Save"
+                cancelButtonLabel="Cancel"
+                attributes={{ name: "awesome-input", id: 1 }}
+                validationMessage="Directory name shouldn't be empty and more than 20 characters"
+                value={props.item.name}
+              />
+              {/* <ChosenDirectory directoryId={props.item.id} /> */}
+            </div>
+          </NavLink>
         </div>
       </ToolTip>
     </li>

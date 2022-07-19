@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import NotesList from "../NotesList";
 import PageHeader from "../../UI/Layout/PageHeader";
@@ -13,17 +13,13 @@ import classes from "../../../styles/Module/SearchResults.module.css";
 const SearchResults = () => {
   let searchNotesResult: NoteType[] = [];
 
-  const path = useLocation();
-  const indexOfMode = path.pathname.indexOf(":");
-  const indexOfValues = path.pathname.indexOf(":", indexOfMode + 1);
-  const mode = path.pathname.slice(indexOfMode + 1, indexOfValues - 1);
-  const values = path.pathname.slice(indexOfValues + 1);
+  const params = useParams();
 
-  const searchModeAdvanced = mode === "advanced" ? true : false;
-  const searchValues = values?.split(",") || [];
+  const searchModeAdvanced = params.mode === ":advanced" ? true : false;
+  const searchValues = params.values?.slice(1)?.split(",") || [];
 
   let notesList = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes) as NoteType[];
-  if (values.length > 0) {
+  if (searchValues.length > 0) {
     for (let searchValue of searchValues) {
       searchNotesResult = [
         ...searchNotesResult,

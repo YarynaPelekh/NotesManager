@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Modal from "../../UI/Modal";
@@ -7,7 +7,6 @@ import AddEditForm from "./AddEditForm";
 
 import { appStateActions } from "../../../store/app-state-slice";
 import { notesActions } from "../../../store/notes-slice";
-import { tagsActions } from "../../../store/tags-slice";
 
 import { NotificationTypes } from "../../../types/NotificationTypes";
 import { NoteType, InputNoteValues } from "../../../types/NotesTypes";

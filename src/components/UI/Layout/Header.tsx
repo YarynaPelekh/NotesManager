@@ -1,3 +1,5 @@
+import React from "react";
+
 import classes from "../../../styles/Module/Header.module.css";
 
 const Header = () => {

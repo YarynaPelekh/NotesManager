@@ -15,4 +15,4 @@ export type InputNoteValues = {
   tags: string;
 };
 
-export type PropsNoteItem = { item: NoteType; children: JSX.Element };
+// export type PropsNoteItem = { item: NoteType; children: JSX.Element };
