@@ -93,7 +93,7 @@ const SearchBar = () => {
     <ToolTip>
       <form onSubmit={handleSubmit(searchButtonClick)}>
         <div className={classes.container}>
-          <div data-tip="Enter values for search">
+          <div style={{ height: "20px !important" }} data-tip="Enter values for search">
             <Controller
               name="searchValues"
               control={control}
@@ -110,25 +110,26 @@ const SearchBar = () => {
                   suggestions={searchAutocompleteSuggestions}
                   onDelete={onDeleteTag}
                   onAddition={onAdditionTag}
-                  // {...register("searchData", { required: true })}
                 />
               )}
             />
             {errors?.searchValues && <p className={classesModal.errorMessage}>Search field shouldn't be empty</p>}
           </div>
-          <input
-            type="checkbox"
-            id="searchMode"
-            name="searchMode"
-            value="Advanced"
-            checked={isAdvancedSearch}
-            onChange={searchModeHandle}
-            data-tip="Change search mode"
-          />
-          {/* <label htmlFor="searchMode">advanced</label> */}
-          <span>advanced</span>
+          <div className={classes.flexContainer}>
+            <input
+              type="checkbox"
+              id="searchMode"
+              name="searchMode"
+              value="Advanced"
+              checked={isAdvancedSearch}
+              onChange={searchModeHandle}
+              data-tip="Change search mode"
+            />
+            {/* <label htmlFor="searchMode">advanced</label> */}
+            <span>advanced</span>
+          </div>
           {/* <Button title="Search" onClickButton={searchButtonClick} tooltip="Search notes" /> */}
-          <input type="submit" value="Search" data-tip="Search notes" />
+          <input type="submit" value="Search" className="button" data-tip="Search notes" />
         </div>
       </form>
     </ToolTip>

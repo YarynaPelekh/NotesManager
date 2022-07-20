@@ -1,31 +1,20 @@
-.controlsContainer {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.controlsContainer button {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 80px;
-}
 
 .input {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 40%;
   align-items: flex-start;
   align-self: center;
   margin: 20px;
-  margin-left: 25%;
+  margin-left: 30%;
+}
+
+.input input {
+  width: 100%;
 }
 
 .title {
   font-size: 18px;
   text-align: center;
   margin-top: 20px;
-}
-
-.input input {
-  flex: 1;
 }

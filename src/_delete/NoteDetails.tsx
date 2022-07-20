@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 
 import PageHeader from "../UI/Layout/PageHeader.tsx";
 
-import { notesActions } from "../../store/notes-slice";
-import { NoteType } from "../../types/NotesTypes";
+import { notesActions } from "../store/notes-slice";
+import { NoteType } from "../types/NotesTypes";
 
 import classes from "../../styles/Module/NoteDetails.module.css";
 

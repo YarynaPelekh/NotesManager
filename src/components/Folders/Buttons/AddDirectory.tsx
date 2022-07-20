@@ -64,15 +64,15 @@ const AddDirectory = () => {
           {String(errors?.directoryName?.type) === "maxLength" && (
             <p className={classesModal.errorMessage}>Directory name should be less than 20 characters</p>
           )}
-          <div className={classesModal.controlsContainer}>
+          <div className="controlsContainer">
             {/* <button type="submit" onClick={onSubmit}>
               OK
             </button> */}
             {/* <button onClick={modalOnCloseHandle} className={classesModal.submit}>
               Cancel
             </button> */}
-            <input type="submit" value="OK" className={classesModal.submit} />
-            <input type="button" value="Cancel" className={classesModal.submit} onClick={modalOnCloseHandle} />
+            <input type="submit" value="OK" className="button" />
+            <input type="button" value="Cancel" className="button" onClick={modalOnCloseHandle} />
           </div>
         </form>
       </Fragment>

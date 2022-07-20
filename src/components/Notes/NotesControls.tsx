@@ -4,11 +4,11 @@ import AddNote from "./NotesActions/AddNote";
 import EditNote from "./NotesActions/EditNote";
 import RemoveNote from "./NotesActions/RemoveNote";
 
-import classes from "../../styles/Module/NotesControls.module.css";
+import classes from "../../styles/Module/DirectoriesControls.module.css";
 
 const NotesControls = () => {
   return (
-    <div className={classes.controlsContainer}>
+    <div className="controlsContainer">
       <AddNote />
       <EditNote />
       <RemoveNote />
