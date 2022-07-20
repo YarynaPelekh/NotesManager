@@ -8,6 +8,7 @@ import EasyEdit, { Types } from "react-easy-edit";
 import ContainerDnD from "./ContainerDnD";
 import Modal from "../UI/Modal";
 import ToolTip from "../UI/ToolTip";
+import Button from "../UI/Button";
 
 import { notesActions } from "../../store/notes-slice";
 
@@ -82,8 +83,9 @@ const NoteItem = (props: { item: NoteType }) => {
         <label htmlFor="tags">Tags:</label>
         <p id="tags">{props.item.tags}</p>
       </div>
-      <div className={classesModal.controlsContainer}>
-        <button onClick={modalOnCloseHandle}>Close</button>
+      <div className="controlsContainer">
+        {/* <button onClick={modalOnCloseHandle}>Close</button> */}
+        <Button onClickButton={modalOnCloseHandle} title="Close" tooltip="" />{" "}
       </div>
     </Fragment>
   );

@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+import SectionHeader from "../UI/Layout/SectionHeader";
+
 import classes from "../../styles/Module/LoginForm.module.css";
 import classesModal from "../../styles/Module/Modal.module.css";
 
@@ -28,22 +30,23 @@ const LoginForm = () => {
 
   const loginElements = (
     <Fragment>
-      <p className={classes.title}>Please, login...</p>
+      <SectionHeader header="Please, log in..." />
 
       <form onSubmit={handleSubmit(loginHandler)}>
         <div className={classes.input}>
           <label htmlFor="name">Name</label>
-          <input id="name" {...register("userName", { pattern: /^[A-Za-z0-9+_.-]+@(.+)$/i })} />
+          <input id="name" {...register("userName", { required: true, pattern: /^[A-Za-z0-9+_.-]+@(.+)$/i })} />
           {errors?.userName && <p className={classesModal.errorMessage}>User name should be email</p>}
-          {String(errors?.userName?.type) === "maxLength" && (
-            <p className={classesModal.errorMessage}>User name should be less than 20 characters</p>
-          )}
         </div>
         <div className={classes.input}>
           <label htmlFor="password">Password</label>
           <input
+            type="password"
             id="password"
-            {...register("userPassword", { pattern: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/ })}
+            {...register("userPassword", {
+              required: true,
+              pattern: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/,
+            })}
           />
           {errors?.userPassword && (
             <p className={classesModal.errorMessage}>
@@ -51,7 +54,7 @@ const LoginForm = () => {
             </p>
           )}
         </div>
-        <div className={classes.controlsContainer}>
+        <div className="controlsContainer">
           <input type="submit" value="OK" className={classesModal.submit} />
           <input type="button" value="Cancel" className={classesModal.submit} onClick={onCloseHandle} />
         </div>

@@ -5,7 +5,7 @@ const ToolTip = (props: { children: JSX.Element }) => {
   return (
     <Fragment>
       <div>{props.children}</div>
-      <ReactTooltip backgroundColor="#ccc" borderColor="#aaa" textColor="#333" />
+      <ReactTooltip delayHide={200} delayShow={400} backgroundColor="#dadada" borderColor="#ccc" textColor="#333" />
     </Fragment>
   );
 };

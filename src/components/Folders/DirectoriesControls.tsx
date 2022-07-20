@@ -7,7 +7,7 @@ import classes from "../../styles/Module/DirectoriesControls.module.css";
 
 const DirectoriesControls = () => {
   return (
-    <div className={classes.controlsContainer}>
+    <div className="controlsContainer">
       <AddButton />
       <RemoveButton />
     </div>

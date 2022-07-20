@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import NotesList from "../NotesList";
-import PageHeader from "../../UI/Layout/PageHeader";
+import SectionHeader from "../../UI/Layout/SectionHeader";
 import RequireAuth from "../../Auth/RequireAuth";
+import Button from "../../UI/Button";
 
 import { NoteType } from "../../../types/NotesTypes";
 
@@ -14,6 +15,7 @@ const SearchResults = () => {
   let searchNotesResult: NoteType[] = [];
 
   const params = useParams();
+  const navigate = useNavigate();
 
   const searchModeAdvanced = params.mode === ":advanced" ? true : false;
   const searchValues = params.values?.slice(1)?.split(",") || [];
@@ -42,7 +44,10 @@ const SearchResults = () => {
   return (
     <RequireAuth>
       <Fragment>
-        <PageHeader header="Search results" />
+        <SectionHeader header="Search results" />
+        <div className="controlsContainer">
+          <Button title="BACK" onClickButton={() => navigate(-1)} tooltip="To the previous page" />
+        </div>
         {searchNotesResult.length > 0 && <NotesList notes={searchNotesResult} />}
         {searchNotesResult.length <= 0 && <p className={classes.searchResults}>Nothing found</p>}
       </Fragment>

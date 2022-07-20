@@ -1,6 +1,7 @@
 .li {
   font-size: 16px;
   height: auto;
+  width: fit-content;
   text-align: left;
   margin-top: 10px;
   margin-left: 35px;
@@ -10,16 +11,14 @@
 
 .directory {
   display: block;
-  padding-left: 00px;
-  position: relative;
   color: #222;
 }
 
 .directory::before {
   content: "";
+  position: absolute;
   background: url("../../asserts/img/icons/directory.svg");
   background-size: 30px 30px;
-  position: absolute;
   width: 30px;
   height: 30px;
   margin-left: -35px;
@@ -28,14 +27,14 @@
 
 .chosen {
   font-style: italic;
-  color: #222;
+  color: blue;
 }
 
 .chosen::before {
   content: "";
+  position: absolute;
   background: url("../../asserts/img/icons/directoryOpen.svg");
   background-size: 30px 30px;
-  position: absolute;
   width: 30px;
   height: 30px;
   margin-left: -35px;

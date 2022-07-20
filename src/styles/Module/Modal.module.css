@@ -1,6 +1,6 @@
 .modal {
   position: fixed;
-  top: 25vh;
+  top: 20vh;
   left: 20%;
   width: 60%;
   height: auto;
@@ -22,18 +22,6 @@
   height: 100vh;
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.45);
-}
-
-.controlsContainer {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.button {
-  width: 80px;
 }
 
 .input {
@@ -59,7 +47,6 @@
 
 .errorMessage {
   margin: 0px 20px;
-  /* padding: 10px; */
   font-size: 14px;
   color: red;
 }

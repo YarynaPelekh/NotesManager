@@ -1,6 +1,5 @@
 .container {
   display: flex;
-  /* height: 20px; */
   width: auto;
   gap: 10px;
   font-size: 16px;
@@ -8,4 +7,21 @@
   padding-top: 20px;
   text-align: left;
   align-items: center;
+  height: 80px;
+}
+
+.container div {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  margin: 0 !important;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.flexContainer input {
+  height: 20px;
 }

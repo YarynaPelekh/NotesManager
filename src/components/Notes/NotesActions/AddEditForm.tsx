@@ -130,16 +130,12 @@ const AddEditForm = (props: {
               <p className={classesModal.errorMessage}>Note tags shouldn't be empty</p>
             )}
           </div>
-          <div className={classesModal.controlsContainer}>
-            {/* <button onClick={okHandler}>
-              OK
-            </button> */}
-            {/* <button type="submit" onClick={onSubmit}>
-              OK
-            </button> */}
+          <div className="controlsContainer">
+            {/* <button onClick={okHandler}>OK</button> */}
+            {/* <button type="submit" onClick={onSubmit}>OK</button> */}
             {/* <button onClick={props.modalOnCloseHandle}>Cancel</button> */}
-            <input type="submit" value="OK" className={classesModal.submit} />
-            <input type="button" value="Cancel" className={classesModal.submit} onClick={props.modalOnCloseHandle} />
+            <input type="submit" value="OK" className="button" />
+            <input type="button" value="Cancel" className="button" onClick={props.modalOnCloseHandle} />
           </div>
         </form>
       </Fragment>

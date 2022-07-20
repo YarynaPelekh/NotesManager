@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import NotesList from "./NotesList";
 import NotesControls from "./NotesControls";
 import SearchBar from "./Search/SearchBar";
+import SectionHeader from "../UI/Layout/SectionHeader";
 
 import { NoteType } from "../../types/NotesTypes";
 
@@ -25,7 +26,7 @@ const Notes = () => {
 
   return (
     <div className={classes.notes}>
-      <p>Notes</p>
+      <SectionHeader header="Notes" />
       <NotesControls />
       <NotesList notes={notesList} />
       <SearchBar />

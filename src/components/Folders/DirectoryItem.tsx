@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { DirectoryType } from "../../types/DirectoryTypes";
 
-import ChosenDirectory from "./ChosenDirectory";
+import ChosenDirectory from "../../_delete/ChosenDirectory_to_delete";
 import ToolTip from "../UI/ToolTip";
 
 import { directoriesActions } from "../../store/directories-slice";

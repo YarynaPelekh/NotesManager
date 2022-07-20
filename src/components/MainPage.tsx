@@ -14,6 +14,7 @@ import { AppStateType } from "../types/AppStateType";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/common.css";
+import "../styles/general.css";
 import classes from "../styles/Module/MainPage.module.css";
 
 const portalElement = document.getElementById("overlay") as HTMLElement;
