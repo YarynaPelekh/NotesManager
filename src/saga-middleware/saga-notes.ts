@@ -1,13 +1,13 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
-import { notesActions } from "../../store/notes-slice";
-import { appStateActions } from "../../store/app-state-slice";
-import { tagsActions } from "../../store/tags-slice";
+import { notesActions } from "../store/notes-slice";
+import { appStateActions } from "../store/app-state-slice";
+import { tagsActions } from "../store/tags-slice";
 
-import { NotificationTypes } from "../../types/NotificationTypes";
-import { NoteType } from "../../types/NotesTypes";
+import { NotificationTypes } from "../types/NotificationTypes";
+import { NoteType } from "../types/NotesTypes";
 
-import { URL as url } from "../../config/constants";
+import { URL as url } from "../config/constants";
 
 function* sagaLoadNote(action: any) {
   try {
