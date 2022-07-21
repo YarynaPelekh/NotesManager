@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 
 import DirectoryItem from "./DirectoryItem";
 
-// import { directoriesActions } from "../../store/directories-slice";
-
 import { DirectoryType } from "../../types/DirectoryTypes";
 
 import classes from "../../styles/Module/DirectoriesTree.module.css";

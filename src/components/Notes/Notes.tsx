@@ -5,10 +5,9 @@ import NotesList from "./NotesList";
 import NotesControls from "./NotesControls";
 import SearchBar from "./Search/SearchBar";
 import SectionHeader from "../UI/Layout/SectionHeader";
+import Separator from "../UI/Separator";
 
 import { NoteType } from "../../types/NotesTypes";
-
-import classes from "../../styles/Module/Notes.module.css";
 
 const Notes = () => {
   const chosenDirectoryId = useSelector(
@@ -25,11 +24,14 @@ const Notes = () => {
     .filter((item: NoteType) => item.directoryId === chosenDirectoryId);
 
   return (
-    <div className={classes.notes}>
+    <div className="section">
       <SectionHeader header="Notes" />
+      <Separator />
       <NotesControls />
-      <NotesList notes={notesList} />
+      <Separator />
       <SearchBar />
+      <Separator />
+      <NotesList notes={notesList} />
     </div>
   );
 };

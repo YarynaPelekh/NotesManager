@@ -2,14 +2,15 @@ import React from "react";
 import DirectoriesTree from "./DirectoriesTree";
 import DirectoriesControls from "./DirectoriesControls";
 import SectionHeader from "../UI/Layout/SectionHeader";
-
-import classes from "../../styles/Module/Directories.module.css";
+import Separator from "../UI/Separator";
 
 const Directories = () => {
   return (
-    <div className={classes.directories}>
+    <div className="section">
       <SectionHeader header="Directories" />
+      <Separator />
       <DirectoriesControls />
+      <Separator />
       <DirectoriesTree />
     </div>
   );

@@ -57,13 +57,13 @@ const AddDirectory = () => {
               data-tip="Enter directory name"
               {...register("directoryName", { required: true, maxLength: 20 })}
             />
+            {String(errors?.directoryName?.type) === "required" && (
+              <p className={classesModal.errorMessage}>Directory name shouldn't be empty</p>
+            )}
+            {String(errors?.directoryName?.type) === "maxLength" && (
+              <p className={classesModal.errorMessage}>Directory name should be less than 20 characters</p>
+            )}
           </div>
-          {String(errors?.directoryName?.type) === "required" && (
-            <p className={classesModal.errorMessage}>Directory name shouldn't be empty</p>
-          )}
-          {String(errors?.directoryName?.type) === "maxLength" && (
-            <p className={classesModal.errorMessage}>Directory name should be less than 20 characters</p>
-          )}
           <div className="controlsContainer">
             {/* <button type="submit" onClick={onSubmit}>
               OK

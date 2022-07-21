@@ -1,7 +1,5 @@
-.searchResults {
+.searchMessage {
   display: inline-block;
   width: 100%;
   font-size: 18px;
-  border-top: 1px solid #ddd;
-  /* padding-top: 20px; */
 }
