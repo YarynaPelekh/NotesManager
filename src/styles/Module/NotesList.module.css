@@ -1,7 +1,6 @@
 .notesList {
   font-size: 18px;
   height: 260px;
-  border-top: 1px solid #ddd;
   overflow-y: auto;
   overflow-x: auto;
 }

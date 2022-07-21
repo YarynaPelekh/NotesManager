@@ -55,8 +55,8 @@ const LoginForm = () => {
           )}
         </div>
         <div className="controlsContainer">
-          <input type="submit" value="OK" className={classesModal.submit} />
-          <input type="button" value="Cancel" className={classesModal.submit} onClick={onCloseHandle} />
+          <input type="submit" value="OK" className="button" />
+          <input type="button" value="Cancel" className="button" onClick={onCloseHandle} />
         </div>
       </form>
     </Fragment>

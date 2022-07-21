@@ -3,8 +3,8 @@
   font-size: 16px;
   text-transform: uppercase;
   border-radius: 4px;
+  margin: 20px 0;
   border: 1px solid #444;
-  /* background-color: azure; */
 }
 
 .controlsContainer {
@@ -12,10 +12,21 @@
   font-size: 16px;
   justify-content: center;
   gap: 20px;
+  background-color: azure;
 }
 
-.controlsContainer button {
-  width: 80px;
-  /* margin-top: 20px; */
-  margin-bottom: 20px;
+.separator {
+  margin: 20px 0;
+  border-top: 1px solid #444;
+}
+
+.section {
+  font-size: 22px;
+  padding-left: 20px;
+
+  height: calc(100vh - 8rem);
+}
+
+p {
+  margin: 0;
 }
