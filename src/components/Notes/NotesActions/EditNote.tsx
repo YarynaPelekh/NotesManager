@@ -27,7 +27,7 @@ const EditNote = () => {
   const editButtonHandler = () => {
     if (!chosenNoteId) {
       dispatch(
-        appStateActions.setState({
+        appStateActions.setNotification({
           showNotification: true,
           notificationType: NotificationTypes.alertWarning,
           notificationMessage: "Please, choose a note!",

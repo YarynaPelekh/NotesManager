@@ -34,6 +34,7 @@ const directoriesSlice = createSlice({
 
     removeDirectory(state, action) {
       state.directories = state.directories.filter((item) => item.id !== action.payload);
+      state.chosenDirectoryId = null;
     },
 
     loadDirectoriesTree(state, action) {

@@ -13,7 +13,7 @@ import { appStateActions } from "../store/app-state-slice";
 import { AppStateType } from "../types/AppStateType";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/common.css";
+import "../styles/react-tag-autocomplete.css";
 import "../styles/general.css";
 import classes from "../styles/Module/MainPage.module.css";
 
@@ -33,7 +33,7 @@ const MainPage = () => {
             <Notification
               notification={appState.notification}
               onClose={() => {
-                dispatch(appStateActions.resetState());
+                dispatch(appStateActions.resetNotification());
               }}
             />,
             portalElement

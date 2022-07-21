@@ -1,15 +1,17 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
-import { notesActions } from "./notes-slice";
-import { appStateActions } from "./app-state-slice";
-import { tagsActions } from "./tags-slice";
+import { notesActions } from "../../store/notes-slice";
+import { appStateActions } from "../../store/app-state-slice";
+import { tagsActions } from "../../store/tags-slice";
 
-import { NotificationTypes } from "../types/NotificationTypes";
-import { NoteType } from "../types/NotesTypes";
+import { NotificationTypes } from "../../types/NotificationTypes";
+import { NoteType } from "../../types/NotesTypes";
+
+import { URL as url } from "../../config/constants";
 
 function* sagaLoadNote(action: any) {
   try {
-    const response: Response = yield call(() => fetch("http://localhost:3000/notices"));
+    const response: Response = yield call(() => fetch(url.notes));
 
     if (!response.ok) {
       throw new Error("Something went wrong! Fetching data from backend.");
@@ -18,14 +20,7 @@ function* sagaLoadNote(action: any) {
 
     const loadedData = [];
     responseData.forEach((item) => {
-      loadedData.push({
-        description: item.description,
-        directoryId: item.directoryId,
-        id: item.id,
-        position: item.position,
-        tags: item.tags,
-        title: item.title,
-      });
+      loadedData.push({ item });
     });
     yield put(notesActions.loadNotes(responseData));
 
@@ -41,7 +36,7 @@ function* sagaLoadNote(action: any) {
     yield put(tagsActions.loadTags(tagsString));
   } catch (error: any) {
     yield put(
-      appStateActions.setState({
+      appStateActions.setNotification({
         showNotification: true,
         notificationType: NotificationTypes.alertDanger,
         notificationMessage: error.message,
@@ -56,7 +51,7 @@ function* sagaAddNote(action: any) {
 
   try {
     const response: Response = yield call(() =>
-      fetch("http://localhost:3000/notices", {
+      fetch(url.notes, {
         method: "POST",
         body: JSON.stringify({
           description: action.payload.description,
@@ -88,7 +83,7 @@ function* sagaAddNote(action: any) {
     notificationType = NotificationTypes.alertDanger;
   } finally {
     yield put(
-      appStateActions.setState({
+      appStateActions.setNotification({
         showNotification: true,
         notificationType: notificationType,
         notificationMessage: notificationText,
@@ -103,7 +98,7 @@ function* sagaEditNote(action: any) {
 
   try {
     const response: Response = yield call(() =>
-      fetch("http://localhost:3000/notices/" + String(action.payload.id), {
+      fetch(url.notes + "/" + String(action.payload.id), {
         method: "PUT",
         body: JSON.stringify(action.payload),
         headers: { "Content-Type": "application/json" },
@@ -124,7 +119,7 @@ function* sagaEditNote(action: any) {
   }
 
   yield put(
-    appStateActions.setState({
+    appStateActions.setNotification({
       showNotification: true,
       notificationType: notificationType,
       notificationMessage: notificationText,
@@ -139,7 +134,7 @@ function* sagaRemoveNote(action: any) {
 
   try {
     const response: Response = yield call(() =>
-      fetch("http://localhost:3000/notices/" + String(action.payload), {
+      fetch(url.notes + "/" + String(action.payload), {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       })
@@ -161,7 +156,7 @@ function* sagaRemoveNote(action: any) {
   }
 
   yield put(
-    appStateActions.setState({
+    appStateActions.setNotification({
       showNotification: true,
       notificationType: notificationType,
       notificationMessage: notificationText,
@@ -170,10 +165,10 @@ function* sagaRemoveNote(action: any) {
 }
 
 function* sagaNotes() {
-  yield takeEvery("notesSlice/loadNotesRequest", sagaLoadNote);
-  yield takeEvery("notesSlice/addNoteRequest", sagaAddNote);
-  yield takeEvery("notesSlice/editNoteRequest", sagaEditNote);
-  yield takeEvery("notesSlice/removeNoteRequest", sagaRemoveNote);
+  yield takeLatest("notesSlice/loadNotesRequest", sagaLoadNote);
+  yield takeLatest("notesSlice/addNoteRequest", sagaAddNote);
+  yield takeLatest("notesSlice/editNoteRequest", sagaEditNote);
+  yield takeLatest("notesSlice/removeNoteRequest", sagaRemoveNote);
 }
 
 export default sagaNotes;

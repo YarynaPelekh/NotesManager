@@ -42,6 +42,7 @@ const notesSlice = createSlice({
 
     removeNote(state, action) {
       state.notes = state.notes.filter((item) => item.id !== +action.payload);
+      state.chosenNoteId = null;
     },
   },
 });

@@ -41,15 +41,6 @@ function App() {
           }
         />
         <Route
-          path="notes/:noteId"
-          element={
-            <RequireAuth>
-              <MainPage />
-            </RequireAuth>
-          }
-        />
-
-        <Route
           path="/search/:mode/:values"
           element={
             <RequireAuth>

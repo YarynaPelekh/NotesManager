@@ -12,11 +12,11 @@ const appStateSlice = createSlice({
     },
   },
   reducers: {
-    setState(state, action) {
+    setNotification(state, action) {
       state = Object.assign(state.notification, action.payload);
     },
 
-    resetState(state) {
+    resetNotification(state) {
       state.notification.showNotification = false;
       state.notification.notificationType = "";
       state.notification.notificationMessage = "";

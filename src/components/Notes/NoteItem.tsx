@@ -12,7 +12,7 @@ import Button from "../UI/Button";
 
 import { notesActions } from "../../store/notes-slice";
 
-import { DnDTypes } from "../../types/DnDTypes";
+import { DnDType } from "../../config/constants";
 import { NoteType } from "../../types/NotesTypes";
 
 import classes from "../../styles/Module/NoteItem.module.css";
@@ -33,7 +33,7 @@ const NoteItem = (props: { item: NoteType }) => {
 
   const [{ isDragging }, drag] = useDrag(
     () => ({
-      type: DnDTypes.noteItem,
+      type: DnDType,
       item: { noteId: props.item.id },
       canDrag: path.pathname.includes("search") ? false : true,
       collect: (monitor) => ({
