@@ -1,14 +1,16 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
-import { directoriesActions } from "./directories-slice";
-import { appStateActions } from "./app-state-slice";
+import { directoriesActions } from "../../store/directories-slice";
+import { appStateActions } from "../../store/app-state-slice";
 
-import { NotificationTypes } from "../types/NotificationTypes";
-import { DirectoryType } from "../types/DirectoryTypes";
+import { NotificationTypes } from "../../types/NotificationTypes";
+import { DirectoryType } from "../../types/DirectoryTypes";
+
+import { URL as url } from "../../config/constants";
 
 function* sagaLoadData() {
   try {
-    const response: Response = yield call(() => fetch("http://localhost:3000/directories"));
+    const response: Response = yield call(() => fetch(url.directories));
     if (!response.ok) {
       throw new Error("Something went wrong! Fetching data from backend.");
     }
@@ -17,7 +19,7 @@ function* sagaLoadData() {
   } catch (error: any) {
     console.log("fetching error");
     yield put(
-      appStateActions.setState({
+      appStateActions.setNotification({
         showNotification: true,
         notificationType: NotificationTypes.alertDanger,
         notificationMessage: error.message,
@@ -32,7 +34,7 @@ function* sagaAddDirectory(action: any) {
 
   try {
     const response: Response = yield call(() =>
-      fetch("http://localhost:3000/directories", {
+      fetch(url.directories, {
         method: "POST",
         body: action.payload,
         headers: { "Content-Type": "application/json" },
@@ -56,7 +58,7 @@ function* sagaAddDirectory(action: any) {
     notificationText = error.message;
   } finally {
     yield put(
-      appStateActions.setState({
+      appStateActions.setNotification({
         showNotification: true,
         notificationType: notificationType,
         notificationMessage: notificationText,
@@ -70,7 +72,7 @@ function* sagaUpdateDirectory(action: any) {
   let notificationType = NotificationTypes.alertLight;
   try {
     const response: Response = yield call(() =>
-      fetch("http://localhost:3000/directories/" + action.payload.id, {
+      fetch(url.directories + "/" + action.payload.id, {
         method: "PUT",
         body: JSON.stringify({
           id: action.payload.id,
@@ -93,7 +95,7 @@ function* sagaUpdateDirectory(action: any) {
   }
 
   yield put(
-    appStateActions.setState({
+    appStateActions.setNotification({
       showNotification: true,
       notificationType: notificationType,
       notificationMessage: notificationText,
@@ -107,7 +109,7 @@ function* sagaRemoveDirectory(action: any) {
 
   try {
     const response: Response = yield call(() =>
-      fetch("http://localhost:3000/directories/" + action.payload.trim(), {
+      fetch(url.directories + "/" + action.payload.trim(), {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       })
@@ -118,14 +120,13 @@ function* sagaRemoveDirectory(action: any) {
     }
 
     yield put(directoriesActions.removeDirectory(+action.payload));
-    yield put(directoriesActions.setChosenDirectoryId(""));
   } catch (error: any) {
     console.log("deleting error");
     notificationType = NotificationTypes.alertDanger;
     notificationText = error.message;
   } finally {
     yield put(
-      appStateActions.setState({
+      appStateActions.setNotification({
         showNotification: true,
         notificationType: notificationType,
         notificationMessage: notificationText,
@@ -135,10 +136,10 @@ function* sagaRemoveDirectory(action: any) {
 }
 
 function* sagaDirectories() {
-  yield takeEvery("directoriesSlice/loadDataRequest", sagaLoadData);
-  yield takeEvery("directoriesSlice/addDirectoryRequest", sagaAddDirectory);
-  yield takeEvery("directoriesSlice/updateDirectoryRequest", sagaUpdateDirectory);
-  yield takeEvery("directoriesSlice/removeDirectoryRequest", sagaRemoveDirectory);
+  yield takeLatest("directoriesSlice/loadDataRequest", sagaLoadData);
+  yield takeLatest("directoriesSlice/addDirectoryRequest", sagaAddDirectory);
+  yield takeLatest("directoriesSlice/updateDirectoryRequest", sagaUpdateDirectory);
+  yield takeLatest("directoriesSlice/removeDirectoryRequest", sagaRemoveDirectory);
 }
 
 export default sagaDirectories;

@@ -4,7 +4,7 @@ import { useDrop } from "react-dnd";
 
 import { notesActions } from "../../store/notes-slice";
 
-import { DnDTypes } from "../../types/DnDTypes";
+import { DnDType } from "../../config/constants";
 import { NoteType } from "../../types/NotesTypes";
 
 import classes from "../../styles/Module/ContainerDnD.module.css";
@@ -50,7 +50,7 @@ const ContainerDnD = (props: { noteTo: NoteType; children: JSX.Element }) => {
 
   const [{ isOver }, drop] = useDrop(
     () => ({
-      accept: DnDTypes.noteItem,
+      accept: DnDType,
       drop: (itemFrom, monitor) => moveItem(itemFrom, monitor),
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),

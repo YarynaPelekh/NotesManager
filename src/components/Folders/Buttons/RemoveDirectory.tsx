@@ -35,7 +35,7 @@ const RemoveButton = () => {
       setIsModalShown(false);
       const notificationText = "Please, choose a directory to remove.";
       dispatch(
-        appStateActions.setState({
+        appStateActions.setNotification({
           showNotification: true,
           notificationType: NotificationTypes.alertWarning,
           notificationMessage: notificationText,

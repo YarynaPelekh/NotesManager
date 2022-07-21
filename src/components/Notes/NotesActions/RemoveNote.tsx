@@ -36,7 +36,7 @@ const RemoveNote = () => {
       setIsModalShown(false);
       notificationText = "Please, choose a note to remove.";
       dispatch(
-        appStateActions.setState({
+        appStateActions.setNotification({
           showNotification: true,
           notificationType: NotificationTypes.alertWarning,
           notificationMessage: notificationText,
