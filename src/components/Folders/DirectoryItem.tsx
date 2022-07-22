@@ -5,8 +5,10 @@ import { useDispatch } from "react-redux";
 
 import { DirectoryType } from "../../types/DirectoryTypes";
 
-import ChosenDirectory from "../../_delete/ChosenDirectory_to_delete";
+// import ChosenDirectory from "../../_delete/ChosenDirectory_to_delete";
 import ToolTip from "../UI/ToolTip";
+import CustomDisplay from "../UI/CustomDisplay";
+import CustomEdit from "../UI/CustomEdit";
 
 import { directoriesActions } from "../../store/directories-slice";
 
@@ -47,6 +49,10 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
                 attributes={{ name: "awesome-input", id: 1 }}
                 validationMessage="Directory name shouldn't be empty and more than 20 characters"
                 value={props.item.name}
+                saveButtonStyle="inLineEditButtonStyle"
+                cancelButtonStyle="inLineEditButtonStyle"
+                displayComponent={<CustomDisplay />}
+                editComponent={<CustomEdit />}
               />
               {/* <ChosenDirectory directoryId={props.item.id} /> */}
             </div>

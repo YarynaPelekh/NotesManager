@@ -3,4 +3,6 @@ export const URL = {
   notes: "http://localhost:3000/notices",
 };
 
-export const DnDType = "noteItem";
+export const DnDType = {
+  note: "noteItem",
+};

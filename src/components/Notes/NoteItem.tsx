@@ -9,6 +9,8 @@ import ContainerDnD from "./ContainerDnD";
 import Modal from "../UI/Modal";
 import ToolTip from "../UI/ToolTip";
 import Button from "../UI/Button";
+import CustomDisplay from "../UI/CustomDisplay";
+import CustomEdit from "../UI/CustomEdit";
 
 import { notesActions } from "../../store/notes-slice";
 
@@ -33,7 +35,7 @@ const NoteItem = (props: { item: NoteType }) => {
 
   const [{ isDragging }, drag] = useDrag(
     () => ({
-      type: DnDType,
+      type: DnDType.note,
       item: { noteId: props.item.id },
       canDrag: path.pathname.includes("search") ? false : true,
       collect: (monitor) => ({
@@ -70,30 +72,29 @@ const NoteItem = (props: { item: NoteType }) => {
 
   const detailsNoteElements = (
     <Fragment>
-      <p className={classesModal.title}>Note Details</p>
-      <div className={classesModal.input}>
-        <label htmlFor="title">Title:</label>
-        <p id="title">{props.item.title}</p>
-      </div>
-      <div className={classesModal.input}>
-        <label htmlFor="description">Description:</label>
-        <p id="description">{props.item.description}</p>
-      </div>
-      <div className={classesModal.input}>
-        <label htmlFor="tags">Tags:</label>
-        <p id="tags">{props.item.tags}</p>
-      </div>
-      <div className="controlsContainer">
-        {/* <button onClick={modalOnCloseHandle}>Close</button> */}
-        <Button onClickButton={modalOnCloseHandle} title="Close" tooltip="" />{" "}
-      </div>
+      <form>
+        <p className={classesModal.title}>Note Details</p>
+        <div className={classesModal.input}>
+          <label htmlFor="title">Title:</label>
+          <p id="title" className={classesModal.p_Details}>
+            {props.item.title}
+          </p>
+        </div>
+        <div className={classesModal.input}>
+          <label htmlFor="description">Description:</label>
+          <p id="description">{props.item.description}</p>
+        </div>
+        <div className={classesModal.input}>
+          <label htmlFor="tags">Tags:</label>
+          <p id="tags">{props.item.tags}</p>
+        </div>
+        <div className="controlsContainer">
+          {/* <button onClick={modalOnCloseHandle}>Close</button> */}
+          <Button onClickButton={modalOnCloseHandle} title="Close" tooltip="" />{" "}
+        </div>
+      </form>
     </Fragment>
   );
-
-  const CustomDisplay = (props) => {
-    const val = props.value || "";
-    return <div style={{ overflow: "hidden" }}>{val}</div>;
-  };
 
   return (
     <li>
@@ -123,9 +124,10 @@ const NoteItem = (props: { item: NoteType }) => {
                   attributes={{ name: "awesome-input", id: 1 }}
                   value={props.item.title}
                   validationMessage="Note title shouldn't be empty and more than 20 characters"
-                  saveButtonStyle={classes.inLineEditButtonStyle}
-                  cancelButtonStyle={classes.inLineEditButtonStyle}
+                  saveButtonStyle="inLineEditButtonStyle"
+                  cancelButtonStyle="inLineEditButtonStyle"
                   displayComponent={<CustomDisplay />}
+                  editComponent={<CustomEdit />}
                 />
               </div>
             </div>

@@ -28,7 +28,6 @@ const Notes = () => {
       <SectionHeader header="Notes" />
       <Separator />
       <NotesControls />
-      <Separator />
       <SearchBar />
       <Separator />
       <NotesList notes={notesList} />

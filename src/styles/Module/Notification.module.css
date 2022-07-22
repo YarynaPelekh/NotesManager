@@ -1,6 +1,7 @@
 .alert {
+  font-size: 1.1rem;
   position: fixed;
-  top: 70vh;
+  top: 75vh;
   left: 20%;
   width: 60%;
   height: auto;
@@ -15,11 +16,9 @@
 .alert button {
   display: inline-block;
   position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 22px;
+  right: 0.5rem;
+  top: 0.5rem;
   color: #444;
   background-color: transparent;
   border: none;
-  /* background-color: currentColor; */
 }

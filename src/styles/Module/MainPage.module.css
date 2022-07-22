@@ -1,6 +1,4 @@
 .main {
   display: grid;
   grid-template-columns: 2fr 3fr;
-  gap: 1.5rem;
-  height: calc(100vh - 8rem);
 }

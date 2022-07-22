@@ -57,12 +57,13 @@ const RemoveNote = () => {
 
   const removeNoteElements = (
     <Fragment>
-      <p className={classesModal.title}>Are you sure to remove note?</p>
-
-      <div className="controlsContainer">
-        <Button onClickButton={removeNoteHandler} title="OK" tooltip="" />
-        <Button onClickButton={modalOnCloseHandle} title="Cancel" tooltip="" />{" "}
-      </div>
+      <form>
+        <p className={classesModal.title}>Are you sure to remove note?</p>
+        <div className="controlsContainer">
+          <Button onClickButton={removeNoteHandler} title="OK" tooltip="" />
+          <Button onClickButton={modalOnCloseHandle} title="Cancel" tooltip="" />{" "}
+        </div>
+      </form>
     </Fragment>
   );
 

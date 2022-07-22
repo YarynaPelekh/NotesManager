@@ -10,7 +10,6 @@ const Directories = () => {
       <SectionHeader header="Directories" />
       <Separator />
       <DirectoriesControls />
-      <Separator />
       <DirectoriesTree />
     </div>
   );

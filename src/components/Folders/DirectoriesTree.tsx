@@ -45,7 +45,7 @@ const DirectoriesTree = () => {
 
   return (
     <div id="tree" className={classes.tree}>
-      <p> Directories Tree</p>
+      {/* <p> Directories Tree</p> */}
       <ul className={classes.ul}>{renderChildren(rootId)}</ul>
     </div>
   );

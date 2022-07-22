@@ -167,7 +167,8 @@ function* sagaRemoveNote(action: any) {
 function* sagaNotes() {
   yield takeLatest("notesSlice/loadNotesRequest", sagaLoadNote);
   yield takeLatest("notesSlice/addNoteRequest", sagaAddNote);
-  yield takeLatest("notesSlice/editNoteRequest", sagaEditNote);
+  //should be tekeEvery - else DnD doesn't update position of all notes
+  yield takeEvery("notesSlice/editNoteRequest", sagaEditNote);
   yield takeLatest("notesSlice/removeNoteRequest", sagaRemoveNote);
 }
 

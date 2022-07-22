@@ -1,9 +1,13 @@
 .tree {
   font-size: 1.2rem;
-  height: 45vh;
+  height: 50%;
   overflow-y: auto;
 }
 
+.tree p {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
 .ul {
   padding-left: 1.25rem;
 }
