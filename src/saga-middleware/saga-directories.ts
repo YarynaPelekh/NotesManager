@@ -1,12 +1,12 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
-import { directoriesActions } from "../../store/directories-slice";
-import { appStateActions } from "../../store/app-state-slice";
+import { directoriesActions } from "../store/directories-slice";
+import { appStateActions } from "../store/app-state-slice";
 
-import { NotificationTypes } from "../../types/NotificationTypes";
-import { DirectoryType } from "../../types/DirectoryTypes";
+import { NotificationTypes } from "../types/NotificationTypes";
+import { DirectoryType } from "../types/DirectoryTypes";
 
-import { URL as url } from "../../config/constants";
+import { URL as url } from "../config/constants";
 
 function* sagaLoadData() {
   try {

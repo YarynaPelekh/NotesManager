@@ -44,7 +44,7 @@ const SearchResults = () => {
 
   return (
     <RequireAuth>
-      <Fragment>
+      <div className="section">
         <SectionHeader header="Search results" />
         <Separator />
         <div className="controlsContainer">
@@ -54,7 +54,7 @@ const SearchResults = () => {
         <Separator />
         {searchNotesResult.length > 0 && <NotesList notes={searchNotesResult} />}
         {searchNotesResult.length <= 0 && <p className={classes.searchMessage}>Nothing found</p>}
-      </Fragment>
+      </div>
     </RequireAuth>
   );
 };

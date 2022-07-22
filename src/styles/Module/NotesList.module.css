@@ -1,12 +1,12 @@
 .notesList {
-  font-size: 18px;
-  height: 260px;
+  display: inline-block;
+  font-size: 1.2rem;
   overflow-y: auto;
   overflow-x: auto;
 }
 
 .ul {
-  margin: 20px;
+  /* display: inline-block; */
   padding-left: 0;
   text-align: left;
 }

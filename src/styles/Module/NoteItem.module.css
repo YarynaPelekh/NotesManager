@@ -1,11 +1,11 @@
 .notecard {
   list-style: none;
-  font-size: 16px;
-  height: 90px;
-  width: 70px;
+  font-size: 1rem;
+  height: 6rem;
+  width: 5rem;
   text-align: center;
-  margin: 10px;
-  padding: 10px;
+  margin: 0.6rem;
+  padding: 0.6rem;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #eee;
@@ -14,7 +14,7 @@
 .note {
   display: block;
   position: relative;
-  height: 50px;
+  height: 3.5rem;
 }
 
 .note::before {
@@ -22,10 +22,10 @@
   background: url("../../asserts/img/icons/note.svg");
   position: absolute;
   background-repeat: no-repeat;
-  background-size: 50px 50px;
-  height: 50px;
-  width: 42px;
-  margin-left: -25px;
+  background-size: 3.5rem 3.5rem;
+  height: 3.5rem;
+  width: 3rem;
+  margin-left: -1.7rem;
 }
 
 .chosen {
@@ -39,14 +39,8 @@
   background: url("../../asserts/img/icons/noteOpen.svg");
   position: absolute;
   background-repeat: no-repeat;
-  background-size: 50px 50px;
-  height: 50px;
-  width: 42px;
-  margin-left: -25px;
-}
-
-.inLineEditButtonStyle {
-  display: inline;
-  font-size: 12px;
-  width: 50px;
+  background-size: 3.5rem 3.5rem;
+  height: 3.5rem;
+  width: 3rem;
+  margin-left: -1.7rem;
 }

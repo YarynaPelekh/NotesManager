@@ -93,7 +93,7 @@ const SearchBar = () => {
     <ToolTip>
       <form onSubmit={handleSubmit(searchButtonClick)}>
         <div className={classes.container}>
-          <div style={{ height: "20px !important" }} data-tip="Enter values for search">
+          <div data-tip="Enter values for search">
             <Controller
               name="searchValues"
               control={control}

@@ -50,7 +50,7 @@ const ContainerDnD = (props: { noteTo: NoteType; children: JSX.Element }) => {
 
   const [{ isOver }, drop] = useDrop(
     () => ({
-      accept: DnDType,
+      accept: DnDType.note,
       drop: (itemFrom, monitor) => moveItem(itemFrom, monitor),
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),

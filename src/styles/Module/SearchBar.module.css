@@ -1,11 +1,11 @@
 .container {
   display: flex;
+  font-size: 1rem;
+  flex-wrap: wrap;
   width: auto;
-  gap: 10px;
-  font-size: 16px;
+  gap: 0.75rem;
   text-align: left;
   align-items: center;
-  height: 40px;
 }
 
 .container div {
@@ -16,10 +16,11 @@
 
 .flexContainer {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
-  gap: 5px;
+  gap: 0.25rem;
 }
 
 .flexContainer input {
-  height: 20px;
+  height: 1.25rem;
 }

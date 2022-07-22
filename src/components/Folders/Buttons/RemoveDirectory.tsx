@@ -73,12 +73,14 @@ const RemoveButton = () => {
 
   const removeDirectoryElements = (
     <Fragment>
-      <p className={classesModal.title}>Are you sure to remove directory?</p>
+      <form>
+        <p className={classesModal.title}>Are you sure to remove directory?</p>
 
-      <div className="controlsContainer">
-        <Button onClickButton={removeDirectoryHandler} title="OK" tooltip="" />
-        <Button onClickButton={modalOnCloseHandle} title="Cancel" tooltip="" />
-      </div>
+        <div className="controlsContainer">
+          <Button onClickButton={removeDirectoryHandler} title="OK" tooltip="" />
+          <Button onClickButton={modalOnCloseHandle} title="Cancel" tooltip="" />
+        </div>
+      </form>
     </Fragment>
   );
 
