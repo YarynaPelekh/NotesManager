@@ -1,11 +1,11 @@
 .button {
   width: 5rem;
   font-size: 1rem;
+  font-weight: 400;
   text-transform: uppercase;
   border-radius: 4px;
   border: 1px solid #444;
   margin: 0;
-
   transition: all 0.3s;
 }
 
@@ -19,12 +19,10 @@
   font-size: 1rem;
   justify-content: center;
   gap: 1.25rem;
-  margin: 1.25rem;
-}
-
-.separator {
-  margin: 0.25rem 0;
-  border-top: 1px solid #444;
+  /* margin: 1.25rem; */
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
 }
 
 .section {
@@ -33,7 +31,7 @@
   padding: 0 1.25rem;
   border-radius: 8px;
   background-color: rgba(250, 250, 250, 1);
-  /* height: inherit; */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 p {

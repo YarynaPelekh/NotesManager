@@ -49,12 +49,12 @@ const AddDirectory = () => {
     <ToolTip>
       <Fragment>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <p className={classesModal.title}>Input a new directory name</p>
+          <p className={classesModal.title}>Enter a directory name</p>
           <div className={classesModal.input}>
             <label htmlFor="name">Name</label>
             <input
               id="name"
-              data-tip="Enter directory name"
+              data-tip="Enter a directory name"
               {...register("directoryName", { required: true, maxLength: 20 })}
             />
             {String(errors?.directoryName?.type) === "required" && (

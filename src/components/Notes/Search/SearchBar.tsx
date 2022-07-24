@@ -91,46 +91,44 @@ const SearchBar = () => {
 
   return (
     <ToolTip>
-      <form onSubmit={handleSubmit(searchButtonClick)}>
-        <div className={classes.container}>
-          <div data-tip="Enter values for search">
-            <Controller
-              name="searchValues"
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { value, ref } }) => (
-                <ReactTags
-                  placeholderText="Input text for search"
-                  autoresize={false}
-                  minQueryLength={1}
-                  allowNew={true}
-                  addOnBlur={true}
-                  ref={ref}
-                  tags={value}
-                  suggestions={searchAutocompleteSuggestions}
-                  onDelete={onDeleteTag}
-                  onAddition={onAdditionTag}
-                />
-              )}
-            />
-            {errors?.searchValues && <p className={classesModal.errorMessage}>Search field shouldn't be empty</p>}
-          </div>
-          <div className={classes.flexContainer}>
-            <input
-              type="checkbox"
-              id="searchMode"
-              name="searchMode"
-              value="Advanced"
-              checked={isAdvancedSearch}
-              onChange={searchModeHandle}
-              data-tip="Change search mode"
-            />
-            {/* <label htmlFor="searchMode">advanced</label> */}
-            <span>advanced</span>
-          </div>
-          {/* <Button title="Search" onClickButton={searchButtonClick} tooltip="Search notes" /> */}
-          <input type="submit" value="Search" className="button" data-tip="Search notes" />
+      <form className={classes.container} onSubmit={handleSubmit(searchButtonClick)}>
+        <div data-tip="Enter values for search">
+          <Controller
+            name="searchValues"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { value, ref } }) => (
+              <ReactTags
+                placeholderText="Enter text for search"
+                autoresize={false}
+                minQueryLength={1}
+                allowNew={true}
+                addOnBlur={true}
+                ref={ref}
+                tags={value}
+                suggestions={searchAutocompleteSuggestions}
+                onDelete={onDeleteTag}
+                onAddition={onAdditionTag}
+              />
+            )}
+          />
+          {errors?.searchValues && <p className={classesModal.errorMessage}>Search field shouldn't be empty</p>}
         </div>
+        <div className={classes.flexContainer}>
+          <input
+            type="checkbox"
+            id="searchMode"
+            name="searchMode"
+            value="Advanced"
+            checked={isAdvancedSearch}
+            onChange={searchModeHandle}
+            data-tip="Change search mode"
+          />
+          {/* <label htmlFor="searchMode">advanced</label> */}
+          <span>advanced</span>
+        </div>
+        {/* <Button title="Search" onClickButton={searchButtonClick} tooltip="Search notes" /> */}
+        <input type="submit" value="Search" className="button" data-tip="Search notes" />
       </form>
     </ToolTip>
   );
