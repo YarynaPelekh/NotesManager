@@ -57,7 +57,7 @@ const AddNote = () => {
 
   const addNoteElements = (
     <AddEditForm
-      formTitle="Input a new note"
+      formTitle="Enter a new note"
       initialValues={{ title: "", description: "", tags: "" }}
       saveNoteHandler={addNoteHandler}
       modalOnCloseHandle={modalOnCloseHandle}

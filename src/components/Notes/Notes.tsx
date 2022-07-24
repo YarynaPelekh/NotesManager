@@ -26,10 +26,8 @@ const Notes = () => {
   return (
     <div className="section">
       <SectionHeader header="Notes" />
-      <Separator />
       <NotesControls />
       <SearchBar />
-      <Separator />
       <NotesList notes={notesList} />
     </div>
   );

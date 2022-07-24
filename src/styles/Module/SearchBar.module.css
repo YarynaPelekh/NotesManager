@@ -1,26 +1,35 @@
 .container {
   display: flex;
+  flex-direction: row;
   font-size: 1rem;
   flex-wrap: wrap;
-  width: auto;
-  gap: 0.75rem;
-  text-align: left;
   align-items: center;
+  justify-content: space-around;
+  margin-right: 0;
+  margin-left: 0;
+
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
 }
 
 .container div {
   padding-top: 2px !important;
   padding-bottom: 2px !important;
+  margin-bottom: 0 !important;
+  line-height: 1rem !important;
+}
+
+.container button {
   margin: 0 !important;
 }
 
 .flexContainer {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   gap: 0.25rem;
 }
 
 .flexContainer input {
-  height: 1.25rem;
+  height: 1.5rem;
 }

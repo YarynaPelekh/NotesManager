@@ -46,12 +46,9 @@ const SearchResults = () => {
     <RequireAuth>
       <div className="section">
         <SectionHeader header="Search results" />
-        <Separator />
         <div className="controlsContainer">
           <Button title="BACK" onClickButton={() => navigate(-1)} tooltip="To the previous page" />
         </div>
-
-        <Separator />
         {searchNotesResult.length > 0 && <NotesList notes={searchNotesResult} />}
         {searchNotesResult.length <= 0 && <p className={classes.searchMessage}>Nothing found</p>}
       </div>

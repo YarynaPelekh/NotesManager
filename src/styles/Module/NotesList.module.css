@@ -3,10 +3,10 @@
   font-size: 1.2rem;
   overflow-y: auto;
   overflow-x: auto;
+  margin-top: 1.25rem;
 }
 
 .ul {
-  /* display: inline-block; */
   padding-left: 0;
   text-align: left;
 }
