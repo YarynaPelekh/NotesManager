@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 import { useForm, Controller } from "react-hook-form";
 
-import ToolTip from "../../UI/ToolTip";
+import ToolTip from "../UI/ToolTip";
 
-import { InputNoteValues } from "../../../types/NotesTypes";
+import { InputNoteValues } from "../../types/NotesTypes";
 
-import classesModal from "../../../styles/Module/Modal.module.css";
+import classesModal from "../../styles/Module/Modal.module.css";
 
-const AddEditForm = (props: {
+const NoteForm = (props: {
   formTitle: string;
   initialValues: InputNoteValues;
   saveNoteHandler: (enteredValues: InputNoteValues) => void;
@@ -143,4 +143,4 @@ const AddEditForm = (props: {
   );
 };
 
-export default AddEditForm;
+export default NoteForm;
