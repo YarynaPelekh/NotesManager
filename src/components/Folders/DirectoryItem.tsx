@@ -15,6 +15,7 @@ import { directoriesActions } from "../../store/directories-slice";
 import classes from "../../styles/Module/DirectoryItem.module.css";
 
 const DirectoryItem = (props: { item: DirectoryType }) => {
+  // const DirectoryItem = (props: { item: DirectoryType; children: JSX.Element }) => {
   const dispatch = useDispatch();
 
   const saveEdit = (value) => {

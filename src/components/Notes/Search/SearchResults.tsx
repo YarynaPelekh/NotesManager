@@ -6,7 +6,6 @@ import NotesList from "../NotesList";
 import SectionHeader from "../../UI/Layout/SectionHeader";
 import RequireAuth from "../../Auth/RequireAuth";
 import Button from "../../UI/Button";
-import Separator from "../../UI/Separator";
 
 import { NoteType } from "../../../types/NotesTypes";
 
@@ -44,9 +43,9 @@ const SearchResults = () => {
 
   return (
     <RequireAuth>
-      <div className="section">
+      <div className="section shadow">
         <SectionHeader header="Search results" />
-        <div className="controlsContainer">
+        <div className="controlsContainer shadow">
           <Button title="BACK" onClickButton={() => navigate(-1)} tooltip="To the previous page" />
         </div>
         {searchNotesResult.length > 0 && <NotesList notes={searchNotesResult} />}

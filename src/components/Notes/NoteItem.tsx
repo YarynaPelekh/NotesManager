@@ -76,17 +76,21 @@ const NoteItem = (props: { item: NoteType }) => {
         <p className={classesModal.title}>Note Details</p>
         <div className={classesModal.input}>
           <label htmlFor="title">Title:</label>
-          <p id="title" className={classesModal.p_Details}>
+          <p id="title" className="shadow">
             {props.item.title}
           </p>
         </div>
         <div className={classesModal.input}>
           <label htmlFor="description">Description:</label>
-          <p id="description">{props.item.description}</p>
+          <p id="description" className="shadow">
+            {props.item.description}
+          </p>
         </div>
         <div className={classesModal.input}>
           <label htmlFor="tags">Tags:</label>
-          <p id="tags">{props.item.tags}</p>
+          <p id="tags" className="shadow">
+            {props.item.tags}
+          </p>
         </div>
         <div className="controlsContainer">
           {/* <button onClick={modalOnCloseHandle}>Close</button> */}
@@ -119,13 +123,14 @@ const NoteItem = (props: { item: NoteType }) => {
                   type={Types.TEXT}
                   onSave={saveEdit}
                   onValidate={inputValidate}
+                  saveOnBLur
                   saveButtonLabel="Save"
                   cancelButtonLabel="Cancel"
+                  saveButtonStyle="inLineEditButtonStyle"
+                  cancelButtonStyle="inLineEditButtonStyle"
                   attributes={{ name: "awesome-input", id: 1 }}
                   value={props.item.title}
                   validationMessage="Note title shouldn't be empty and more than 20 characters"
-                  saveButtonStyle="inLineEditButtonStyle"
-                  cancelButtonStyle="inLineEditButtonStyle"
                   displayComponent={<CustomDisplay />}
                   editComponent={<CustomEdit />}
                 />

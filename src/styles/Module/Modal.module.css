@@ -35,11 +35,8 @@
 
 .input p {
   display: block;
-  /* height: 2.5rem; */
   font-size: 1.1rem;
-  margin-left: 0.5rem;
-  /* border: 1px solid #ddd; */
-  padding: 0 0.2rem;
+  padding: 0.2rem 0.4rem;
 }
 
 .title {
@@ -52,4 +49,5 @@
   margin: 0px 1.25rem;
   font-size: 0.8rem;
   color: rgb(155, 0, 0);
+  /* background-color: aqua; */
 }

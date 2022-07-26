@@ -2,11 +2,12 @@ import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
-import Modal from "../../UI/Modal";
-import Button from "../../UI/Button";
-import ToolTip from "../../UI/ToolTip";
+import Modal from "../../components/UI/Modal";
+import Button from "../../components/UI/Button";
+import ToolTip from "../../components/UI/ToolTip";
 
-import { directoriesActions } from "../../../store/directories-slice";
+import { appStateActions } from "../../store/app-state-slice";
+import { directoriesActions } from "../../store/directories-slice";
 
 import classesModal from "../../../styles/Module/Modal.module.css";
 

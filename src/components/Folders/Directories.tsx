@@ -5,7 +5,7 @@ import SectionHeader from "../UI/Layout/SectionHeader";
 
 const Directories = () => {
   return (
-    <div className="section">
+    <div className="section shadow">
       <SectionHeader header="Directories" />
       <DirectoriesControls />
       <DirectoriesTree />
