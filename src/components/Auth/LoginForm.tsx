@@ -54,7 +54,7 @@ const LoginForm = () => {
             </p>
           )}
         </div>
-        <div className="controlsContainer">
+        <div className="controlsContainer ">
           <input type="submit" value="OK" className="button" />
           <input type="button" value="Cancel" className="button" onClick={onCloseHandle} />
         </div>

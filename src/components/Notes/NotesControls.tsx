@@ -8,7 +8,7 @@ import classes from "../../styles/Module/DirectoriesControls.module.css";
 
 const NotesControls = () => {
   return (
-    <div className="controlsContainer">
+    <div className="controlsContainer shadow">
       <AddNote />
       <EditNote />
       <RemoveNote />

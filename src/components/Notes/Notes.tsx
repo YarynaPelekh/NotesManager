@@ -5,7 +5,6 @@ import NotesList from "./NotesList";
 import NotesControls from "./NotesControls";
 import SearchBar from "./Search/SearchBar";
 import SectionHeader from "../UI/Layout/SectionHeader";
-import Separator from "../UI/Separator";
 
 import { NoteType } from "../../types/NotesTypes";
 
@@ -24,7 +23,7 @@ const Notes = () => {
     .filter((item: NoteType) => item.directoryId === chosenDirectoryId);
 
   return (
-    <div className="section">
+    <div className="section shadow">
       <SectionHeader header="Notes" />
       <NotesControls />
       <SearchBar />
