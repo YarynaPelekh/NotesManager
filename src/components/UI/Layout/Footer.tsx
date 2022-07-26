@@ -4,9 +4,9 @@ import classes from "../../../styles/Module/Footer.module.css";
 
 const Footer = () => {
   return (
-    <header className={classes.footer}>
+    <footer className={classes.footer}>
       <p></p>
-    </header>
+    </footer>
   );
 };
 

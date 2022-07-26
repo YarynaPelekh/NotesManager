@@ -3,14 +3,14 @@ import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import Modal from "../../UI/Modal";
-import Button from "../../UI/Button";
+import Modal from "../../components/UI/Modal";
+import Button from "../../components/UI/Button";
 
-import { appStateActions } from "../../../store/app-state-slice";
-import { directoriesActions } from "../../../store/directories-slice";
+import { appStateActions } from "../../store/app-state-slice";
+import { directoriesActions } from "../../store/directories-slice";
 
-import { NotificationTypes } from "../../../types/NotificationTypes";
-import { DirectoryType } from "../../../types/DirectoryTypes";
+import { NotificationTypes } from "../../types/NotificationTypes";
+import { DirectoryType } from "../../types/DirectoryTypes";
 
 import classesModal from "../../../styles/Module/Modal.module.css";
 

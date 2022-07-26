@@ -13,11 +13,11 @@ const NotesList = (props: { notes: NoteType[] }) => {
   return (
     <div className={classes.notesList}>
       <DndProvider backend={HTML5Backend}>
-        <div>
-          <ul className={classes.ul}>
-            {props.notes && props.notes.map((item: NoteType) => <NoteItem key={item.id} item={item} />)}
-          </ul>
-        </div>
+        {/* <div> */}
+        <ul className={classes.ul}>
+          {props.notes && props.notes.map((item: NoteType) => <NoteItem key={item.id} item={item} />)}
+        </ul>
+        {/* </div> */}
       </DndProvider>
     </div>
   );
