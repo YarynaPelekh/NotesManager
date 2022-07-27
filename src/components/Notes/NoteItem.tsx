@@ -93,7 +93,6 @@ const NoteItem = (props: { item: NoteType }) => {
           </p>
         </div>
         <div className="controlsContainer">
-          {/* <button onClick={modalOnCloseHandle}>Close</button> */}
           <Button onClickButton={modalOnCloseHandle} title="Close" tooltip="" />{" "}
         </div>
       </form>

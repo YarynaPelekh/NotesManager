@@ -1,7 +1,8 @@
 .main {
   display: grid;
   grid-template-columns: 2fr 3fr;
-  grid-template-rows: minmax(80vh, auto);
+  /* grid-template-rows: minmax(80vh, auto); */
+  grid-template-rows: 79vh;
 }
 
 @media (max-width: 60rem) {
@@ -14,5 +15,6 @@
   .main {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+    margin-bottom: 3rem;
   }
 }

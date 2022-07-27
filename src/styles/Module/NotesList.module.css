@@ -2,13 +2,26 @@
   display: inline-block;
   font-size: 1.2rem;
   margin-top: 1.25rem;
+  overflow-y: auto;
 }
 
 .ul {
   padding-left: 0;
   text-align: left;
+  height: 30vh;
 }
 
 .ul li {
   display: inline-block;
+}
+
+@media (max-width: 40rem) {
+  .notesList {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .ul {
+    height: auto;
+  }
 }
