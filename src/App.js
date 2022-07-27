@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
 import LoginForm from "./components/Auth/LoginForm.tsx";
 import MainPage from "./components/MainPage.tsx";
@@ -9,22 +8,12 @@ import SearchResults from "./components/Notes/Search/SearchResults.tsx";
 import Header from "./components/UI/Layout/Header.tsx";
 import Footer from "./components/UI/Layout/Footer.tsx";
 
-import { directoriesActions } from "./store/directories-slice";
-import { notesActions } from "./store/notes-slice";
-
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
 import RequireAuth from "./components/Auth/RequireAuth";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(notesActions.loadNotesRequest());
-    dispatch(directoriesActions.loadDataRequest());
-  }, [dispatch]);
-
   return (
     <div className="App">
       <Header />

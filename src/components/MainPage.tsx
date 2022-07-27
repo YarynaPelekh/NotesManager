@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 
 import Directories from "./Folders/Directories";
@@ -8,6 +8,8 @@ import RequireAuth from "./Auth/RequireAuth";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import { directoriesActions } from "../store/directories-slice";
+import { notesActions } from "../store/notes-slice";
 import { appStateActions } from "../store/app-state-slice";
 
 import { AppStateType } from "../types/AppStateType";
@@ -22,6 +24,11 @@ const portalElement = document.getElementById("overlay") as HTMLElement;
 const MainPage = () => {
   const dispatch = useDispatch();
   const appState = useSelector((state: { appStateSlice: { notification: AppStateType } }) => state.appStateSlice);
+
+  useEffect(() => {
+    dispatch(notesActions.loadNotesRequest());
+    dispatch(directoriesActions.loadDataRequest());
+  }, [dispatch]);
 
   return (
     <RequireAuth>
