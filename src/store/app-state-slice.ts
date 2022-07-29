@@ -11,7 +11,6 @@ const appStateSlice = createSlice({
       notificationMessage: "",
     },
     APIerror: false,
-    APIdone: false,
   },
   reducers: {
     setNotification(state, action) {
@@ -26,10 +25,6 @@ const appStateSlice = createSlice({
 
     assignAPIerror(state, action) {
       state.APIerror = action.payload;
-    },
-
-    assignAPIdone(state, action) {
-      state.APIdone = action.payload;
     },
   },
 });

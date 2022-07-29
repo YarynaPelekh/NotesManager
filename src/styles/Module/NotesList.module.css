@@ -1,14 +1,13 @@
 .notesList {
   display: inline-block;
   font-size: 1.2rem;
-  margin-top: 1.25rem;
+  height: 30vh;
   overflow-y: auto;
 }
 
 .ul {
   padding-left: 0;
   text-align: left;
-  height: 30vh;
 }
 
 .ul li {
@@ -19,9 +18,5 @@
   .notesList {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
-  }
-
-  .ul {
-    height: auto;
   }
 }

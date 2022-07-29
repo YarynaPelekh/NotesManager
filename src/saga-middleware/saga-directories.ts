@@ -32,8 +32,6 @@ function* sagaAddDirectory(action: any) {
   let notificationType = NotificationTypes.alertLight;
   let notificationText = "The directory was added successfully";
 
-  appStateActions.assignAPIerror(false);
-
   try {
     const response: Response = yield call(() =>
       fetch(url.directories, {
@@ -75,7 +73,7 @@ function* sagaUpdateDirectory(action: any) {
 
   try {
     const response: Response = yield call(() =>
-      fetch(url.directories + "/a" + action.payload.id, {
+      fetch(url.directories + "/" + action.payload.id, {
         method: "PUT",
         body: JSON.stringify({
           id: action.payload.id,
@@ -97,7 +95,6 @@ function* sagaUpdateDirectory(action: any) {
     notificationType = NotificationTypes.alertDanger;
     yield put(appStateActions.assignAPIerror(true));
   }
-  yield put(appStateActions.assignAPIdone(true));
 
   yield put(
     appStateActions.setNotification({

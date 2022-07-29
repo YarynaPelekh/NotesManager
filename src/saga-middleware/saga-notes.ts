@@ -116,6 +116,7 @@ function* sagaEditNote(action: any) {
   } catch (error: any) {
     notificationText = error.message;
     notificationType = NotificationTypes.alertDanger;
+    yield put(appStateActions.assignAPIerror(true));
   }
 
   yield put(

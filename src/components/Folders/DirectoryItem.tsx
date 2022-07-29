@@ -12,21 +12,22 @@ import CustomDisplay from "../UI/CustomDisplay";
 import CustomEdit from "../UI/CustomEdit";
 
 import { directoriesActions } from "../../store/directories-slice";
-// import { appStateActions } from "../../store/app-state-slice";
+import { appStateActions } from "../../store/app-state-slice";
 
 import classes from "../../styles/Module/DirectoryItem.module.css";
 
 const DirectoryItem = (props: { item: DirectoryType }) => {
   const [itemName, setItemName] = useState(props.item.name);
-  const [isAPIdone, setAPIdone] = useState(false);
+  const [validationMessage, setValidationMessage] = useState("");
   const APIerror = useSelector((state: { appStateSlice: { APIerror: boolean } }) => state.appStateSlice.APIerror);
-  const APIdone = useSelector((state: { appStateSlice: { APIdone: boolean } }) => state.appStateSlice.APIdone);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    setAPIdone(APIdone);
-    setItemName(props.item.name);
-  }, [APIdone]);
+    if (APIerror) {
+      setItemName(props.item.name);
+    }
+    dispatch(appStateActions.assignAPIerror(false));
+  }, [APIerror]);
 
   const onChange = async (value) => {
     // serverCall().then...
@@ -36,13 +37,19 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
     setItemName(value);
   };
 
-  const saveEdit = (value) => {};
-
-  const inputValidate = (value) => {
+  const saveEdit = (value) => {
     const data = Object.assign({}, props.item, { name: value });
     dispatch(directoriesActions.updateDirectoryRequest(data));
     setItemName(value);
+  };
+
+  const inputValidate = (value) => {
+    setValidationMessage("Directory name shouldn't be empty and more than 20 characters");
     return value.trim().length > 0 && value.trim().length <= 20;
+  };
+
+  const onCancel = () => {
+    setValidationMessage("");
   };
 
   return (
@@ -62,12 +69,11 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
                 type={Types.TEXT}
                 onSave={saveEdit}
                 onValidate={inputValidate}
-                // onCancel={}
+                onCancel={onCancel}
                 saveButtonLabel="Save"
                 cancelButtonLabel="Cancel"
                 attributes={{ name: "awesome-input", id: 1 }}
-                validationMessage="Directory name shouldn't be empty and more than 20 characters"
-                // value={props.item.name}
+                validationMessage={validationMessage}
                 value={itemName}
                 saveButtonStyle="inLineEditButtonStyle"
                 cancelButtonStyle="inLineEditButtonStyle"
@@ -75,7 +81,6 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
                 editComponent={<CustomEdit />}
               />
               {/* <InlineEdit value={itemName} onChange={onChange} /> */}
-              <p>{itemName}</p>
               {/* <ChosenDirectory directoryId={props.item.id} /> */}
             </div>
           </NavLink>
