@@ -24,15 +24,15 @@ const DirectoriesTree = () => {
 
     return arrayChildren.map((item) => (
       <div key={item.id}>
-        <DirectoryItem item={item} key={item.id} />
-        <ul className={classes.ul}>{renderChildren(String(item.id))}</ul>
+        <DirectoryItem item={item} key={item.id}>
+          <ul className={classes.ul}>{renderChildren(String(item.id))}</ul>
+        </DirectoryItem>
       </div>
     ));
     // return arrayChildren.map((item) => (
     //   <div key={item.id}>
-    //     <DirectoryItem item={item} key={item.id}>
-    //       <ul className={classes.ul}>{renderChildren(String(item.id))}</ul>
-    //     </DirectoryItem>
+    //     <DirectoryItem item={item} key={item.id} />
+    //     <ul className={classes.ul}>{renderChildren(String(item.id))}</ul>
     //   </div>
     // ));
     // return arrayChildren.map((item) => (

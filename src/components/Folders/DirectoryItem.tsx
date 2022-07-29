@@ -16,7 +16,7 @@ import { appStateActions } from "../../store/app-state-slice";
 
 import classes from "../../styles/Module/DirectoryItem.module.css";
 
-const DirectoryItem = (props: { item: DirectoryType }) => {
+const DirectoryItem = (props: { item: DirectoryType; children: JSX.Element }) => {
   const [itemName, setItemName] = useState(props.item.name);
   const [validationMessage, setValidationMessage] = useState("");
   const APIerror = useSelector((state: { appStateSlice: { APIerror: boolean } }) => state.appStateSlice.APIerror);
@@ -86,6 +86,7 @@ const DirectoryItem = (props: { item: DirectoryType }) => {
           </NavLink>
         </div>
       </ToolTip>
+      {props.children}
     </li>
   );
 };
