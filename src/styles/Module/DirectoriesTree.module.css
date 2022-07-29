@@ -1,7 +1,8 @@
 .tree {
   font-size: 1.2rem;
+  margin-top: 1.25rem;
+  height: 45vh;
   overflow-y: auto;
-  margin-top: 1.5rem;
 }
 
 .ul {

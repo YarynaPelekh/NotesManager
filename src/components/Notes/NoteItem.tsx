@@ -13,6 +13,7 @@ import CustomDisplay from "../UI/CustomDisplay";
 import CustomEdit from "../UI/CustomEdit";
 
 import { notesActions } from "../../store/notes-slice";
+import { appStateActions } from "../../store/app-state-slice";
 
 import { DnDType } from "../../config/constants";
 import { NoteType } from "../../types/NotesTypes";
@@ -21,12 +22,23 @@ import classes from "../../styles/Module/NoteItem.module.css";
 import classesModal from "../../styles/Module/Modal.module.css";
 
 const NoteItem = (props: { item: NoteType }) => {
+  const [noteTitle, setNoteTitle] = useState(props.item.title);
+  const [validationMessage, setValidationMessage] = useState("");
   const [isActiveLi, setIsActiveNote] = useState<boolean>(false);
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
+
+  const APIerror = useSelector((state: { appStateSlice: { APIerror: boolean } }) => state.appStateSlice.APIerror);
 
   const dispatch = useDispatch();
   const params = useParams();
   const path = useLocation();
+
+  useEffect(() => {
+    if (APIerror) {
+      setNoteTitle(props.item.title);
+    }
+    dispatch(appStateActions.assignAPIerror(false));
+  }, [APIerror]);
 
   const chosenNoteId = useSelector((state: { notesSlice: { chosenNoteId: number } }) => state.notesSlice.chosenNoteId);
   const chosenNote = useSelector((state: { notesSlice: { notes: NoteType[] } }) => state.notesSlice.notes).filter(
@@ -52,10 +64,16 @@ const NoteItem = (props: { item: NoteType }) => {
   const saveEdit = (value) => {
     const updatedNote = Object.assign({}, props.item, { title: value });
     dispatch(notesActions.editNoteRequest(updatedNote));
+    setNoteTitle(value);
   };
 
   const inputValidate = (value) => {
+    setValidationMessage("Note title shouldn't be empty and more than 20 characters");
     return value.trim().length > 0 && value.trim().length <= 20;
+  };
+
+  const onCancel = () => {
+    setValidationMessage("");
   };
 
   const modalOnCloseHandle = () => {
@@ -122,14 +140,16 @@ const NoteItem = (props: { item: NoteType }) => {
                   type={Types.TEXT}
                   onSave={saveEdit}
                   onValidate={inputValidate}
+                  onCancel={onCancel}
                   saveOnBLur
                   saveButtonLabel="Save"
                   cancelButtonLabel="Cancel"
                   saveButtonStyle="inLineEditButtonStyle"
                   cancelButtonStyle="inLineEditButtonStyle"
                   attributes={{ name: "awesome-input", id: 1 }}
-                  value={props.item.title}
-                  validationMessage="Note title shouldn't be empty and more than 20 characters"
+                  value={noteTitle}
+                  // validationMessage="Note title shouldn't be empty and more than 20 characters"
+                  validationMessage={validationMessage}
                   displayComponent={<CustomDisplay />}
                   editComponent={<CustomEdit />}
                 />
